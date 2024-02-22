@@ -12,7 +12,7 @@ export const Background = () => {
             side = {THREE.BackSide}
             >
                 <Gradient
-                    colorA={"#B80000"}
+                    colorA={"#357ca1"}
                     colorB={"white"}
                     axes={"y"}
                     start={0}
