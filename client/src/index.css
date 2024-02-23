@@ -9,8 +9,8 @@
 
 body {
   margin: 0;
-  background-image: url("./assets/background-image.png");
-  color: white;
+  background: url(./assets/background-image.png);
+  color: black;
 }
 
 ::-webkit-scrollbar {

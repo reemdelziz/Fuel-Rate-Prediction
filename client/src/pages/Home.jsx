@@ -8,8 +8,8 @@ const Home = () => {
         <Canvas >
             <color attach="background" args={["#ececec"]} />
             <ScrollControls pages= {10} damping={1}>
-            <Experience />
+                <Experience />
             </ScrollControls>
-      </Canvas>
+        </Canvas>
     </div>)
 }
