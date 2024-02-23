@@ -1,4 +1,4 @@
-import { Float, PerspectiveCamera , useScroll } from "@react-three/drei";
+import { Float, OrbitControls, PerspectiveCamera, useScroll, Html, Text } from "@react-three/drei";
 import { Background } from './Background';
 import { CarModel } from "./CarModel";
 import { CloudModel } from "./CloudModel";
@@ -7,24 +7,26 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 
+import { LoginForm } from "./LoginForm";
+
 const LINE_NB_POINTS = 12000; //creating const variable with number of points on the line
+const CURVE_DISTANCE = 250; //create curve distance to be able to change the depth of the curve
+const CURVE_AHEAD_CAMERA = 0.008;
 
 export const Experience = () => {
-    const curve = useMemo(()=> { //creating the curve and using useMemo hook to memoize (lets you skip re-rendering when a componenet 'note the creation of the curve' when its props are unchanged)
+    const curve = useMemo(() => { //creating the curve and using useMemo hook to memoize (lets you skip re-rendering when a componenet 'note the creation of the curve' when its props are unchanged)
         return new THREE.CatmullRomCurve3(
             [
                 //these are the control points of the curve.
                 new THREE.Vector3(0, 0, 0),
-                new THREE.Vector3(0, 0, -10),
-                new THREE.Vector3(-2, 0, -20),
-                new THREE.Vector3(-3, 0, -30),
-                new THREE.Vector3(0, 0, -40),
-                new THREE.Vector3(5, 0, -50),
-                new THREE.Vector3(7, 0, -60),
-                new THREE.Vector3(5, 0, -70),
-                new THREE.Vector3(0, 0, -80),
-                new THREE.Vector3(0, 0, -90),
-                new THREE.Vector3(0, 0, -100),
+                new THREE.Vector3(0, 0, -CURVE_DISTANCE),
+                new THREE.Vector3(100, 0, -2 * CURVE_DISTANCE),
+                new THREE.Vector3(-100, 0, -3 * CURVE_DISTANCE),
+                new THREE.Vector3(100, 0, -4 * CURVE_DISTANCE),
+                new THREE.Vector3(5, 0, -5 * CURVE_DISTANCE),
+                new THREE.Vector3(7, 0, -6 * CURVE_DISTANCE),
+                new THREE.Vector3(5, 0, -7 * CURVE_DISTANCE),
+
             ],
             false, //defining that the cure is not closed 'false'
             "catmullrom", //specifying the type of spline interpolation to use
@@ -33,7 +35,7 @@ export const Experience = () => {
     }, []);
 
 
-   //linePoints is used to calculate the points along the curve.
+    //linePoints is used to calculate the points along the curve.
     const linePoints = useMemo(() => { //the useMemo hook is use to memoize the computation so that it only recaluclates the points when the curve object changes
         return curve.getPoints(LINE_NB_POINTS); //the getpoints method is used on the curve object to generate the specifed number of points(12000) along the curve. the points represent position along the curve
     }, [curve]);
@@ -42,7 +44,7 @@ export const Experience = () => {
         -adds persepective with the line. generating a plane based on our curve.
         -this would extrude our shape to follow the curve
     */
-    const shape = useMemo(() =>{
+    const shape = useMemo(() => {
         const shape = new THREE.Shape();
         shape.moveTo(0, -0.2);
         shape.lineTo(0, 0.2);
@@ -51,54 +53,113 @@ export const Experience = () => {
     }, [curve]);
 
     //we want our camera plane to be in parative with the scroll
-    const cmaeraGroup = useRef();
+    const cameraGroup = useRef();
     const scroll = useScroll();
+    const car = useRef();
 
     useFrame((_state, delta) => { //the useFram hook allows us to preform actions on every frame of the 3D rendering loop
-        
-        //calculate the current point index along the curve based on the scroll effect
-        const curPointIndex = Math.min(
-            Math.round(scroll.offset * linePoints.length), //rounds the result number of when multiplying the scroll offset by the total number of points on the curve
-            linePoints.length - 1 //making sure within valid range of indices 
+
+        const scrollOffset = Math.max(0, scroll.offset);
+
+
+        const curPoint = curve.getPoint(scrollOffset);
+
+        // Follow the curve points
+        cameraGroup.current.position.lerp(curPoint, delta * 24);
+
+        // Make the group look ahead on the curve
+
+        const lookAtPoint = curve.getPoint(
+            Math.min(scrollOffset + CURVE_AHEAD_CAMERA, 1)
         );
 
-        //get the current and the next points
-        const curPoint = linePoints[curPointIndex];
-        const pointAhead = linePoints[Math.min(curPointIndex + 1, linePoints.length -1)]; //making sure the index for the next point stays within the valid range of indices
+        const currentLookAt = cameraGroup.current.getWorldDirection(
+            new THREE.Vector3()
+        );
+        const targetLookAt = new THREE.Vector3()
+            .subVectors(curPoint, lookAtPoint)
+            .normalize();
 
-        //calculate the x displacement and rotaion angle
-        const xDisplacement = (pointAhead.x - curPoint.x) * 80; //x-displacement is scaled by a factor of 80 
-        const angleRotation =
-            (xDisplacement <0 ? 1 : -1) *
-            Math.min(Math.abs(xDisplacement), Math.PI / 3);
+        const lookAt = currentLookAt.lerp(targetLookAt, delta * 24);
+        cameraGroup.current.lookAt(
+            cameraGroup.current.position.clone().add(lookAt)
+        );
 
-        //calculate the target quaternoions
-        const targetAirplaneQuaternions = new THREE.Quaternion().setFromEuler(
-            
-        )
-    })
+
+
+
+    });
+
     return (
         <>
-            {/*<OrbitControls enableZoom={false}/> */}
-            <Background />
-            <Float floatIntensity={1} speed={2}>
-                <CarModel
-                    scale={[0.25, 0.25, 0.25]}
-                />
-            </Float>
+            {/*<OrbitControls /> */}
+            <group ref={cameraGroup}>
+                <Background />
+                <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
+                <group ref={car}>
+                    <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
+                        <CarModel
+                            scale={[0.25, 0.25, 0.25]}
+                        />
+                    </Float>
+                </group>
+            </group>
 
-            {/*Clouds*/}
-            <CloudModel opacity={0.5} scale={[0.3,0.3,0.3]} position ={[-2,1,-3]} />
-            <CloudModel opacity={0.5} scale={[0.2,0.3,0.4]} position ={[1.5,-0.5,-2]} />
+            {/* Title and Forms */}
+            <group position={[-3, 0, -100]}>
+                <Text
+                    color="white"
+                    anchorX={"left"}
+                    anchorY={"middle"}
+                    fontSize={0.22}
+                    maxWidth={2.5}
+                >
+                    Fuel Rate Predictor{"\n"}
+                    Enhancing Fuel Management Efficiency
+                </Text>
+            </group>
+
+            <group position={[-10, 1, -200]}>
+
+
+            </group>
+
+            {/* LINE */}
+            <group position-y={-2}>
+                <mesh>
+                    <extrudeGeometry
+                        args={[
+                            shape,
+                            {
+                                steps: LINE_NB_POINTS,
+                                bevelEnabled: false,
+                                extrudePath: curve,
+                            },
+                        ]}
+                    />
+                    <meshStandardMaterial color={"white"} opacity={0.7} transparent />
+                </mesh>
+            </group>
+
+
+            {/* CLOUDS */}
+            <CloudModel scale={[1, 1, 1.5]} position={[-3.5, -1.2, -7]} />
+            <CloudModel scale={[1, 1, 2]} position={[3.5, -1, -10]} rotation-y={Math.PI} />
             <CloudModel
-                opacity={0.7}
-                scale={[0.3,0.3,0.4]}
-                rotation-y={Math.PI / 9}
-                position={[2,-0.2,-2]}
+                scale={[1, 1, 1]}
+                position={[-3.5, 0.2, -12]}
+                rotation-y={Math.PI / 3}
             />
-            
-            <CloudModel opacity={0.7} scale={[0.5,0.5,0.5]} position ={[-1,1,53]} />
-            <CloudModel opacity={0.3} scale={[0.8,0.8,0.8]} position ={[0,1,-100]} />
+            <CloudModel scale={[1, 1, 1]} position={[3.5, 0.2, -12]} />
+
+            <CloudModel
+                scale={[0.4, 0.4, 0.4]}
+                rotation-y={Math.PI / 9}
+                position={[1, -0.2, -12]}
+            />
+            <CloudModel scale={[0.3, 0.5, 2]} position={[-4, -0.5, -53]} />
+            <CloudModel scale={[0.8, 0.8, 0.8]} position={[-1, -1.5, -100]} />
+
         </>
     );
 };
