@@ -177,6 +177,165 @@
 
 
 
+/*---- PROFILE PAGE STYLE ----*/
+.PageTitle{
+    width: 948px;
+    height: 136px;
+    flex-shrink: 0;
+
+    color: #000000;
+
+    font-family: Inter;
+    font-size: 70px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin-top: 105px;
+    margin-left: 140px;
+}
+.FirstName{
+    width: 233.814px;
+    height: 37.956px;
+    transform: rotate(0.083deg);
+    flex-shrink: 0;
+    color: #000;
+
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin-left: 140px;
+}
+.LastName{
+    width: 233.814px;
+    height: 37.956px;
+    transform: rotate(0.083deg);
+    flex-shrink: 0;
+
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin-left: 140px;
+    
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .form-group {
+    font-family: Inter;
+    font-size: 30px;
+    font-weight: 300;
+    margin-left: 140px;
+  }
+  
+  .form-row {
+    display: flex;
+    flex-wrap: wrap; 
+    margin-bottom: 50px; 
+  }
+  
+  .input-field {
+    flex-grow: 1; 
+    border: 0;
+    border-bottom: 2px solid #000000; 
+    padding: none;
+    margin-right: 100px; 
+    background-color: transparent;
+    outline: none;
+    font-size: 30px;
+    margin-top: 30px;
+    width: 600px;
+  }
+  
+  .form-field {
+    width: 45%; 
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .submit-button {
+    height: 100px;
+    width: 400px;
+    background-color: transparent;
+    color: #000000;
+    border: 1px solid #000000;
+    cursor: pointer;
+    font-size: 30px;
+    font-family: Inter;
+    ;
+  }
+  
+  .profileMessage {
+    position: absolute; 
+    right: 0; 
+    width: 700px;
+    height: 229px;
+    color: #000;
+    font-family: Inter;
+    font-size: 35px;
+    font-weight: 200;
+    margin-top: 100px;
+    margin-right: 200px;
+  }
+
+
+
+/*---- QUOTE PAGE STYLE ----*/
+.TotalAmount-label{
+    margin-left : 140px;
+
+}
+.price-amount-labels, .price-amount-values {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 140px;
+    margin-right: 1600px;
+    font-size: 25px;
+    font-family: inter;
+    
+  }
+
+
+  .price-amount-values {
+    color: white;
+  }
+  
+  .SuggestedPrice-label,
+  .TotalAmount-label,
+  .SuggestedPrice-value,
+  .TotalAmount-value {
+    flex: 1; /* This makes each element take up equal space */
+    display: flex;
+    margin-right: 140px;
+    
+    
+  }
+  
+  
+  #suggestedPriceValue,
+  #totalAmountDueValue {
+    font-size: 30px;
+    font-family: Inter;
+    
+    background-color: gray; /* Adjusted for clarity */
+    padding: 20px; /* Increased padding */
+    min-width: 300px; /* Set a minimum width */
+    display: inline-block; /* Allows for background styling */
+    border: 1px solid #000;
+    background: rgba(0, 0, 0, 0.20);
+   
+  }
+
+
+
+
 /*---- 404 PAGE STYLE ----*/
 
 
