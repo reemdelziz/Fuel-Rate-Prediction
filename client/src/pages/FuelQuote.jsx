@@ -18,18 +18,18 @@ function FuelQuote() {
                     <div className="form-row">
                     <div className="form-field">
                         <label htmlFor="GallonsRequested">Gallons Requested*</label>
-                        <input type="text" id="GallonsRequested" className="input-field" />
+                        <input type="number" id="GallonsRequested" className="input-field" required/>
                     </div>
                     <div className="form-field">
                         <label htmlFor="DeliveryAddress">Delivery Address*</label>
-                        <input type="text" id="DeliveryAddress" className="input-field" />
+                        <input type="text" id="DeliveryAddress" className="input-field" placeholder='Non-Editable'readOnly/>
                     </div>
                     </div>
 
                     <div className="form-row">
                     <div className="form-field">
                         <label htmlFor="DeliveryDate">Delivery Date*</label>
-                        <input type="text" id="DeliveryDate" className="input-field" />
+                        <input type="date" id="DeliveryDate" className="input-field" required/>
                     </div>
                     <div className="form-field">
                         <input type="submit" value="Submit" className="submit-button" />
