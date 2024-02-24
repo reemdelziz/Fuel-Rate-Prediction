@@ -1,0 +1,439 @@
+/*---- COMPONETS STYLE ----*/
+.NavBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brandlogo {
+    color: #FFF;
+
+    margin-top: 20px;
+    margin-left: 40px;
+    flex-shrink: 0;
+
+    font-family: Inter;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+}
+
+.navigationTab_box {
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 569px;
+    height: 68px;
+    background: rgba(182, 182, 182, 0.50);
+    border-radius: 30px;
+    color: #B7B7B7;
+    font-size: 24px;
+    font-family: Inter;
+    font-weight: 300;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+
+}
+
+.Navsearchstyle {
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    font-family: Inter;
+    font-weight: 300;
+    word-wrap: break-word;
+    text-decoration: none;
+    padding: 20px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.timeNDate {
+
+    font-family: Inter;
+    color: white;
+    position: absolute;
+    font-size: 24px;
+    right: 0;
+    margin-right: 50px;
+
+
+}
+
+.BugertimeNDate {
+
+    font-family: Inter;
+    color: white;
+    position: center;
+    font-size: 24px;
+
+
+    animation: fadeInUp 0.5s backwards;
+    animation-delay: var(--animation-delay);
+
+}
+
+.hamburger {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: pointer;
+    z-index: 30;
+    position: absolute;
+    right: 0;
+    margin-right: 50px;
+    cursor: pointer;
+
+
+}
+
+.burger {
+    width: 32px;
+    height: 4px;
+    background-color: white;
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    transform-origin: 47% 50%;
+
+
+}
+
+.hamburger:hover .burger:not(:last-child) {
+    transform: translateY(4px);
+}
+
+.hamburger:hover .burger:last-child {
+    transform: translateY(-4px);
+}
+
+
+
+.hamburger.open .burger.burger1 {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open .burger.burger2 {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu {
+    list-style: none;
+    text-align: center;
+
+}
+
+.burger-menu-item {
+    color: white;
+    font-family: Inter;
+    font-size: 50px;
+    opacity: 0;
+    animation: fadeInUp 0.5s forwards;
+    animation-delay: var(--animation-delay);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: tranlateY(0);
+    }
+}
+
+
+
+/*---- HOME PAGE STYLE ----*/
+
+
+/*---- LOGIN PAGE STYLE && REGISTER PAGE STYLE ----*/
+
+
+  
+  
+  
+  .login-car {
+    max-width: 100%;
+    border-radius: 92px;
+  }
+  
+  .inputLabels {
+    padding: 20pt 0pt 20pt 0pt;
+    text-align: left;
+    color: 'black'; 
+    font-size: 16pt; 
+    font-family: 'Inter';
+    font-weight: '200';
+    word-wrap: 'break-word'
+  }
+  
+  h1 {
+    font-family: Inter;
+    font-size: 32pt;
+  }
+  
+  button {
+    padding: 10px 70px 10px 70px;
+    margin: 40px;
+    background-color: transparent;
+    font-family: 'Inter';
+    font-size: x-large;
+    color: black;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+  
+  #fields {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  input {
+    background-color: transparent;
+    border: none;
+  }
+  
+  .container {
+    display: flex;
+    /* flex-grow: 1; */
+    height: 75vh;
+    text-align: center;
+    margin: 10px 20px;
+  }
+  
+  .column {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;                                                   
+    /* box-sizing: border-box; */
+  }
+  
+  .leftSide {
+    text-align: left;
+  }
+  .rightSide {
+    text-align: right;
+  }
+
+
+
+
+
+/*---- PROFILE PAGE STYLE ----*/
+.PageTitle{
+    width: 948px;
+    height: 136px;
+    flex-shrink: 0;
+
+    color: #000000;
+
+    font-family: Inter;
+    font-size: 70px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin-top: 105px;
+    margin-left: 140px;
+}
+.FirstName{
+    width: 233.814px;
+    height: 37.956px;
+    transform: rotate(0.083deg);
+    flex-shrink: 0;
+    color: #000;
+
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin-left: 140px;
+}
+.LastName{
+    width: 233.814px;
+    height: 37.956px;
+    transform: rotate(0.083deg);
+    flex-shrink: 0;
+
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin-left: 140px;
+    
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .form-group {
+    font-family: Inter;
+    font-size: 30px;
+    font-weight: 300;
+    margin-left: 140px;
+  }
+  
+  .form-row {
+    display: flex;
+    flex-wrap: wrap; 
+    margin-bottom: 50px; 
+  }
+  
+  .input-field {
+    flex-grow: 1; 
+    border: 0;
+    border-bottom: 2px solid #000000; 
+    padding: none;
+    margin-right: 100px; 
+    background-color: transparent;
+    outline: none;
+    font-size: 30px;
+    margin-top: 30px;
+    width: 600px;
+  }
+  
+  .form-field {
+    width: 45%; 
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .submit-button {
+    height: 100px;
+    width: 400px;
+    background-color: transparent;
+    color: #000000;
+    border: 1px solid #000000;
+    cursor: pointer;
+    font-size: 30px;
+    font-family: Inter;
+    ;
+  }
+  
+  .profileMessage {
+    position: absolute; 
+    right: 0; 
+    width: 700px;
+    height: 229px;
+    color: #000;
+    font-family: Inter;
+    font-size: 35px;
+    font-weight: 200;
+    margin-top: 100px;
+    margin-right: 200px;
+  }
+
+
+
+/*---- QUOTE PAGE STYLE ----*/
+.TotalAmount-label{
+    margin-left : 140px;
+
+}
+.price-amount-labels, .price-amount-values {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 140px;
+    margin-right: 1600px;
+    font-size: 25px;
+    font-family: inter;
+    
+  }
+
+
+  .price-amount-values {
+    color: white;
+  }
+  
+  .SuggestedPrice-label,
+  .TotalAmount-label,
+  .SuggestedPrice-value,
+  .TotalAmount-value {
+    flex: 1; /* This makes each element take up equal space */
+    display: flex;
+    margin-right: 140px;
+    
+    
+  }
+  
+  
+  #suggestedPriceValue,
+  #totalAmountDueValue {
+    font-size: 30px;
+    font-family: Inter;
+    
+    background-color: gray; /* Adjusted for clarity */
+    padding: 20px; /* Increased padding */
+    min-width: 300px; /* Set a minimum width */
+    display: inline-block; /* Allows for background styling */
+    border: 1px solid #000;
+    background: rgba(0, 0, 0, 0.20);
+   
+  }
+
+
+
+
+/*---- 404 PAGE STYLE ----*/
+
+
+/*---- Fuel History PAGE STYLE ----*/
+.fuelHistory-wrapper{
+    display: flex;
+    margin-top: 3em;
+    overflow-x: hidden;
+}
+
+.fuelHistory-sidebar {
+    width:380px;
+    flex-shrink: 0;
+    overflow: auto;
+    border-top:1px solid black;
+    height: 50em;
+}
+
+.menu-button{
+    font-size: 20px;
+    font-weight: lighter;
+    height: 70px;
+    width: 296px;
+    background: rgba(217, 217, 217, 0.25);
+    box-shadow: 0px 4px 4px px rgba(0, 0, 0, 0.25);
+    border-radius: 3em;
+    transition: 0.3s;
+    margin-bottom: 1em;
+}
+
+.menu-button:hover{
+    background: rgba(217, 217, 217, 0.5);
+    color: black;
+}
