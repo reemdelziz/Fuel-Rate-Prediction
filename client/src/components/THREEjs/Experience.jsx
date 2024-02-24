@@ -7,7 +7,7 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 
-import { LoginForm } from "./LoginForm";
+import { LoginForm } from "../LoginForm";
 
 const LINE_NB_POINTS = 12000; //creating const variable with number of points on the line
 const CURVE_DISTANCE = 250; //create curve distance to be able to change the depth of the curve

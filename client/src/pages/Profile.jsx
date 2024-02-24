@@ -1,16 +1,10 @@
-// include Nav.jsx
-
-import React  from 'react';
-import Nav from '../components/Nav';
+import { React } from 'react';
 
 //create funtion print
-function Profile() {
+export const Profile = () => {
     //return Nav
     return (
         <div>
-            {/*include nav bar*/}
-            <Nav />
-
             <div className = "PageTitle" >Client Profile Management</div>
             
 
@@ -125,5 +119,4 @@ function Profile() {
         
         </div>
     );
-}
-export default Profile;
+};

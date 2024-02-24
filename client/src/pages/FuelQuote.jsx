@@ -1,15 +1,10 @@
-import React  from 'react';
-import Nav from '../components/Nav';
+import { React } from 'react';
 
 
 //create funtion print
-function FuelQuote() {
+export const FuelQuote = () => {
     return (
         <div>
-            {/*include nav bar*/}
-            <Nav />
-
-
             <div className = "PageTitle" >Fuel Quote.</div>
             
 
@@ -65,7 +60,4 @@ function FuelQuote() {
   
        
     );
-
-
-}
-export default FuelQuote;
+};

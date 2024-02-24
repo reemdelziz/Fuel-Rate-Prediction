@@ -1,8 +1,10 @@
+import { React } from "react";
+import { Outlet } from "react-router-dom";//this allows for the navbar to be displayed accross all pages
+import { Navbar } from "./Navbar";
 
-const Layout = () => {
-    return(<div>
-        {/*This will layout web-app before client logs in*/}
-    </div>)
-}
-
-export default Layout;
+export const Layout = () => {
+    return(<>
+        <Navbar />
+        <Outlet />
+    </>)
+};

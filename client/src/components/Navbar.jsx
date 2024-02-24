@@ -1,4 +1,5 @@
 import React, {useEffect,useState} from "react";
+import { Link } from "react-router-dom";
 import "../style.css"
 
 /*WHEN NOT LOGGED IN!!!!!!!*/
@@ -31,9 +32,9 @@ function Nav() {
                             
 
 
-                            <a className="Navsearchstyle" href="/#">Home<span style={{fontSize: '16px', verticalAlign: 'sub',lineHeight: '1', }}>01</span></a>
-                            <a className="Navsearchstyle" href="/#">Login<span style={{fontSize: '16px', verticalAlign: 'sub',lineHeight: '1', }}>02</span></a>
-                            <a className="Navsearchstyle" href="/#">Register<span style={{fontSize: '16px', verticalAlign: 'sub',lineHeight: '1', }}>03</span></a>
+                            <Link to = "/home" className="Navsearchstyle">Home<span style={{fontSize: '16px', verticalAlign: 'sub',lineHeight: '1', }}>01</span></Link>
+                            <Link to= "/LoginForm" className="Navsearchstyle" ">Login<span style={{fontSize: '16px', verticalAlign: 'sub',lineHeight: '1', }}>02</span></Link>
+                            <Link = "/RegisterForm" className="Navsearchstyle" >Register<span style={{fontSize: '16px', verticalAlign: 'sub',lineHeight: '1', }}>03</span></Link>
                         </div>
                         <div></div>
                         <div className="timeNDate">
@@ -62,7 +63,7 @@ export default Nav;
 
 
 /*WHEN LOGGED IN!!!!!!*/
-export const Nav = () => {
+export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -87,9 +88,9 @@ export const Nav = () => {
         <nav className="NavBar">
             <div className="brandlogo">PREDICT <br />FUEL.</div>
                 <div className = "navigationTab_box">
-                    <a className="Navsearchstyle" href="/#">Fuel Quote<span style={{fontSize: '16px', verticalAlign: 'sub',lineHeight: '1', }}>01</span></a>
-                    <a className="Navsearchstyle" href="/#">History<span style={{fontSize: '16px', verticalAlign: 'sub',lineHeight: '1', }}>02</span></a>
-                    <a className="Navsearchstyle" href="/#">Profile<span style={{fontSize: '16px', verticalAlign: 'sub',lineHeight: '1', }}>03</span></a>
+                    <Link to = "/fuelquote" className="Navsearchstyle" >Fuel Quote<span style={{fontSize: '16px', verticalAlign: 'sub',lineHeight: '1', }}>01</span></Link>
+                    <Link to = "/fuelhistory">History<span style={{fontSize: '16px', verticalAlign: 'sub',lineHeight: '1', }}>02</span></Link>
+                    <Link to = "profile">Profile<span style={{fontSize: '16px', verticalAlign: 'sub',lineHeight: '1', }}>03</span></Link>
                 </div>
                 <div></div>
                 <div className={`hamburger ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
@@ -123,10 +124,10 @@ const FullScreenOverlay = () => {
 
     return (
         <div className="overlay">
-            <ul className="menu">
-                <li className="burger-menu-item" style={{ '--animation-delay': '0s' }}>Fuel Quote</li>
-                <li className="burger-menu-item" style={{ '--animation-delay': '0.5s' }}>History</li>
-                <li className="burger-menu-item" style={{ '--animation-delay': '1s' }}>Profile</li>
+            <ul className="menu"> {/*modfiy css so that the the content is based on col */}
+                <Link to = "/fuelquote" className="burger-menu-item" style={{ '--animation-delay': '0s' }}>Fuel Quote</Link>
+                <Link to = "/fuelhistory" className="burger-menu-item" style={{ '--animation-delay': '0.5s' }}>History</Link>
+                <Link to = "/profile" className="burger-menu-item" style={{ '--animation-delay': '1s' }}>Profile</Link>
                 <li className="burger-menu-item" style={{ '--animation-delay': '1.5s' }}>Logout</li>
                 <li className="BugertimeNDate" style={{ '--animation-delay': '2s' }}>
                             <p>{formattedDate}</p>
@@ -138,4 +139,3 @@ const FullScreenOverlay = () => {
     );
 };
 
-export default Nav;
