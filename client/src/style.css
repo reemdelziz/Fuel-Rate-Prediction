@@ -169,11 +169,78 @@
 /*---- HOME PAGE STYLE ----*/
 
 
-/*---- LOGIN PAGE STYLE ----*/
+/*---- LOGIN PAGE STYLE && REGISTER PAGE STYLE ----*/
 
 
+  
+  
+  
+  .login-car {
+    max-width: 100%;
+    border-radius: 92px;
+  }
+  
+  .inputLabels {
+    padding: 20pt 0pt 20pt 0pt;
+    text-align: left;
+    color: 'black'; 
+    font-size: 16pt; 
+    font-family: 'Inter';
+    font-weight: '200';
+    word-wrap: 'break-word'
+  }
+  
+  h1 {
+    font-family: Inter;
+    font-size: 32pt;
+  }
+  
+  button {
+    padding: 10px 70px 10px 70px;
+    margin: 40px;
+    background-color: transparent;
+    font-family: 'Inter';
+    font-size: x-large;
+    color: black;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+  
+  #fields {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  input {
+    background-color: transparent;
+    border: none;
+  }
+  
+  .container {
+    display: flex;
+    /* flex-grow: 1; */
+    height: 75vh;
+    text-align: center;
+    margin: 10px 20px;
+  }
+  
+  .column {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;                                                   
+    /* box-sizing: border-box; */
+  }
+  
+  .leftSide {
+    text-align: left;
+  }
+  .rightSide {
+    text-align: right;
+  }
 
-/*---- REGISTER PAGE STYLE ----*/
+
 
 
 

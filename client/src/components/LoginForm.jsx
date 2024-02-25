@@ -1,12 +1,53 @@
 import { React } from "react";
-
+import "../style.css";
 
 
 export const LoginForm = () => {
-    return(
-        <div className="LoginForm-wrapper">
-            <h1 className="title">Fuel Rate Predictor: Enhancing Fuel Management Efficiency</h1>
-            
+    const username = '';
+    const password = '';
+
+    return (
+        <div className='container'>
+            {/* First column that includes image of car */}
+            <div className='column'>
+                <img src={car} className="login-car" />
+            </div>
+            {/* second column includes login form */}
+            <div className='column'>
+
+                {/* //Create login form */}
+                <div className="login">
+                    <h1>Login.</h1>
+                    <p className='rightSide'>Unlock streamlined fuel management with our secure login portal. Access personalized quotes and manage your profile hassle-free. Join us as we revolutionize fuel procurement.</p>
+
+                    <form>
+                        <section id="fields">
+                            <div id="usernameInput">
+                                <div className="inputLabels">Username* </div>
+                                <input
+                                    type="text"
+                                    value={username}
+                                // onChange={(e) => setUsername(e.target.value)}
+                                />
+                                <div style={{ width: '100%', border: '1px black solid' }}></div>
+                            </div>
+
+                            <div>
+                                <div className="inputLabels">Password* </div>
+                                <input
+                                    type="text"
+                                    value={password}
+                                // onChange={(e) => setUsername(e.target.value)}
+                                />
+                                <div style={{ width: '100%', border: '1px black solid' }}></div>
+                            </div>
+                        </section>
+
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+
+            </div>
         </div>
     )
 };
