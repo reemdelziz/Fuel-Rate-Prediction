@@ -1,6 +1,6 @@
 import React from "react";
 import { Canvas } from '@react-three/fiber';
-import { Experience } from './components/Experience';
+import { Experience } from '../components/landingPage/UIexperience/Experience';
 import { ScrollControls } from '@react-three/drei';
 
 export const TestHome = () => {

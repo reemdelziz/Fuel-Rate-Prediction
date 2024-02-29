@@ -1,24 +1,28 @@
 import { React } from "react";
-import "../style.css";
 
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
+    // const [username, setUsername] = useState('');
+    // const [password, setPassword] = useState('');
+    // temp
     const username = '';
     const password = '';
 
+    // const handleLogin = (e) => {
+    //   e.preventDefault();
+    //   // Add your login logic here (e.g., send a request to a server, check credentials)
+    //   console.log('Username:', username);
+    //   console.log('Password:', password);
+    // };
     return (
         <div className='container'>
-            {/* First column that includes image of car */}
-            <div className='column'>
-                <img src={car} className="login-car" />
-            </div>
             {/* second column includes login form */}
             <div className='column'>
 
                 {/* //Create login form */}
-                <div className="login">
-                    <h1>Login.</h1>
-                    <p className='rightSide'>Unlock streamlined fuel management with our secure login portal. Access personalized quotes and manage your profile hassle-free. Join us as we revolutionize fuel procurement.</p>
+                <div>
+                    <h1>Register.</h1>
+                    <p className='leftSide'>Ready to predict fuel rates located all around the US? Sign up now to access personalized quotes, hassle-free profile management, and exclusive features. Join us as we pave the way for the future of fuel procurement!</p>
 
                     <form>
                         <section id="fields">
@@ -48,6 +52,11 @@ export const LoginForm = () => {
                 </div>
 
             </div>
+            {/* First column that includes image of car */}
+            <div className='column'>
+                <img className="login-car" />
+            </div>
         </div>
-    )
+
+    );
 };
