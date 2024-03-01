@@ -3,14 +3,15 @@ import { Speed } from '../UIexperience/Speed.jsx';
 import { Background } from './Background';
 import { CarModel } from "../modelsJsx/CarModel";
 import { CloudModel } from "../modelsJsx/CloudModel";
-import {useCloudsRender} from "../CloudsComponet/useCloudsRender";
+import { useCloudsRender } from "../CloudsComponet/useCloudsRender";
 import { useTextRender } from "../TextComponets/useTextRender";
 import { TextSection } from "../TextComponets/TextSection";
 import gsap from "gsap";
 import { Group } from "three";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
-import React, { useLayoutEffect, useMemo, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { usePlay } from "./Play.jsx";
 
 
 
@@ -34,6 +35,9 @@ export const Experience = () => {
         new THREE.Vector3(5, 0, -7 * CURVE_DISTANCE),
 
     ], []);
+    const sceneOpacity = useRef(0);
+    const lineMaterialRef = useRef();
+
     const curve = useMemo(() => { //creating the curve and using useMemo hook to memoize (lets you skip re-rendering when a componenet 'note the creation of the curve' when its props are unchanged)
         return new THREE.CatmullRomCurve3(
             curvePoints,
@@ -53,7 +57,7 @@ export const Experience = () => {
 
         return shape;
     }, [curve]);
-    
+
 
     //linePoints is used to calculate the points along the curve.
     const linePoints = useMemo(() => { //the useMemo hook is use to memoize the computation so that it only recaluclates the points when the curve object changes
@@ -62,7 +66,7 @@ export const Experience = () => {
 
     const textSections = useTextRender(curvePoints);
 
- 
+
 
     const clouds = useCloudsRender(curvePoints);
     //we want our camera plane to be in parative with the scroll
@@ -72,9 +76,36 @@ export const Experience = () => {
     const scroll = useScroll();
     const lastScroll = useRef(0);
 
+    const { play, setHasScroll, end, setEnd } = usePlay();
+
     useFrame((_state, delta) => { //the useFram hook allows us to preform actions on every frame of the 3D rendering loop
+
+        if (lastScroll.current <= 0 && scroll.offset > 0) {
+            setHasScroll(true);
+        }
+
+
+        lineMaterialRef.current.opacity = sceneOpacity.current;
+        if (play && !end && sceneOpacity.current < 1) {
+            sceneOpacity.current = THREE.MathUtils.lerp(
+                sceneOpacity.current,
+                1,
+                delta * 0.1
+            );
+        }
+        if (end && sceneOpacity.current > 0) {
+            sceneOpacity.current = THREE.MathUtils.lerp(
+                sceneOpacity.current,
+                0,
+                delta
+            );
+        }
+        if (end) {
+            return;
+        }
+
         const scrollOffset = Math.max(0, scroll.offset);
-        
+
         //we want to be able to zoom in to text sections on scrol
         let friction = 1;
         let resetCameraRail = true;
@@ -82,7 +113,7 @@ export const Experience = () => {
             const distance = textSection.position.distanceTo(
                 cameraGroup.current.position
             );
-            if (distance < FRICTION_DISTANCE){
+            if (distance < FRICTION_DISTANCE) {
                 friction = Math.max(distance / FRICTION_DISTANCE, 0.1);
                 const targetCameraRailPosition = new THREE.Vector3(
                     (1 - distance / FRICTION_DISTANCE) * textSection.cameraRailDist,
@@ -93,15 +124,15 @@ export const Experience = () => {
                 resetCameraRail = false;
             }
         });
-        if(resetCameraRail){
-            const targetCameraRailPosition = new THREE.Vector3(0,0,0);
+        if (resetCameraRail) {
+            const targetCameraRailPosition = new THREE.Vector3(0, 0, 0);
             cameraRail.current.position.lerp(targetCameraRailPosition, delta);
         }
 
         //we want to calculate the lerp scroll offset
-        let lerpedScrollOffset = THREE.MathUtils.lerp(lastScroll.current, 
-            scrollOffset, 
-            delta*friction
+        let lerpedScrollOffset = THREE.MathUtils.lerp(lastScroll.current,
+            scrollOffset,
+            delta * friction
         );
         //protect below 0 and above 1
         lerpedScrollOffset = Math.min(lerpedScrollOffset, 1);
@@ -170,14 +201,21 @@ export const Experience = () => {
             )
         );
         car.current.quaternion.slerp(targetCarQuaternion, delta * 2);
+
+        if (cameraGroup.current.position.z < curvePoints[curvePoints.length - 1].z + 100) {
+            setEnd(true);
+            carOutTl.current.play();
+        }
     });
 
     const tl = useRef();
     const backgroundColors = useRef({
-        colorA: "#002366",
+        colorA: "#1D24CA",
         colorB: "#9195F6",
     });
 
+    const carInTl = useRef();
+    const carOutTl = useRef();
     useLayoutEffect(() => {
         tl.current = gsap.timeline();
 
@@ -185,28 +223,67 @@ export const Experience = () => {
             duration: 1,
             colorA: "#ff8080",
             colorB: "#fc6736",
-          });
-          tl.current.to(backgroundColors.current, {
+        });
+        tl.current.to(backgroundColors.current, {
             duration: 1,
             colorA: "#424242",
             colorB: "#ffcc00",
-          });
-          tl.current.to(backgroundColors.current, {
+        });
+        tl.current.to(backgroundColors.current, {
             duration: 1,
             colorA: "#FBA834",
             colorB: "#EEA5A6",
-          });
+        });
         tl.current.pause();
+
+        carInTl.current = gsap.timeline();
+        carInTl.current.pause();
+        carInTl.current.from(car.current.position, {
+            duration: 3,
+            z: 5,
+            y: -2,
+        });
+
+        carOutTl.current = gsap.timeline();
+        carOutTl.current.pause();
+
+        carOutTl.current.to(
+            car.current.position,
+            {
+                duration: 10,
+                z: -250,
+                y: 10,
+            },
+            0
+        );
+        carOutTl.current.to(
+            cameraRail.current.position,
+            {
+                duration: 8,
+                y: 12,
+            },
+            0
+        );
+        carOutTl.current.to(car.current.position, {
+            duration: 1,
+            z: -1000,
+        });
     }, []);
 
-    return (
+    useEffect(() => {
+        if (play) {
+            carInTl.current.play();
+        }
+    }, [play]);
+
+    return useMemo(() => (
         <>
             <directionalLight position={[0, 3, 1]} intensity={0.1} />
             <group ref={cameraGroup}>
                 <Speed />
-                <Background backgroundColors={backgroundColors}/>
+                <Background backgroundColors={backgroundColors} />
                 <group ref={cameraRail}>
-                    <PerspectiveCamera position={[0, .5, 5]}  fov={30} makeDefault />
+                    <PerspectiveCamera position={[0, .5, 5]} fov={30} makeDefault />
                 </group>
                 <group ref={car}>
                     <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
@@ -219,9 +296,11 @@ export const Experience = () => {
             </group>
 
             {/* TEXT */}
+
             {textSections.map((textSection, index) => (
                 <TextSection {...textSection} key={index} />
             ))}
+
 
             {/* LINE */}
             <group position-y={-2}>
@@ -238,6 +317,7 @@ export const Experience = () => {
                     />
                     <meshStandardMaterial
                         color={"white"}
+                        ref={lineMaterialRef}
                         opacity={1}
                         transparent
                         envMapIntensity={2}
@@ -247,11 +327,11 @@ export const Experience = () => {
 
             {/* CLOUDS */}
             {
-                clouds.map((cloud, index) =>(
-                    <CloudModel {...cloud} key={index} />
+                clouds.map((cloud, index) => (
+                    <CloudModel sceneOpacity={sceneOpacity} {...cloud} key={index} />
                 ))
             }
 
         </>
-    );
+    ), []);
 };

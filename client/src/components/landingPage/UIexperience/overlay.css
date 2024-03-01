@@ -1,57 +1,182 @@
+.loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: white;
+  transition: opacity .1s ease-in-out;
+}
+.loader-overlay-disappear {
+  opacity: 0;
+}
 
-@import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 .loading-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.loading-overlay-disable{
+  pointer-events: none;
+}
+
+/*SCROLL MESSAGE */
+.hide-scroll-message{
+  opacity: 0;
+}
+.loding-overlay-notScrolled {
+  margin-bottom: 8em;
+  opacity: 1;
+  color: rgba(255, 255, 255, 0.91);
+  animation: fadeUp 2s ease-in-out;
+}
+.loading-overlay-scrolled {
+  margin-bottom: 8em;
+  color: white;
+  animation: fadeOut 1s ease-in-out forwards;
 }
 
 .loading-intro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
 }
 
 .loading-logo {
-    font-family: "Roboto", sans-serif;
-    color: white;
-    font-size: 8rem;
-    font-weight: bold;
-    letter-spacing: 0.5rem;
-    padding: 0;
-    margin: 0;
-    transform: translateY(-50%);
-    position: absolute;
-    top: 50vh;
-    animation: fadeUp 2.4s ease-in-out;
+  font-family: "Manrope-Light", sans-serif;
+  color: white;
+  font-size: 10rem;
+  font-weight: bolder;
+  letter-spacing: 0.5rem;
+  padding: 0;
+  margin: 0;
+  transform: translateY(-50%);
+  position: absolute;
+  top: 40vh;
+  animation: fadeUp 2.4s ease-in-out;
+  transition: all 2s ease-in-out;
+}
+
+.loading-intro-disappear .loading-logo {
+  top: 42px;
+  transform: scale(0.25);
+  transform-origin: center top;
 }
 
 .loading-explore {
-    padding: 1rem 2rem;
-    border: none;
-    font-family: "Roboto", sans-serif;
-    font-size: 1.25rem;
-    letter-spacing: 0.25rem;
-    background-color: #ffffff;
-    border-radius: 32px;
-    cursor: pointer;
-    display: inline-block;
-    margin-top: 320px;
+  padding: 1rem 2rem;
+  border: none;
+
+  font-size: 1.25rem;
+  letter-spacing: 0.25rem;
+  background-color: #ffffff;
+  border-radius: 32px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 320px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  transition: 0.42s ease-in-out;
+  animation: fadeIn 2s ease-in-out 2s forwards;
+  opacity: 0;
 }
 
+.loading-explore:hover {
+  color: rgb(255, 255, 255);
+}
+
+.loading-explore:hover:before {
+  width: 200%;
+  height: 300%;
+  border-radius: 100%;
+}
+
+.loading-explore:before {
+  content: "";
+  background: #412fe6;
+  position: absolute;
+  width: 0%;
+  bottom: 0;
+  left: 50%;
+  height: 0%;
+  transition: 0.42s ease-in-out;
+  z-index: -1;
+  transform: translateX(-50%) translateY(50%);
+}
+.loading-intro-disappear .loading-explore {
+  animation: fadeOut 1s ease-in-out forwards;
+}
+
+.loader-outro {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 4s ease-in-out;
+  color: white;
+}
+.loader-outro-appear{
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+
+/* nav-bar */
+.nav-component{
+  position: absolute;
+  top:0;
+  right:0;
+  opacity: 0;
+}
+.navbar-disabled {
+  position: absolute;
+  top:0;
+  right:0;
+  margin-top: 2.9em;
+  margin-right: 2em;
+  opacity: 1;
+  animation: fadeUp 2.4s ease-in-out;
+  pointer-events: auto;
+}
+
+/* ANIMATIONS  */
 @keyframes fadeUp {
-    0% {
-      opacity: 0;
-      transform: translateY(100px);
-      filter: blur(9px);
-    }
-  
-    100% {
-      opacity: 1;
-      filter: none;
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+    filter: blur(9px);
   }
+
+  100% {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+@keyframes fadIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

@@ -3,6 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import { Gradient, LayerMaterial } from "lamina";
 import { useRef } from "react";
 
+
 import * as THREE from "three";
 export const Background = ({ backgroundColors }) => {
     const start = 0.2;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text } from '@react-three/drei';
-
+import { fadeOnBeforeCompileFlat } from "../../../utils/fadeMaterial";
 export const TextSection = ({ title, subtitle, ...props }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -8,7 +8,7 @@ export const TextSection = ({ title, subtitle, ...props }) => {
         <group {...props}>
             {!!title && (
                 <Text
-                    color="white"
+                    color="black"
                     anchorX="left"
                     anchorY="bottom"
                     fontSize={0.52}
@@ -16,16 +16,23 @@ export const TextSection = ({ title, subtitle, ...props }) => {
                     lineHeight={1}
                 >
                     {title}
+                    <meshStandardMaterial 
+                        onBeforeCompile={fadeOnBeforeCompileFlat}
+                    />
                 </Text>
             )}
             <Text
-                color="white"
+                color="black"
                 anchorX={"left"}
                 anchorY="top"
                 fontSize={0.2}
                 maxWidth={2.5}
             >
                 {subtitle}
+                <meshStandardMaterial 
+                        color={"white"}
+                        onBeforeCompile={fadeOnBeforeCompileFlat}
+                />
             </Text>
         </group>
 
