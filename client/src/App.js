@@ -6,7 +6,6 @@ import { Experience } from './components/landingPage/UIexperience/Experience';
 import { Loader, ScrollControls } from '@react-three/drei';
 import { Overlay } from './components/landingPage/UIexperience/Overlay';
 import { usePlay } from './components/landingPage/UIexperience/Play';
-import { Gradient } from "./assets/gradient";
 
 import { Layout } from "./components/UIcomponets/Layout";
 import { Home } from "./pages/Home";
@@ -21,17 +20,10 @@ import { TestHome } from './pages/TestHome';
 
 function App() {
   const { play, end } = usePlay();
-  useEffect(() => {
-		const gradient = new Gradient();
-		gradient.initGradient("#gradient-canvas");
-	}, []);
+  
   return (<>
-    <canvas
-				id="gradient-canvas"
-				className="fixed inset-0"
-				data-transition-in
-			/>
-    {/*<>
+    
+    <>
     <Canvas >
       <color attach="background" args={["#ececec"]} />
       <ScrollControls
@@ -53,23 +45,23 @@ function App() {
     <Loader />
     <Overlay />
     
-      </>*/}
+      </>
 
     {/*<>
        
         <BrowserRouter>
           <Routes>
             <Route path = '/TestHome' element={<TestHome />} />
-            <Route path='/' element={<Layout/>}>
-              Routes before login 
+            <Route path='/' element={<Layout/>}/>
+              
               <Route index element={<Home />} />
               <Route path = "/loginForm" element={<LoginForm/>} />
 
-              Routes after login 
+             
               <Route path ="/fuelhistory" element={<FuelHistory/>}/>
               <Route path = "/profile" element={<Profile />}/>
               <Route path = "/fuelquote" element={<FuelQuote/>} />
-            </Route>
+            
           </Routes>
         </BrowserRouter>
     </>*/}
