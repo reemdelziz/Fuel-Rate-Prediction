@@ -6,7 +6,7 @@ export const LoginForm = () => {
     const password = '';
 
     return (
-        <div className='container'>
+        <div className='background'>
             {/* First column that includes image of car */}
             <div className='column'>
                 <img className="login-car" />

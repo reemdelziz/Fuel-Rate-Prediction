@@ -1,7 +1,7 @@
 import React, {useEffect,useState} from "react";
 import { Link } from "react-router-dom";
-import '../style.css';
-import { pageTransition } from "./pageTransition";
+import { pageTransition } from "../../utils/pageTransition";
+import "../../style.css";
 
 export const FullScreenOverlay = () => {
     const [time,setTime] = useState(new Date())
@@ -24,9 +24,8 @@ export const FullScreenOverlay = () => {
         <div className="overlay">
 
             <ul className="menu"> {/*modfiy css so that the the content is based on col */}
-                <a  className="burger-menu-item" style={{ '--animation-delay': '0s' }}>Home</a>
-                <a className="burger-menu-item" style={{ '--animation-delay': '0.5s' }}>Login</a>
-                <a className="burger-menu-item" style={{ '--animation-delay': '1s' }}>Register</a>
+                <Link to ='/loginForm'><p className="burger-menu-item" style={{ '--animation-delay': '0.5s' }}>Login</p></Link>
+                <Link to = '/registerForm'><p className="burger-menu-item" style={{ '--animation-delay': '1s' }}>Register</p></Link>
                 <li className="BugertimeNDate" style={{ '--animation-delay': '2s' }}>
                             <p>{formattedDate}</p>
                             <p>{formattedTime}</p>

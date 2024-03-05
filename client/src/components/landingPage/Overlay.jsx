@@ -1,7 +1,9 @@
 import { useProgress } from '@react-three/drei';
-import { usePlay } from "./Play";
-import { Navbar } from '../../UIcomponets/Navbar';
+import { usePlay } from "../../utils/Play";
+import { Navbar } from '../UIcomponets/Navbar';
+import { Link } from 'react-router-dom';
 import './overlay.css';
+
 export const Overlay = () => {
     const { progress } = useProgress();
     const { play, end, setPlay, hasScroll } = usePlay();
@@ -25,9 +27,13 @@ export const Overlay = () => {
                 </div>
             )}
             <div className={`loader-outro ${end ? "loader-outro-appear" : ""}`}>
-                <h1>hello devin</h1>
+                <h1>Begin your journey with Fuel Predictor</h1>
+                <ul className='menu-outro'>
+                    <Link to ='/loginForm'><p className='menu-outro-item'>Login</p></Link>
+                    <Link to ='/registerForm'><p className="menu-outro-item" >Register</p></Link>
+                </ul>
             </div>
             
         </div>
-    )
-}
+    );
+};

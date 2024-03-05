@@ -1,17 +1,17 @@
 import { Float, PerspectiveCamera, useScroll } from "@react-three/drei";
-import { Speed } from '../UIexperience/Speed.jsx';
-import { Background } from './Background';
-import { CarModel } from "../modelsJsx/CarModel";
-import { CloudModel } from "../modelsJsx/CloudModel";
-import { useCloudsRender } from "../CloudsComponet/useCloudsRender";
-import { useTextRender } from "../TextComponets/useTextRender";
-import { TextSection } from "../TextComponets/TextSection";
+import { Speed } from './Speed.jsx';
+import { Background } from './Background.jsx';
+import { CarModel } from "./CarModel.jsx";
+import { CloudModel } from "./CloudModel.jsx";
+import { useCloudsRender } from "./useCloudsRender.jsx";
+import { useTextRender } from "./useTextRender.jsx";
+import { TextSection } from "./TextSection.jsx";
 import gsap from "gsap";
 import { Group } from "three";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import React, { useEffect, useLayoutEffect, useMemo, useRef } from "react";
-import { usePlay } from "./Play.jsx";
+import { usePlay } from "../../utils/Play.jsx";
 
 
 
