@@ -29,8 +29,8 @@ export const Overlay = () => {
             <div className={`loader-outro ${end ? "loader-outro-appear" : ""}`}>
                 <h1>Begin your journey with Fuel Predictor</h1>
                 <ul className='menu-outro'>
-                    <Link to ='/loginForm'><p className='menu-outro-item'>Login</p></Link>
-                    <Link to ='/registerForm'><p className="menu-outro-item" >Register</p></Link>
+                    <Link to ='/userEntry'><p className='menu-outro-item'>Login</p></Link>
+                    <Link to ='/userEntry'><p className="menu-outro-item" >Register</p></Link>
                 </ul>
             </div>
             

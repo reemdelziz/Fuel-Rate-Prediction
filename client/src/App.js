@@ -1,12 +1,12 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import React, { useEffect } from "react";
 
 import { Layout } from "./components/UIcomponets/Layout";
 import { Home } from "./pages/Home";
 import { LoginForm } from "./components/UIcomponets/LoginForm";
 import { RegisterForm } from './components/UIcomponets/RegisterForm';
-
+import { UserEntry } from './components/UIcomponets/UserEntry';
 import { FuelHistory } from './pages/FuelHistory';
 import { Profile } from './pages/Profile';
 import { FuelQuote } from './pages/FuelQuote';
@@ -19,10 +19,11 @@ function App() {
 
   return (<>
     <Routes>
-   
+      
       <Route path='/' element={<Layout />} />
-      Routes before login
+        Routes before login
       <Route index element={<Home />} />
+      <Route path = "/userEntry"element={<UserEntry />}/>
       <Route path="/loginForm" element={<LoginForm />} />
       <Route path='/registerForm' element={<RegisterForm />} />
       Routes after login
