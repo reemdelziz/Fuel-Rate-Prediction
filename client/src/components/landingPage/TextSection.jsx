@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+
 import { Text } from '@react-three/drei';
 import { fadeOnBeforeCompileFlat } from "../../utils/fadeMaterial";
 export const TextSection = ({ title, subtitle, ...props }) => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+
     return (
         <group {...props}>
             {!!title && (

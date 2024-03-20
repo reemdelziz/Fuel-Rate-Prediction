@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import axios from "axios";
 import blindeye  from '../../assets/images/eye-crossed.png';
 import eye  from '../../assets/images/eye.png';
 import '../../style.css';
@@ -25,12 +26,23 @@ export const RegisterForm = () => {
     const [password, setuserpassword] = useState("");
     const [visable, setvisable] = useState(false);
 
+    const register = () => {
+        axios.post('http://localhost:8080/register', {
+            username: username,
+            password: password,
+        }).then((response)=>{
+            console.log(response);
+        }).catch((error) => {
+            console.error(error);
+        });
+    };
+
     return (
         <div className='userentry-container'>
             <div className='userentry-column'>
                 <div className="userentry">
-                    <h1 class="text-6xl	my-6">Register</h1>
-                    <p class="w-1/2 text-base m-auto">Ready to predict fuel rates located all around the US? Sign up now to access personalized quotes, hassle-free profile management, and exclusive features. Join us as we pave the way for the future of fuel procurement!</p>
+                    <h1 className="text-6xl	my-6">Register</h1>
+                    <p className="w-1/2 text-base m-auto">Ready to predict fuel rates located all around the US? Sign up now to access personalized quotes, hassle-free profile management, and exclusive features. Join us as we pave the way for the future of fuel procurement!</p>
 
                     <form>
                         <section id="fields">
@@ -70,7 +82,7 @@ export const RegisterForm = () => {
                         </section>
 
 
-                        <button className={`${validateUserName(username) && validatePassword(password) ? "navbar-button" : "hide-button"}`}>Submit</button>
+                        <button className={`${validateUserName(username) && validatePassword(password) ? "navbar-button" : "hide-button"}`} onClick={register}>Submit</button>
                     </form>
                 </div>
             </div>
