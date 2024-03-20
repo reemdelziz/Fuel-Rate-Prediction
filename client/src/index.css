@@ -9,6 +9,11 @@
 
 body {
   margin: 0;
+  background: rgb(145,149,246);
+  background: linear-gradient(0deg, rgba(145,149,246,1) 0%, rgba(29,36,202,1) 100%);
+  color: white;
+  font-family: "Manrope-light";
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -44,4 +49,8 @@ body {
        font-weight: 300;
        font-display: swap;
        font-style: normal;
+}
+@font-face {
+  font-family: 'PowerGrotesk';
+  src: url('./assets/fonts/PowerGrotesk-Regular.ttf') format('truetype');
 }

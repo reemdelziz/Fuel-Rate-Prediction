@@ -27,10 +27,10 @@ export const Overlay = () => {
                 </div>
             )}
             <div className={`loader-outro ${end ? "loader-outro-appear" : ""}`}>
-                <h1>Begin your journey with Fuel Predictor</h1>
+                <h1 style={{fontFamily:" PowerGrotesk"}}>Begin your journey with Fuel Predictor</h1>
                 <ul className='menu-outro'>
-                    <Link to ='/userEntry'><p className='menu-outro-item'>Login</p></Link>
-                    <Link to ='/userEntry'><p className="menu-outro-item" >Register</p></Link>
+                    <Link to ='/register'><p className="menu-outro-item" >Register</p></Link>
+                    <Link to ='/login'><p className='menu-outro-item'>Login</p></Link>
                 </ul>
             </div>
             

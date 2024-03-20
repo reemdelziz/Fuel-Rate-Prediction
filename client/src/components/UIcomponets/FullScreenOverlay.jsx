@@ -22,9 +22,9 @@ export const FullScreenOverlay = () => {
     return (
         <div className="overlay">
 
-            <ul className="menu"> {/*modfiy css so that the the content is based on col */}
-                <Link to ='/userEntry'><p className="burger-menu-item" style={{ '--animation-delay': '0.5s' }}>Login</p></Link>
-                <Link to = '/userEntry'><p className="burger-menu-item" style={{ '--animation-delay': '1s' }}>Register</p></Link>
+            <ul className="menu">
+                <Link to = '/register'><p className="burger-menu-item" style={{ '--animation-delay': '.5s' }}>Register</p></Link>
+                <Link to ='/login'><p className="burger-menu-item" style={{ '--animation-delay': '1s' }}>Login</p></Link>
                 <li className="BugertimeNDate" style={{ '--animation-delay': '2s' }}>
                             <p>{formattedDate}</p>
                             <p>{formattedTime}</p>

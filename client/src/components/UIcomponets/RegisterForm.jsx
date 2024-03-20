@@ -1,62 +1,80 @@
-import { React } from "react";
+import { React, useState } from "react";
+import blindeye  from '../../assets/images/eye-crossed.png';
+import eye  from '../../assets/images/eye.png';
+import '../../style.css';
 
+function validateUserName(userName) {
+    if (userName.length === 0 || userName.length > 30) {
+        return false;
+    }
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    if (!regex.test(userName)) {
+        return false;
+    }
+    return true;
+}
 
+function validatePassword(password) {
+    if (password.length === 0 || password.length > 30) {
+        return false;
+    }
+    return true;
+}
 export const RegisterForm = () => {
-    // const [username, setUsername] = useState('');
-    // const [password, setPassword] = useState('');
-    // temp
-    const username = '';
-    const password = '';
+    const [username, setusername] = useState("");
+    const [password, setuserpassword] = useState("");
+    const [visable, setvisable] = useState(false);
 
-    // const handleLogin = (e) => {
-    //   e.preventDefault();
-    //   // Add your login logic here (e.g., send a request to a server, check credentials)
-    //   console.log('Username:', username);
-    //   console.log('Password:', password);
-    // };
     return (
-        <div className='container'>
-            {/* second column includes login form */}
-            <div className='column'>
-
-                {/* //Create login form */}
-                <div>
-                    <h1>Register.</h1>
-                    <p className='leftSide'>Ready to predict fuel rates located all around the US? Sign up now to access personalized quotes, hassle-free profile management, and exclusive features. Join us as we pave the way for the future of fuel procurement!</p>
+        <div className='userentry-container'>
+            <div className='userentry-column'>
+                <div className="userentry">
+                    <h1 class="text-6xl	my-6">Register</h1>
+                    <p class="w-1/2 text-base m-auto">Ready to predict fuel rates located all around the US? Sign up now to access personalized quotes, hassle-free profile management, and exclusive features. Join us as we pave the way for the future of fuel procurement!</p>
 
                     <form>
                         <section id="fields">
-                            <div id="usernameInput">
-                                <div className="inputLabels">Username* </div>
+                            <div className="input-box">
+                                {validateUserName(username) ? (
+                                    <div className="inputLabels">Username</div>
+                                ) : (
+                                    <div className="inputLabels">Username*</div>
+                                )}
                                 <input
                                     type="text"
                                     value={username}
-                                // onChange={(e) => setUsername(e.target.value)}
+                                    onChange={(e) => setusername(e.target.value)}
                                 />
-                                <div style={{ width: '100%', border: '1px black solid' }}></div>
+                                <div style={{ width: "20em", border: '1px white solid' }}></div>
                             </div>
 
-                            <div>
-                                <div className="inputLabels">Password* </div>
-                                <input
-                                    type="text"
-                                    value={password}
-                                // onChange={(e) => setUsername(e.target.value)}
-                                />
-                                <div style={{ width: '100%', border: '1px black solid' }}></div>
+                            <div className="input-box">
+                                {validatePassword(password) ? (
+                                    <div className="inputLabels">Password</div>
+                                ) : (
+                                    <div className="inputLabels">Password*</div>
+                                )}
+                                <div className='flex flex-row'>
+                                    <input
+                                        type={visable ? "text" : "password"}
+                                        value={password}
+                                        onChange={(e) => setuserpassword(e.target.value)}
+                                    />
+                                    <div style={{ marginLeft: ".2em" }} onClick={() => { setvisable(!visable) }}>
+                                        {visable ? <img className='h-6 w-6' src={eye} alt='view' /> : <img className='h-6 w-6' src={blindeye} alt="hidden" />}
+                                    </div>
+                                </div>
+
+                                <div style={{ width: '22em', border: '1px white solid' }}></div>
                             </div>
                         </section>
 
-                        <button type="submit">Submit</button>
+
+                        <button className={`${validateUserName(username) && validatePassword(password) ? "navbar-button" : "hide-button"}`}>Submit</button>
                     </form>
                 </div>
+            </div>
 
-            </div>
-            {/* First column that includes image of car */}
-            <div className='column'>
-                <img className="login-car" />
-            </div>
         </div>
-
     );
 };

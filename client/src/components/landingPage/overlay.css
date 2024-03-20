@@ -27,13 +27,13 @@
   opacity: 0;
 }
 .loding-overlay-notScrolled {
-  margin-bottom: 8em;
+  top: 45vh;
   opacity: 1;
   color: rgba(255, 255, 255, 0.91);
   animation: fadeUp 2s ease-in-out;
 }
 .loading-overlay-scrolled {
-  margin-bottom: 8em;
+  top:45vh;
   color: white;
   animation: fadeOut 1s ease-in-out forwards;
 }
@@ -47,7 +47,7 @@
 }
 
 .loading-logo {
-  font-family: "Manrope-Light", sans-serif;
+  font-family: "PowerGrotesk", sans-serif;
   color: white;
   font-size: 10rem;
   font-weight: bolder;
@@ -68,9 +68,10 @@
 }
 
 .loading-explore {
+  font-family: 'PowerGrotesk';
   padding: 1rem 2rem;
   border: none;
-
+  color: rgb(14, 10, 45);
   font-size: 1.25rem;
   letter-spacing: 0.25rem;
   background-color: #ffffff;
@@ -113,6 +114,7 @@
 }
 
 .loader-outro {
+  font-family: "PowerGrotesk", sans-serif;
   position: absolute;
   opacity: 0;
   top: 0;
@@ -125,6 +127,7 @@
   flex-direction: column;
 }
 .loader-outro-appear{
+  font-family: "PowerGrotesk", sans-serif;
   width: 100%;
   height: 100%;
   opacity: 1;
@@ -158,12 +161,14 @@
   display: flex;
   justify-content: center;
   color: white;
-  font-family: Manrope-Light, sans-serif;
+  font-family: "PowerGrotesk", sans-serif;
   font-size: 50px;
   padding: 20px;
+  transition: 0.42s ease-in-out;
 }
 .menu-outro-item:hover{
   color: rgb(81, 47, 3);
+  transition: 0.42s ease-in-out;
 }
 
 

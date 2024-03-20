@@ -1,10 +1,50 @@
-/*---- COMPONETS STYLE ----*/
-.NavBar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: 1.8em;
-  margin-right: 2em;
+/*---- NAVBAR STYLE ----*/
+.navbar-title {
+  font-family: "PowerGrotesk";
+  font-size: 2em;
+  padding: 0.5em;
+}
+
+.navbar-list {
+  font-family: "PowerGrotesk";
+  height: 3.5em;
+  margin-top: 2.5em;
+  padding-left: 4em;
+  padding-right: 4em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 32px;
+}
+
+.navbar-item {
+  font-size: 1em;
+  padding-left: 4em;
+  padding-right: 4em;
+  transition: 0.42s ease-in-out;
+}
+.navbar-item:hover{
+  transition: 0.42s ease-in-out;
+  color: rgb(17, 1, 127);
+}
+.navbar-button {
+  font-family: "PowerGrotesk";
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  height: 3.5em;
+  border: none;
+  color: rgb(18, 8, 78);
+  background-color: rgba(255, 255, 255, 0.875);
+  border-radius: 32px;
+  transition: 0.42s ease-in-out;
+}
+.navbar-button:hover {
+  background: #412fe6;
+  transition: 0.42s ease-in-out;
+  color: white;
 }
 
 .timeNDate {
@@ -42,31 +82,28 @@
 
 .burger {
   width: 32px;
-  height: 4px;
+  height: 3px;
   background-color: white;
   border-radius: 10px;
   transition: all 0.3s linear;
-  transform-origin: 47% 50%;
+  transform-origin: 49% 60%;
 }
 
 .hamburger:hover .burger:not(:last-child) {
-  transform: translateY(4px);
+  transform: translateY(5px);
 }
 
 .hamburger:hover .burger:last-child {
   transform: translateY(-4px);
 }
 
-
-
 .hamburger.open .burger.burger1 {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(6px, 5px);
 }
 
 .hamburger.open .burger.burger2 {
-  transform: rotate(-45deg) translate(5px, -5px);
+  transform: rotate(-45deg) translate(6px, -5px);
 }
-
 
 .overlay {
   position: fixed;
@@ -123,11 +160,6 @@
   }
 }
 
-
-
-/*---- HOME PAGE STYLE ----*/
-
-
 /*---- LOGIN PAGE STYLE && REGISTER PAGE STYLE ----*/
 .form-container {
   position: absolute;
@@ -144,17 +176,8 @@
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-
-
-
-.login-car {
-  max-width: 100%;
-  border-radius: 92px;
-}
-
 .inputLabels {
   padding: 20pt 0pt 20pt 0pt;
-  text-align: left;
   color: 'black';
   font-size: 16pt;
   font-family: 'Inter';
@@ -173,49 +196,50 @@ button {
   background-color: transparent;
   font-family: 'Inter';
   font-size: x-large;
-  color: black;
-  border: 1px solid black;
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
   cursor: pointer;
 }
 
 #fields {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: transparent;
   border: none;
+  padding: .2em;
+  width: 20em;
 }
-
-.container {
+.input-box{
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+  margin-left: 1em;
+}
+.userentry-container {
   display: flex;
-  /* flex-grow: 1; */
-  height: 75vh;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  margin: 10px 20px;
+  margin-top: 8em;
 }
 
-.column {
+.userentry-column {
   flex: 1;
   padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* box-sizing: border-box; */
 }
-
-.leftSide {
-  text-align: left;
+.hide-button{
+  opacity: 0;
+  cursor:auto;
+  pointer-events: none;
 }
-
-.rightSide {
-  text-align: right;
-}
-
-
-
-
 
 /*---- PROFILE PAGE STYLE ----*/
 .PageTitle {
@@ -391,7 +415,7 @@ input {
 /*---- Fuel History PAGE STYLE ----*/
 .fuelHistory-wrapper {
   display: flex;
-  margin-top: 3em;
+  margin-top: 10em;
   overflow-x: hidden;
 }
 

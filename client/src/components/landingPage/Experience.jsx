@@ -59,11 +59,6 @@ export const Experience = () => {
     }, [curve]);
 
 
-    //linePoints is used to calculate the points along the curve.
-    const linePoints = useMemo(() => { //the useMemo hook is use to memoize the computation so that it only recaluclates the points when the curve object changes
-        return curve.getPoints(LINE_NB_POINTS); //the getpoints method is used on the curve object to generate the specifed number of points(12000) along the curve. the points represent position along the curve
-    }, [curve]);
-
     const textSections = useTextRender(curvePoints);
 
 
