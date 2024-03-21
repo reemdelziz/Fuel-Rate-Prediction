@@ -7,7 +7,8 @@
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "test-windows": "set NODE_OPTIONS=--experimental-vm-modules&& jest"
   },
   "keywords": [],
   "author": "",
