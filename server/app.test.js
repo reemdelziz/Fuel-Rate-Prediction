@@ -24,7 +24,6 @@ describe("POST /register", () => {
         //testing register to make sure the password is valid
         test('should respond valid password', async () =>{
             const validPassword = "@testingCode9";
-            const regex = /\s/;
             const response = await request(app)
                 .post('/register')
                 .send({username: 'username', password: validPassword});
@@ -34,8 +33,9 @@ describe("POST /register", () => {
             expect(response.body.password).toMatch(/[a-z]/); //has a lowercase letter
             expect(response.body.password).toMatch(/[0-9]/); //has a number
             expect(response.body.password).toMatch(/[\W_]/); //has special char
-            expect(response.body.password).not.toMatch(regex); //has spaces
+            expect(response.body.password).not.toMatch(/\s/); //has spaces
         });
+        //testing if username doesn't exist in our db
     });
     describe("not given a username or password", () => {
         //should respond with a status code of 400
@@ -43,7 +43,19 @@ describe("POST /register", () => {
 });
 
 //testing login endpoint
+describe("POST /login", () => {
+    describe("given a username and password", () => {
+        //should respond status code of 200 
+        //should be valid username (testing if username exist in DB and the username input)
+        //should be valid password (testing if password matches username from DB and the password input)
+    });
+    
+    describe("not given a username or password", () => {
+        //should respond with status code of 400
+        
+    })
 
+})
 
 
 //testing profile endpoint
