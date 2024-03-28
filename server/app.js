@@ -12,13 +12,8 @@ app.post('/register', async (req, res) => {
     const password = req.body.password;
     res.json({username, password});
 });
-
 //login
-app.post('/login', async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    
-});
+
 
 //profile
 /*
@@ -26,6 +21,14 @@ app.post('/profile', async (req, res) => {
 
 });
 */
+//quote
+
+app.post('/quote', async (req, res) => {
+    const gallonsRequested = req.body.gallonsRequested;
+    const deliveryAddress = req.body.deliveryAddress;
+    const deliveryDate = req.body.deliveryDate;
+    res.json({gallonsRequested, deliveryAddress, deliveryDate});
+});
 
 
 export default app

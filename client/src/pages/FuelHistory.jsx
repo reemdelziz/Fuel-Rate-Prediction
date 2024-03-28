@@ -47,7 +47,7 @@ const FuelData = [
 ];
 
 export const FuelHistory = () => {
-    const [tabIndex, setTabIndex] = useState(1);
+    const [tabIndex, setTabIndex] = useState(1); 
 
     return (
         <div className="fuelHistory-wrapper">

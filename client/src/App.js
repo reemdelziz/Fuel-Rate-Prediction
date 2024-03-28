@@ -43,8 +43,22 @@ function App() {
               </Transition>
             } 
           />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/fuelquote" element={<FuelQuote />} />
+          <Route 
+            path="/profile" 
+            element={
+              <Transition>
+                <Profile />
+              </Transition>
+            }
+          />
+          <Route 
+            path="/fuelquote" 
+            element={
+              <Transition>
+                <FuelQuote />
+              </Transition>
+            } 
+            />
         </Route>
       </Routes>
     </AnimatePresence>
