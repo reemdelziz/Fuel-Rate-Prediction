@@ -5,11 +5,11 @@ export const Profile = () => {
     //return Nav
     return (
         <div>
-            <div className = "PageTitle" >Client Profile Management</div>
+            <div className = "PageTitle" ></div>
             
 
 
-            <div class="container">
+            <div class="profile-container">
                 <form className="form-group">
                     <div className="form-row">
                         <div className="form-field">
@@ -100,17 +100,15 @@ export const Profile = () => {
 
                     <div className="form-row">
                         <div className="form-field">
-                        <label htmlFor="zipCode">Zip Code*</label>
-                        <input type="text" id="zipCode" className="input-field" required maxLength="9" minLength="5" pattern="\d*"/>
+                            <label htmlFor="zipCode">Zip Code*</label>
+                            <input type="text" id="zipCode" className="input-field" required maxLength="9" minLength="5" pattern="\d*"/>
                         </div>
                         <div className="form-field">
-                        <input type="submit" value="Submit" className="submit-button" />
+                            <input type="submit" value="Submit" className="submit-button" />
                         </div>
                     </div>
                 </form>
-                <div className='profileMessage'>
-                    Please note that completing or updating your profile information may impact the accuracy of your personalized fuel rate predictions. Ensuring your details are current helps us tailor our services to your needs effectively.
-                </div>
+               
             </div>
 
 
