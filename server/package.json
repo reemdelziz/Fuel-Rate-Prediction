@@ -8,7 +8,8 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "start": "node server",
     "dev": "nodemon server",
-    "test-windows": "set NODE_OPTIONS=--experimental-vm-modules&& jest"
+    "test-windows": "set NODE_OPTIONS=--experimental-vm-modules&& jest",
+    "test-windows-coverage": "set NODE_OPTIONS=--experimental-vm-modules&& jest --coverage"
   },
   "keywords": [],
   "author": "",

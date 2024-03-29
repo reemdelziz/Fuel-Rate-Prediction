@@ -14,14 +14,15 @@ app.post('/register', async (req, res) => {
 });
 
 //login
-
-
-//profile
-/*
-app.post('/profile', async (req, res) => {
-
+app.post('/login', async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    if(!username || !password){
+        res.status(400).json({message: "invalid login"});
+        return;
+    }
+    res.json({username, password});
 });
-*/
 
 
 export default app
