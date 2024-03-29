@@ -3,7 +3,7 @@ import blindeye  from '../../assets/images/eye-crossed.png';
 import eye  from '../../assets/images/eye.png';
 import '../../style.css';
 
-//need to valdite these based on if it matches in or DB
+//need to validate these based on if it matches in our DB
 function validateUserName(userName) {
     if (userName.length === 0 || userName.length > 30) {
         return false;

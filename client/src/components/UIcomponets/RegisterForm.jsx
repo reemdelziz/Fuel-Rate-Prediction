@@ -4,28 +4,36 @@ import blindeye  from '../../assets/images/eye-crossed.png';
 import eye  from '../../assets/images/eye.png';
 import '../../style.css';
 
-function validateUserName(userName) {
-    if (userName.length === 0 || userName.length > 30) {
-        return false;
-    }
-    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    if (!regex.test(userName)) {
-        return false;
-    }
-    return true;
-}
+function validateUserName (userName){
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    const uppCaseRegex = /[A-Z]/;
+    const lowerCaseRegex = /[a-z]/;
+    const digitRegex = /[0-9]/;
+    const specialCharRegex = /[\W_]/;
+    const spaceRegex = /\s/;
 
-function validatePassword(password) {
-    if (password.length === 0 || password.length > 30) {
-        return false;
+    if(userName.length < 8){
+        
     }
+    
+    return true;
+};
+function validatePassword(password){
     return true;
 }
 export const RegisterForm = () => {
     const [username, setusername] = useState("");
     const [password, setuserpassword] = useState("");
+    const [errorUsername, seterrorUsername] = useState("");
+    const [errorPassword, seterrorPassword] = useState ("");
     const [visable, setvisable] = useState(false);
 
+    const [usernameMessage, setusernameMessage] = useState("");
+
+    const handleUsernameMessage = () =>{
+        
+    }
+    
     const register = (event) => {
         event.preventDefault();
         Axios.post('http://localhost:8080/register', {
@@ -33,6 +41,7 @@ export const RegisterForm = () => {
             password: password,
         }).then((response)=>{
             console.log(response);
+            window.location.href = '/login';
         }).catch((error) => {
             console.error(error);
         });
@@ -54,6 +63,7 @@ export const RegisterForm = () => {
                                     <div className="inputLabels">Username*</div>
                                 )}
                                 <input
+                                    placeholder="email"
                                     type="text"
                                     value={username}
                                     onChange={(e) => setusername(e.target.value)}
@@ -69,6 +79,7 @@ export const RegisterForm = () => {
                                 )}
                                 <div className='flex flex-row'>
                                     <input
+                                        placeholder="password"
                                         type={visable ? "text" : "password"}
                                         value={password}
                                         onChange={(e) => setuserpassword(e.target.value)}
@@ -84,6 +95,7 @@ export const RegisterForm = () => {
 
 
                         <button className={`${validateUserName(username) && validatePassword(password) ? "navbar-button" : "hide-button"}`} >Submit</button>
+                        <p></p>
                     </form>
                 </div>
             </div>
