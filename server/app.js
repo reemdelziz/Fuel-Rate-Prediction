@@ -7,11 +7,11 @@ app.use(cors());
 
 
 //REGISTER
-// app.post('/register', async (req, res) => {
-//     const username = req.body.username;
-//     const password = req.body.password;
-//     res.json({username, password});
-// });
+app.post('/register', async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    res.json({username, password});
+});
 
 //login
 
