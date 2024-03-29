@@ -24,5 +24,14 @@ app.post('/login', async (req, res) => {
     res.json({username, password});
 });
 
+//quote
+app.post('/quote', async (req, res) => {
+    const gallonsRequested = req.body.gallonsRequested;
+    const deliveryAddress = req.body.deliveryAddress;
+    const deliveryDate = req.body.deliveryDate;
+    res.json({gallonsRequested, deliveryAddress, deliveryDate});
+});
+
+
 
 export default app
