@@ -9,7 +9,7 @@ export const Profile = () => {
             
 
 
-            <div class="container">
+            <div class="profile-container">
                 <form className="form-group">
                     <div className="form-row">
                         <div className="form-field">
@@ -29,7 +29,7 @@ export const Profile = () => {
                         </div>
                         <div className="form-field">
                         <label htmlFor="address2">Address 2 (optional)</label>
-                        <input type="text" id="address2" className="input-field" required maxLength="100"/>
+                        <input type="text" id="address2" className="input-field" maxLength="100"/>
                         </div>
                     </div>
 
@@ -101,7 +101,7 @@ export const Profile = () => {
                     <div className="form-row">
                         <div className="form-field">
                         <label htmlFor="zipCode">Zip Code*</label>
-                        <input type="text" id="zipCode" className="input-field" required maxLength="9" minLength="5" pattern="\d*"/>
+                        <input type="text" id="zipCode" className="input-field" required maxLength="9" minLength="5" pattern="\^\d{5}(?:[-\s]\d{4})?$"/>
                         </div>
                         <div className="form-field">
                         <input type="submit" value="Submit" className="submit-button" />

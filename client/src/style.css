@@ -254,7 +254,7 @@ input {
   font-style: normal;
   font-weight: 300;
   line-height: normal;
-  margin-top: 105px;
+  margin-top: 30px;
   margin-left: 140px;
 }
 
@@ -287,7 +287,7 @@ input {
 
 }
 
-.container {
+.profile-container {
   display: flex;
   justify-content: space-between;
 }
@@ -302,7 +302,7 @@ input {
 .form-row {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .input-field {
@@ -314,8 +314,7 @@ input {
   background-color: transparent;
   outline: none;
   font-size: 30px;
-  margin-top: 30px;
-  width: 600px;
+  margin-top: 10
 }
 
 .form-field {
@@ -333,21 +332,14 @@ input {
   cursor: pointer;
   font-size: 30px;
   font-family: Inter;
-  ;
+
+  
+  display: flex;          /* Add this line */
+  justify-content: center;/* Add this line */
+  align-items: center;   
 }
 
-.profileMessage {
-  position: absolute;
-  right: 0;
-  width: 700px;
-  height: 229px;
-  color: #000;
-  font-family: Inter;
-  font-size: 35px;
-  font-weight: 200;
-  margin-top: 100px;
-  margin-right: 200px;
-}
+
 
 
 
@@ -376,15 +368,23 @@ input {
 }
 
 .SuggestedPrice-label,
-.TotalAmount-label,
-.SuggestedPrice-value,
-.TotalAmount-value {
+
+.SuggestedPrice-value{
   flex: 1;
   /* This makes each element take up equal space */
   display: flex;
   margin-right: 140px;
 
 
+}
+.TotalAmount-label{
+  margin-left: 8em;
+
+}
+.TotalAmount-value {
+  
+  margin-left: 0em;
+  
 }
 
 
