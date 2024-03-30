@@ -1,0 +1,207 @@
+.loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: white;
+  transition: opacity .1s ease-in-out;
+}
+.loader-overlay-disappear {
+  opacity: 0;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.loading-overlay-disable{
+  pointer-events: none;
+}
+
+/*SCROLL MESSAGE */
+.hide-scroll-message{
+  opacity: 0;
+}
+.loding-overlay-notScrolled {
+  top: 45vh;
+  opacity: 1;
+  color: rgba(255, 255, 255, 0.91);
+  animation: fadeUp 2s ease-in-out;
+}
+.loading-overlay-scrolled {
+  top:45vh;
+  color: white;
+  animation: fadeOut 1s ease-in-out forwards;
+}
+
+.loading-intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.loading-logo {
+  font-family: "PowerGrotesk", sans-serif;
+  color: white;
+  font-size: 10rem;
+  font-weight: bolder;
+  letter-spacing: 0.5rem;
+  padding: 0;
+  margin: 0;
+  transform: translateY(-50%);
+  position: absolute;
+  top: 40vh;
+  animation: fadeUp 2.4s ease-in-out;
+  transition: all 2s ease-in-out;
+}
+
+.loading-intro-disappear .loading-logo {
+  top: 42px;
+  transform: scale(0.25);
+  transform-origin: center top;
+}
+
+.loading-explore {
+  font-family: 'PowerGrotesk';
+  padding: 1rem 2rem;
+  border: none;
+  color: rgb(14, 10, 45);
+  font-size: 1.25rem;
+  letter-spacing: 0.25rem;
+  background-color: #ffffff;
+  border-radius: 32px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 320px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  transition: 0.42s ease-in-out;
+  animation: fadeIn 2s ease-in-out 2s forwards;
+  opacity: 0;
+}
+
+.loading-explore:hover {
+  color: rgb(255, 255, 255);
+}
+
+.loading-explore:hover:before {
+  width: 200%;
+  height: 300%;
+  border-radius: 100%;
+}
+
+.loading-explore:before {
+  content: "";
+  background: #412fe6;
+  position: absolute;
+  width: 0%;
+  bottom: 0;
+  left: 50%;
+  height: 0%;
+  transition: 0.42s ease-in-out;
+  z-index: -1;
+  transform: translateX(-50%) translateY(50%);
+}
+.loading-intro-disappear .loading-explore {
+  animation: fadeOut 1s ease-in-out forwards;
+}
+
+.loader-outro {
+  font-family: "PowerGrotesk", sans-serif;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 4s ease-in-out;
+  color: white;
+  flex-direction: column;
+}
+.loader-outro-appear{
+  font-family: "PowerGrotesk", sans-serif;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* nav-bar */
+.nav-component{
+  position: absolute;
+  top:0;
+  right:0;
+  opacity: 0;
+}
+.navbar-disabled {
+  position: absolute;
+  top:0;
+  right:0;
+  margin-top: 2.9em;
+  margin-right: 2em;
+  opacity: 1;
+  animation: fadeUp 2.4s ease-in-out;
+  pointer-events: auto;
+}
+.menu-outro{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin: 1em;
+}
+.menu-outro-item {
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-family: "PowerGrotesk", sans-serif;
+  font-size: 50px;
+  padding: 20px;
+  transition: 0.42s ease-in-out;
+}
+.menu-outro-item:hover{
+  color: rgb(81, 47, 3);
+  transition: 0.42s ease-in-out;
+}
+
+
+/* ANIMATIONS  */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+    filter: blur(9px);
+  }
+
+  100% {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,19 +1,14 @@
-import React  from 'react';
-import Nav from '../components/Nav';
+import { React } from 'react';
 
 
 //create funtion print
-function FuelQuote() {
+export const FuelQuote = () => {
     return (
         <div>
-            {/*include nav bar*/}
+            <div className = "PageTitle" ></div>
             
 
-
-            <div className = "PageTitle" >Fuel Quote.</div>
-            
-
-            <div class="container">
+            <div class="fuel-container">
                 <form className="form-group">
                     <div className="form-row">
                     <div className="form-field">
@@ -32,13 +27,13 @@ function FuelQuote() {
                         <input type="date" id="DeliveryDate" className="input-field" required/>
                     </div>
                     <div className="form-field">
-                        <input type="submit" value="Submit" className="submit-button" />
+                        <input type="submit" value="Save Quote" className="submit-button" />
                     </div>
                     </div>
                 </form>
 
                 <div className='profileMessage'>
-                    When requesting a fuel quote, each estimate is carefully calculated to offer you the best possible price based on current market conditions and your specific requirements. Our aim is to ensure that you receive a competitive and fair quote, helping you manage your fuel expenses efficiently and effectively.
+                    {/*When requesting a fuel quote, each estimate is carefully calculated to offer you the best possible price based on current market conditions and your specific requirements. Our aim is to ensure that you receive a competitive and fair quote, helping you manage your fuel expenses efficiently and effectively. */}
                 </div>
                 </div>
 
@@ -65,7 +60,4 @@ function FuelQuote() {
   
        
     );
-
-
-}
-export default FuelQuote;
+};

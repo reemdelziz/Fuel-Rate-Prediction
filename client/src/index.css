@@ -9,14 +9,16 @@
 
 body {
   margin: 0;
-  background: url(./assets/background-image.png);
-  color: black;
+  background: rgb(145,149,246);
+  background: linear-gradient(0deg, rgba(145,149,246,1) 0%, rgba(29,36,202,1) 100%);
+  color: white;
+  font-family: "Manrope-light";
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {
-  width: 0px; 
+  width: 2px; 
 }
-
 
 /* TRACK */
 ::-webkit-scrollbar-track{
@@ -27,4 +29,28 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: white;
   height: 10%;
+}
+
+/* FONTS */
+@font-face {
+  font-family: 'Pally-Medium';
+  src: url('./assets/fonts/Pally-Medium.woff2') format('woff2'),
+       url('./assets/fonts/Pally-Medium.woff') format('woff'),
+       url('./assets/fonts/Pally-Medium.ttf') format('truetype');
+       font-weight: 500;
+       font-display: swap;
+       font-style: normal;
+}
+@font-face {
+  font-family: 'Manrope-Light';
+  src: url('./assets/fonts/Manrope-Light.woff2') format('woff2'),
+       url('./assets/fonts/Manrope-Light.woff') format('woff'),
+       url('./assets/fonts/Manrope-Light.ttf') format('truetype');
+       font-weight: 300;
+       font-display: swap;
+       font-style: normal;
+}
+@font-face {
+  font-family: 'PowerGrotesk';
+  src: url('./assets/fonts/PowerGrotesk-Regular.ttf') format('truetype');
 }

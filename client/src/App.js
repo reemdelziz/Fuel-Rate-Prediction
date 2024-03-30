@@ -1,29 +1,70 @@
 import './App.css';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from "framer-motion";
+
+import { Layout } from "./components/UIcomponets/Layout";
+import { LandingPage } from "./pages/LandingPage";
+import { LoginForm } from "./components/UIcomponets/LoginForm";
+import { RegisterForm } from './components/UIcomponets/RegisterForm';
 import { FuelHistory } from './pages/FuelHistory';
-import  Nav  from './components/Nav';
-import  Profile  from './pages/Profile';
-import  FuelQuote  from './pages/FuelQuote';
-import Home from './pages/Home';
-import Register from './pages/Register';
-import Login from './pages/Login';
-
-
-
+import { Profile } from './pages/Profile';
+import { FuelQuote } from './pages/FuelQuote';
+import {Transition} from './utils/Transition';
 function App() {
-  return (
-    <>
-      <Nav />
-      {/*<Profile/>*/}
-      {/*<FuelQuote /> */}
-      <FuelHistory />
-      {/*<Home />*/}
-      {/*<Register /> */}
-      {/*<Login />*/}
+  const location = useLocation();
 
+  return (<>
+    <AnimatePresence mode='wait'>
+      <Routes location={location} key={location.pathname}>
+        <Route path='/' element={<LandingPage />} />
+        <Route element={<Layout />}>
+          
+          <Route 
+            path="/login" 
+            element={
+              <Transition>
+                <LoginForm />
+              </Transition>
+            } 
+          />
+          <Route 
+            path='/register' 
+            element={
+              <Transition>
+                <RegisterForm />
+              </Transition>
+            } 
+          />
+          <Route 
+            path="/history" 
+            element={
+              <Transition>
+                <FuelHistory />
+              </Transition>
+            } 
+          />
+          <Route 
+            path="/profile" 
+            element={
+              <Transition>
+                <Profile />
+              </Transition>
+            }
+          />
+          <Route 
+            path="/fuelquote" 
+            element={
+              <Transition>
+                <FuelQuote />
+              </Transition>
+            } 
+            />
+        </Route>
+      </Routes>
+    </AnimatePresence>
+  </>
 
-    </>
   );
 }
-
 
 export default App;

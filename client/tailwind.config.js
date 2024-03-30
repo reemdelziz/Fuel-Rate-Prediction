@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
+    "!./src/components/landingPage/UIexperience/Overlay.jsx",
   ],
   theme: {
     extend: {
