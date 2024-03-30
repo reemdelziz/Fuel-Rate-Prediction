@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1711729911137" clover="3.2.0">
-  <project timestamp="1711729911137" name="All files">
-    <metrics statements="14" coveredstatements="14" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2" elements="20" coveredelements="20" complexity="0" loc="14" ncloc="14" packages="1" files="1" classes="1"/>
-    <file name="app.js" path="C:\Users\marzi\Desktop\fuel\Fuel-Rate-Prediction\server\app.js">
-      <metrics statements="14" coveredstatements="14" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
-      <line num="3" count="1" type="stmt"/>
-      <line num="5" count="1" type="stmt"/>
-      <line num="6" count="1" type="stmt"/>
-      <line num="10" count="1" type="stmt"/>
+<coverage generated="1711761646187" clover="3.2.0">
+  <project timestamp="1711761646187" name="All files">
+    <metrics statements="27" coveredstatements="27" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4" elements="35" coveredelements="35" complexity="0" loc="27" ncloc="27" packages="1" files="1" classes="1"/>
+    <file name="app.js" path="/Users/devinstockton/Desktop/fuel-predictor-project/Fuel-Rate-Prediction/server/app.js">
+      <metrics statements="27" coveredstatements="27" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
+      <line num="3" count="4" type="stmt"/>
+      <line num="5" count="4" type="stmt"/>
+      <line num="6" count="4" type="stmt"/>
+      <line num="10" count="4" type="stmt"/>
       <line num="11" count="3" type="stmt"/>
       <line num="12" count="3" type="stmt"/>
       <line num="13" count="3" type="stmt"/>
-      <line num="17" count="1" type="stmt"/>
+      <line num="17" count="4" type="stmt"/>
       <line num="18" count="5" type="stmt"/>
       <line num="19" count="5" type="stmt"/>
       <line num="20" count="5" type="cond" truecount="4" falsecount="0"/>
       <line num="21" count="3" type="stmt"/>
       <line num="22" count="3" type="stmt"/>
       <line num="24" count="2" type="stmt"/>
+      <line num="28" count="4" type="stmt"/>
+      <line num="29" count="7" type="stmt"/>
+      <line num="30" count="7" type="stmt"/>
+      <line num="31" count="7" type="stmt"/>
+      <line num="32" count="7" type="stmt"/>
+      <line num="33" count="7" type="stmt"/>
+      <line num="34" count="7" type="stmt"/>
+      <line num="35" count="7" type="stmt"/>
+      <line num="39" count="4" type="stmt"/>
+      <line num="40" count="4" type="stmt"/>
+      <line num="41" count="4" type="stmt"/>
+      <line num="42" count="4" type="stmt"/>
+      <line num="43" count="4" type="stmt"/>
     </file>
   </project>
 </coverage>
