@@ -1,3 +1,4 @@
+/* LANDING OVERLAY */ 
 .loader-overlay {
   position: absolute;
   top: 0;
@@ -21,42 +22,117 @@
 .loading-overlay-disable{
   pointer-events: none;
 }
+.opening-text{
+  display: flex;
+  justify-content: space-around;
+  gap: 4em;
+  flex-direction: row;
+  margin-top: 20em;
+  margin-bottom: 5em;
+  animation: fadeUp 3s ease-in-out;
+  transition: all 2s ease-in-out;
+}
 
+.text-container{
+  display: flex;
+  flex-direction: column;
+}
+.text{
+  font-size: 2vw;
+  text-align: center;
+}
+.sub-text{
+  text-align: center;
+  font-size: .8vw;
+}
+.loading-text-message{
+  font-family: "PowerGrotesk", sans-serif;
+  width: 60vw;
+  height: 0vw;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  animation: fadeUp 2s ease-in-out;
+}
+.loading-text-message-disappear{
+  font-family: "PowerGrotesk", sans-serif;
+  width: 60vw;
+  height: 0vw;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  animation: fadeOut 1s ease-in-out forwards;
+}
 /*SCROLL MESSAGE */
 .hide-scroll-message{
   opacity: 0;
 }
-.loding-overlay-notScrolled {
-  top: 45vh;
+.loding-icon-notScrolled{
+  height: 5vw;
+  width: 5vw;
+  display: flex;
+  justify-content: center;
+  margin: auto;
   opacity: 1;
+  animation: fadeUp 2s ease-in-out;
+  transition: all 2s ease-in-out;
+}
+.loding-overlay-notScrolled{
+  opacity: 1;
+  margin-bottom: 3em;
   color: rgba(255, 255, 255, 0.91);
   animation: fadeUp 2s ease-in-out;
-}
-.loading-overlay-scrolled {
-  top:45vh;
-  color: white;
-  animation: fadeOut 1s ease-in-out forwards;
+  transition: all 2s ease-in-out;
 }
 
+.loading-overlay-scrolled{
+  color: white;
+  margin-bottom: 3em;
+  animation: fadeOut 1s ease-in-out forwards;
+}
+.scroll-icon{
+  display: flex;
+  width: 3vw;
+  height: 3vw;
+  animation: floating 3s ease-in-out infinite;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-bottom: 7em;
+}
+.remove-scroll-icon{
+  animation: fadeOut 1s ease-in-out forwards;
+}
 .loading-intro {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: 100%;
+  overflow-y: hidden;
 }
 
 .loading-logo {
   font-family: "PowerGrotesk", sans-serif;
   color: white;
-  font-size: 10rem;
+  font-size: 8vw;
   font-weight: bolder;
   letter-spacing: 0.5rem;
   padding: 0;
   margin: 0;
   transform: translateY(-50%);
   position: absolute;
-  top: 40vh;
+  top: 20vh;
+  animation: fadeUp 2.4s ease-in-out;
+  transition: all 2s ease-in-out;
+}
+.loading-message{
+  top:20vw;
+  position: absolute;
   animation: fadeUp 2.4s ease-in-out;
   transition: all 2s ease-in-out;
 }
@@ -72,13 +148,12 @@
   padding: 1rem 2rem;
   border: none;
   color: rgb(14, 10, 45);
-  font-size: 1.25rem;
+  font-size: 1.5vw;
   letter-spacing: 0.25rem;
   background-color: #ffffff;
   border-radius: 32px;
   cursor: pointer;
   display: inline-block;
-  margin-top: 320px;
   display: inline-block;
   position: relative;
   overflow: hidden;
@@ -109,7 +184,7 @@
   z-index: -1;
   transform: translateX(-50%) translateY(50%);
 }
-.loading-intro-disappear .loading-explore {
+.loading-intro-disappear .loading-explore{
   animation: fadeOut 1s ease-in-out forwards;
 }
 
@@ -125,7 +200,9 @@
   transition: opacity 4s ease-in-out;
   color: white;
   flex-direction: column;
+  pointer-events: none;
 }
+
 .loader-outro-appear{
   font-family: "PowerGrotesk", sans-serif;
   width: 100%;
@@ -133,24 +210,64 @@
   opacity: 1;
   pointer-events: auto;
 }
-
-/* nav-bar */
-.nav-component{
-  position: absolute;
-  top:0;
-  right:0;
+.loading-explore-disappear .opening-text-disappear{
   opacity: 0;
 }
-.navbar-disabled {
+/* nav-bar */
+.nav-component{
+  opacity: 0;
+}
+.other-componets{
   position: absolute;
   top:0;
   right:0;
-  margin-top: 2.9em;
-  margin-right: 2em;
-  opacity: 1;
+}
+.register-bttn{
+  font-family: "PowerGrotesk";
+  font-size: 1vw;
+  padding: 0.5vw 1vw;
+  height: 3rem;
+  width: 8vw;
+  border-radius: 32px;
+  transition: 0.42s ease-in-out;
   animation: fadeUp 2.4s ease-in-out;
+}
+.login-bttn{
+  font-family: "PowerGrotesk";
+  font-size: 1vw;
+  padding: 0.5vw 1vw;
+  height: 3rem;
+  width: 8vw;
+  border: none;
+  border-radius: 32px;
+  color: rgb(18, 8, 78);
+  background-color: rgba(255, 255, 255, 0.875);
+  transition: 0.42s ease-in-out;
+  animation: fadeUp 2.4s ease-in-out;
+
+}
+.register-bttn:hover{
+  background: white;
+  transition: 0.42s ease-in-out;
+  color: rgb(18, 8, 78);
+}
+.login-bttn:hover{
+  background: #412fe6;
+  transition: 0.42s ease-in-out;
+  color: white;
+}
+.hamburger-component{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin-top: 2.9em;
+  animation: fadeUp 2.4s ease-in-out;
+}
+.nav-componet{
+  opacity: 1;
   pointer-events: auto;
 }
+
 .menu-outro{
   display: flex;
   justify-content: space-between;
@@ -171,6 +288,32 @@
   transition: 0.42s ease-in-out;
 }
 
+.spinner {
+  position:fixed;
+  top: 2vw;
+  right: 10vw;
+  animation: fadeIn 2.4s ease-in-out 1.2s forwards;
+  opacity: 0;
+}
+.spinner_fadeout{
+  position:fixed;
+  top: 2vw;
+  right: 10vw;
+  opacity: 0;
+  animation: fadeOut 1s ease-in-out forwards;
+  width: 7.292vw;
+  height: 7.292vw;
+  background-size: contain;
+  background-image: url("../../assets/images/spinner.png");
+}
+
+.spinner__image {
+  width: 7.292vw;
+  height: 7.292vw;
+  background-size: contain;
+  background-image: url("../../assets/images/spinner.png");
+  animation: rotate 10s linear infinite;
+}
 
 /* ANIMATIONS  */
 @keyframes fadeUp {
@@ -204,4 +347,14 @@
   100% {
     opacity: 0;
   }
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes floating {
+  0% { transform: translate(0,  0px); }
+  50%  { transform: translate(0, 15px); }
+  100%   { transform: translate(0, -0px); }    
 }

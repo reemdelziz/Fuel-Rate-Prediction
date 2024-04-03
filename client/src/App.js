@@ -4,12 +4,13 @@ import { AnimatePresence } from "framer-motion";
 
 import { Layout } from "./components/UIcomponets/Layout";
 import { LandingPage } from "./pages/LandingPage";
-import { LoginForm } from "./components/UIcomponets/LoginForm";
-import { RegisterForm } from './components/UIcomponets/RegisterForm';
+import { LoginForm } from "./pages/LoginForm";
+import { RegisterForm } from './pages/RegisterForm';
 import { FuelHistory } from './pages/FuelHistory';
 import { Profile } from './pages/Profile';
 import { FuelQuote } from './pages/FuelQuote';
 import {Transition} from './utils/Transition';
+import {Testing} from './pages/Testing';
 function App() {
   const location = useLocation();
 
@@ -22,43 +23,49 @@ function App() {
           <Route 
             path="/login" 
             element={
-              <Transition>
+             
                 <LoginForm />
-              </Transition>
+              
             } 
           />
           <Route 
             path='/register' 
             element={
-              <Transition>
+            
                 <RegisterForm />
-              </Transition>
+           
             } 
           />
           <Route 
             path="/history" 
             element={
-              <Transition>
+     
                 <FuelHistory />
-              </Transition>
+             
             } 
           />
           <Route 
             path="/profile" 
             element={
-              <Transition>
+        
                 <Profile />
-              </Transition>
+            
             }
           />
           <Route 
             path="/fuelquote" 
             element={
-              <Transition>
+            
                 <FuelQuote />
-              </Transition>
+             
             } 
             />
+          <Route
+            path='/testing'
+            element={
+              <Testing />
+            }
+          />
         </Route>
       </Routes>
     </AnimatePresence>

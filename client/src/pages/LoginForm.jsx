@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import blindeye  from '../../assets/images/eye-crossed.png';
-import eye  from '../../assets/images/eye.png';
-import '../../style.css';
+import blindeye  from '../assets/images/eye-crossed.png';
+import eye  from '../assets/images/eye.png';
+import '../style.css';
 
 //need to valdite these based on if it matches in or DB
 function validateUserName(userName) {

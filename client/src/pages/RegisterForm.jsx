@@ -1,8 +1,8 @@
 import { React, useState } from "react";
 import Axios from "axios";
-import blindeye  from '../../assets/images/eye-crossed.png';
-import eye  from '../../assets/images/eye.png';
-import '../../style.css';
+import blindeye  from '../assets/images/eye-crossed.png';
+import eye  from '../assets/images/eye.png';
+import '../style.css';
 
 function validateUserName (userName){
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -77,19 +77,19 @@ export const RegisterForm = () => {
                                 ) : (
                                     <div className="inputLabels">Password*</div>
                                 )}
-                                <div className='flex flex-row'>
+                                <div className='flex flex-row' style={{ position: 'relative' }}>
                                     <input
                                         placeholder="password"
                                         type={visable ? "text" : "password"}
                                         value={password}
                                         onChange={(e) => setuserpassword(e.target.value)}
                                     />
-                                    <div style={{ marginLeft: ".2em" }} onClick={() => { setvisable(!visable) }}>
-                                        {visable ? <img className='h-6 w-6' src={eye} alt='view' /> : <img className='h-6 w-6' src={blindeye} alt="hidden" />}
+                                    <div style={{ position: 'absolute', right: '0', top: '50%', transform: 'translateY(-50%)' }} onClick={() => { setvisable(!visable) }}>
+                                        {visable ? <img className='h-5 w-5 mr-4' src={eye} alt='view' /> : <img className='h-5 w-5 mr-4' src={blindeye} alt="hidden" />}
                                     </div>
                                 </div>
 
-                                <div style={{ width: '22em', border: '1px white solid' }}></div>
+                                <div style={{ width: '20em', border: '1px white solid' }}></div>
                             </div>
                         </section>
 
