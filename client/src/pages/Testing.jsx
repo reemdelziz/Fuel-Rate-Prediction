@@ -1,11 +1,10 @@
 import React from 'react';
-import * as THREE from 'three';
-import { Canvas } from '@react-three/fiber';
+import '../style.css';
 
 export const Testing = () => {
     return (
-        <Canvas>
-           
-        </Canvas>
+        <div>
+                  
+        </div>
     );
 };

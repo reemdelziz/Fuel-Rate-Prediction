@@ -2,7 +2,6 @@ import { useProgress } from '@react-three/drei';
 import { usePlay } from "../../utils/Play";
 import { Navbar } from '../UIcomponets/Navbar';
 import { Link } from 'react-router-dom';
-import mousescroll from '../../assets/images/mouse-cursor.png';
 import './overlay.css';
 
 export const Overlay = () => {
@@ -24,9 +23,6 @@ export const Overlay = () => {
                     </div>
                     <div className={`${!hasScroll && !play ? "hide-scroll-message" : ""}`}>
                         <p className={`${!hasScroll && play ? "loding-overlay-notScrolled" : "loading-overlay-scrolled"}`}>Scroll to being your journey with Fuel Predictor</p>
-                        <div className={`${hasScroll && play ? "remove-scroll-icon" : ""}`}>
-                            <img className='scroll-icon' src={mousescroll}/>
-                        </div>
                     </div>
                     {!play && (<div className="opening-text">
                         <div className='text-container'> 

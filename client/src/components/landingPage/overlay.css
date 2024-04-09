@@ -46,7 +46,7 @@
   font-size: .8vw;
 }
 .loading-text-message{
-  font-family: "PowerGrotesk", sans-serif;
+  font-weight: lighter;
   width: 60vw;
   height: 0vw;
   position: absolute;
@@ -57,7 +57,6 @@
   animation: fadeUp 2s ease-in-out;
 }
 .loading-text-message-disappear{
-  font-family: "PowerGrotesk", sans-serif;
   width: 60vw;
   height: 0vw;
   position: absolute;
@@ -84,13 +83,13 @@
 .loding-overlay-notScrolled{
   opacity: 1;
   margin-bottom: 3em;
-  color: rgba(255, 255, 255, 0.91);
+  color: rgba(0, 0, 0, 0.91);
   animation: fadeUp 2s ease-in-out;
   transition: all 2s ease-in-out;
 }
 
 .loading-overlay-scrolled{
-  color: white;
+  color: rgb(0, 0, 0);
   margin-bottom: 3em;
   animation: fadeOut 1s ease-in-out forwards;
 }
@@ -118,7 +117,7 @@
 
 .loading-logo {
   font-family: "PowerGrotesk", sans-serif;
-  color: white;
+  color:  rgb(63, 67, 76);
   font-size: 8vw;
   font-weight: bolder;
   letter-spacing: 0.5rem;
@@ -147,10 +146,10 @@
   font-family: 'PowerGrotesk';
   padding: 1rem 2rem;
   border: none;
-  color: rgb(14, 10, 45);
+  color: rgb(255, 255, 255);
   font-size: 1.5vw;
   letter-spacing: 0.25rem;
-  background-color: #ffffff;
+  background-color: #949494;
   border-radius: 32px;
   cursor: pointer;
   display: inline-block;
@@ -163,7 +162,7 @@
 }
 
 .loading-explore:hover {
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .loading-explore:hover:before {
@@ -174,7 +173,7 @@
 
 .loading-explore:before {
   content: "";
-  background: #412fe6;
+  background: #ffffff;
   position: absolute;
   width: 0%;
   bottom: 0;
@@ -223,6 +222,8 @@
   right:0;
 }
 .register-bttn{
+  border-color: #000000;
+  color: #000000;
   font-family: "PowerGrotesk";
   font-size: 1vw;
   padding: 0.5vw 1vw;
@@ -240,21 +241,21 @@
   width: 8vw;
   border: none;
   border-radius: 32px;
-  color: rgb(18, 8, 78);
-  background-color: rgba(255, 255, 255, 0.875);
+  color: rgb(255, 255, 255);
+  background-color: #949494;
   transition: 0.42s ease-in-out;
   animation: fadeUp 2.4s ease-in-out;
 
 }
 .register-bttn:hover{
-  background: white;
+  background: #949494;
   transition: 0.42s ease-in-out;
-  color: rgb(18, 8, 78);
+  color: rgb(255, 255, 255);
 }
 .login-bttn:hover{
-  background: #412fe6;
+  background: #ffffff;
   transition: 0.42s ease-in-out;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 .hamburger-component{
   position: absolute;

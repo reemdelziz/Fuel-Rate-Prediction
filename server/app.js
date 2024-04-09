@@ -43,6 +43,109 @@ app.post('/quote', async (req, res) => {
     res.json({gallonsRequested, deliveryAddress, deliveryDate});
 });
 
+//quote history
+const FuelData = [
+    {
+        quoteId: "0001",
+        gallonsRequested: 500,
+        deliveryAddress: "123 Elm St, Springiedl",
+        deliveryDate: "03-15-2024",
+        suggestedPricePerGallon: 2.50,
+        totalDue: 1250.00
+    },
+    {
+        quoteId: "0002",
+        gallonsRequested: 300,
+        deliveryAddress: "456 Oak St, Maplewood",
+        deliveryDate: "03-16-2024",
+        suggestedPricePerGallon: 2.75,
+        totalDue: 825.00
+    },
+    {
+        quoteId: "0003",
+        gallonsRequested: 700,
+        deliveryAddress: "789 Pine St, Oakville",
+        deliveryDate: "03-17-2024",
+        suggestedPricePerGallon: 2.45,
+        totalDue: 1715.00
+    },
+    {
+        quoteId: "0004",
+        gallonsRequested: 400,
+        deliveryAddress: "321 Birch St, Riverdale",
+        deliveryDate: "03-18-2024",
+        suggestedPricePerGallon: 2.60,
+        totalDue: 1040.00
+    },
+
+    {
+        quoteId: "0005",
+        gallonsRequested: 600,
+        deliveryAddress: "987 Cedar St, Brookside",
+        deliveryDate: "03-19-2024",
+        suggestedPricePerGallon: 2.55,
+        totalDue: 1530.00
+    },
+    {
+        quoteId: "0006",
+        gallonsRequested: 400,
+        deliveryAddress: "321 Birch St, Riverdale",
+        deliveryDate: "03-18-2024",
+        suggestedPricePerGallon: 2.60,
+        totalDue: 1040.00
+    },
+    {
+        quoteId: "0007",
+        gallonsRequested: 400,
+        deliveryAddress: "321 Birch St, Riverdale",
+        deliveryDate: "03-18-2024",
+        suggestedPricePerGallon: 2.60,
+        totalDue: 1040.00
+    },
+    {
+        quoteId: "0008",
+        gallonsRequested: 400,
+        deliveryAddress: "321 Birch St, Riverdale",
+        deliveryDate: "03-18-2024",
+        suggestedPricePerGallon: 2.60,
+        totalDue: 1040.00
+    },
+    {
+        quoteId: "0009",
+        gallonsRequested: 400,
+        deliveryAddress: "321 Birch St, Riverdale",
+        deliveryDate: "03-18-2024",
+        suggestedPricePerGallon: 2.60,
+        totalDue: 1040.00
+    },
+    {
+        quoteId: "0010",
+        gallonsRequested: 400,
+        deliveryAddress: "321 Birch St, Riverdale",
+        deliveryDate: "03-18-2024",
+        suggestedPricePerGallon: 2.60,
+        totalDue: 1040.00
+    },
+    {
+        quoteId: "0011",
+        gallonsRequested: 400,
+        deliveryAddress: "321 Birch St, Riverdale",
+        deliveryDate: "03-18-2024",
+        suggestedPricePerGallon: 2.60,
+        totalDue: 1040.00
+    },
+    {
+        quoteId: "0012",
+        gallonsRequested: 400,
+        deliveryAddress: "321 Birch St, Riverdale",
+        deliveryDate: "03-18-2024",
+        suggestedPricePerGallon: 2.60,
+        totalDue: 1040.00
+    }
+];
+app.get('/history', async (req, res) => {
+    res.json(FuelData);
+})
 
 
 export default app

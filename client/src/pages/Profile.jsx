@@ -2,18 +2,16 @@ import { React } from 'react';
 
 //create funtion print
 export const Profile = () => {
-    //return Nav
     return (
         <div>
-            <div className = "PageTitle" ></div>
             
-
-
+            <div className = "fuel-history-title" >PROFILE</div>
+            
             <div class="profile-container">
                 <form className="form-group">
                     <div className="form-row">
                         <div className="form-field">
-                        <label htmlFor="firstName">First Name*</label>
+                        <h2 className="firstName">First Name*</h2>
                         <input type="text" id="firstName" className="input-field" required maxLength = "25"/>
                         </div>
                         <div className="form-field">
@@ -21,7 +19,6 @@ export const Profile = () => {
                         <input type="text" id="lastName" className="input-field" required maxLength="25"/>
                         </div>
                     </div>
-
                     <div className="form-row">
                         <div className="form-field">
                         <label htmlFor="address1">Address 1*</label>
@@ -32,7 +29,6 @@ export const Profile = () => {
                         <input type="text" id="address2" className="input-field" required maxLength="100"/>
                         </div>
                     </div>
-
                     <div className="form-row">
                         <div className="form-field">
                         <label htmlFor="city">City*</label>
@@ -94,7 +90,6 @@ export const Profile = () => {
                             <option value="WI">Wisconsin</option>
                             <option value="WY">Wyoming</option>
                         </select>
-
                         </div>
                     </div>
 
@@ -110,11 +105,6 @@ export const Profile = () => {
                 </form>
                
             </div>
-
-
-            
-            
-        
         </div>
     );
 };

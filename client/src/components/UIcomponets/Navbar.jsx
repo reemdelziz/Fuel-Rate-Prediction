@@ -40,7 +40,7 @@ export const Navbar = () => {
     return (
         <>
             {updateNav && (
-                <nav className="fixed z-10 flex justify-between w-full px-8 py-2 top-4">
+                <nav className=" z-10 flex justify-between w-full px-8 py-2 top-4">
                     <h1 className="navbar-title">FUEL<br></br>PREDICTOR.</h1>
                     <div className="navbar-list">
                         <Link to='/register' className="navbar-item">REGISTER</Link>
