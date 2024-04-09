@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 function validateFirstname(firstname) {
@@ -37,16 +38,36 @@ export const Profile = () => {
     const [firstname, setfirstname] = useState("");
     const [lastname, setlastname] = useState("");
     const [address1, setaddress1] = useState("");
+    const [address2, setaddress2] = useState("");
     const [city, setcity] = useState("");
     const [state, setstate] = useState("");
     const [zipcode, setzipcode] = useState("");
-
+    const fullname = firstname + " " + lastname;
+    const username = "devin@gmail.com";
+    const profile = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8080/profile', {
+                fullname: fullname,
+                address1: address1,
+                address2: address2,
+                city: city,
+                state: state,
+                zipcode: zipcode,
+                username: username
+            });
+            console.log(response);
+        } catch (error) {
+            console.error('Profile save error:', error.response || error);
+        }
+    }
+    
     return (
         <div>
             <h1 className="profile-title" >PROFILE</h1>
             <hr className="mt-5 border-black w-10/12 ml-24" />
             <div className='profile-container'>
-                <form className="form-group">
+                <form className="form-group" onSubmit={profile}>
                     <InputAttribute
                         title="First Name"
                         set={setfirstname}
@@ -70,7 +91,7 @@ export const Profile = () => {
                     />
                     <InputAttribute
                         title="Address 2 (optional)"
-                        set={setaddress1}
+                        set={setaddress2}
                         type="text"
                         placeholder="address 2"
                         max="100"
@@ -84,7 +105,7 @@ export const Profile = () => {
                     />
                     <div className="form-field">
                     <h2 className="input-title">State</h2>
-                        <select className="input-field-state" required>
+                        <select className="input-field-state" required onChange={(e) => setstate(e.target.value)}>
                             <option value="">Select a state</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
@@ -141,13 +162,14 @@ export const Profile = () => {
 
                     <InputAttribute
                         title="Zip Code"
-                        set={setaddress1}
+                        set={setzipcode}
                         type="text"
                         placeholder="zip code"
                         max="9"
                         min="5"
                         pattern="\d*"
                     />
+                    <button className="submit-button">save</button>
                 </form>
                 <div className='discover-items'>
                     <h3 className='discover-text'>Discover more</h3>

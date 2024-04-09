@@ -1,16 +1,52 @@
 import express from 'express';
 import cors from 'cors';
+import mysql from 'mysql';
+import fs from 'node:fs';
+
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
+const dbconnection = mysql.createConnection({
+    host: 'fuelpredictor.mysql.database.azure.com',
+    user: 'fuelpredictor',
+    password: 'Ilovedevin!',
+    database: 'fuelpredictor',
+    ssl: {
+        ca: fs.readFileSync(
+            "./helpers/Certificate/DigiCertGlobalRootCA.crt_3.pem",
+        )
+    },
+    multipleStatements: true,
+});
+
+dbconnection.connect(err => {
+    if(err){
+        console.log("Connection error: " + err);
+        return
+    }
+    console.log("Connected to the MySQL server.");
+});
 
 //REGISTER
 app.post('/register', async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    res.json({username, password});
+    const { username, password } = req.body;
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Username and password are required' });
+    }
+
+    const query = 'INSERT INTO userAuth (username, password) VALUES (?, ?)';
+    
+    dbconnection.query(query, [username, password], (err, result) => {
+        if (err) {
+            console.error('Query error:', err);
+            return res.status(500).json({ error: 'Database insertion failed' });
+        }
+
+        console.log('Client inserted successfully:', result);
+        res.status(201).json({ message: 'User registered successfully', username });
+    });
 });
 
 //login
@@ -26,13 +62,16 @@ app.post('/login', async (req, res) => {
 
 //PROFILE
 app.post('/profile', async (req, res) => {
-    const fullname = req.body.fullname
-    const address1 = req.body.address1;
-    const address2 = req.body.address2;
-    const city = req.body.city;
-    const state = req.body.state;
-    const zip = req.body.zip;
-    res.json({fullname, address1, address2, city, state, zip})
+    const {fullname, address1, address2, city, state, zipcode, username} = req.body;
+    const query = 'INSERT INTO profile (fullname, address1, address2, city, state, zipcode, username) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    dbconnection.query(query, [fullname, address1, address2, city, state, zipcode, username], (err, result) => {
+        if(err){
+            console.error('Query error:', err);
+            return res.status(500).json({ error: 'Database insertion failed' });
+        }
+        console.log('Client profile inserted successfully', result);
+        res.status(201).json({ message: 'User profile inserted successfully', fullname });
+    });
 });
 
 //quote

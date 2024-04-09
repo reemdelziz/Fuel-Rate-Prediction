@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import blindeye from '../assets/images/eye-crossed.png';
 import eye from '../assets/images/eye.png';
 import user from '../assets/images/user.png';
@@ -34,9 +35,9 @@ function validatePassword(password) {
 }
 
 export const AuthoForm = ({title, text, onSubmit }) => {
-    const [username, setusername] = useState("");
-    const [password, setuserpassword] = useState("");
-    const [visable, setvisable] = useState(false);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [visible, setvisible] = useState(false);
     const [disableBttn, setDisableBttn] = useState(true);
 
     useEffect(() => {
@@ -47,14 +48,37 @@ export const AuthoForm = ({title, text, onSubmit }) => {
         }
     }, [username, password]);
 
-    
+    let register = async (event) => {
+        event.preventDefault();
+    };
+    let login = async (event) => {
+        event.preventDefault();
+    };
+
+    if(title === "Register"){
+        register = async (event) => {
+            console.log(username + " " + password);
+            event.preventDefault();
+            try {
+                const response = await axios.post('http://localhost:8080/register', {
+                    username: username,
+                    password: password,
+                });
+                console.log(response);
+                window.location.href = '/login';
+            } catch (error) {
+                console.error('Registration error:', error.response || error);
+            }
+        };
+    }
+
     return(
        <div className='userentry-container'>
             <div className='userentry-column'>
                 <div className="userentry">
                     <h1 className="text-6xl	my-6">{title}</h1>
                     <p className="w-1/2 text-base m-auto">{text}</p>
-                    <form>
+                    <form onSubmit={register}>
                         <section id="fields">
                             <div className="input-box">
                                 {validateUserName(username) ? (
@@ -68,7 +92,7 @@ export const AuthoForm = ({title, text, onSubmit }) => {
                                         placeholder="email"
                                         type='text'
                                         value={username}
-                                        onChange={(e) => setusername(e.target.value)}
+                                        onChange={(e) => setUsername(e.target.value)}
                                     />
                                     <div style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)' }}>
                                         <img className='h-5 w-5' src={user} alt="user"/>
@@ -87,22 +111,22 @@ export const AuthoForm = ({title, text, onSubmit }) => {
                                     <input
                                         className='userEntry-input'
                                         placeholder="password"
-                                        type={visable ? "text" : "password"}
+                                        type={visible ? "text" : "password"}
                                         value={password}
-                                        onChange={(e) => setuserpassword(e.target.value)}
+                                        onChange={(e) => setPassword(e.target.value)}
                                     />
                                     <div style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)' }}>
                                         <img className='h-5 w-5' src={lock} alt="lock"/>
                                     </div>
-                                    <div style={{ position: 'absolute', right: '0', top: '50%', transform: 'translateY(-50%)' }} onClick={() => { setvisable(!visable) }}>
-                                        {visable ? <img className='h-5 w-5 mr-4' src={eye} alt='view' /> : <img className='h-5 w-5 mr-4' src={blindeye} alt="hidden" />}
+                                    <div style={{ position: 'absolute', right: '0', top: '50%', transform: 'translateY(-50%)' }} onClick={() => { setvisible(!visible) }}>
+                                        {visible ? <img className='h-5 w-5 mr-4' src={eye} alt='view' /> : <img className='h-5 w-5 mr-4' src={blindeye} alt="hidden" />}
                                     </div>
                                 </div>
                                 <div style={{ width: '20em', border: '.5px black solid', borderRadius: '10px' }}></div>
                             </div>
                         </section>
 
-                        <button className="submit-button" disabled={disableBttn}>submit</button>
+                        <button className="submit-button" disabled={disableBttn} >submit</button>
                     </form>
                 </div>
             </div>
