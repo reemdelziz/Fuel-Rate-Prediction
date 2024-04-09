@@ -28,7 +28,7 @@
 }
 .navbar-item:hover{
   transition: 0.42s ease-in-out;
-  color: rgb(235, 238, 245);
+  color: rgb(187, 187, 187);
 }
 .navbar-button {
   font-family: "PowerGrotesk";
@@ -37,7 +37,7 @@
   height: 3.5em;
   border: none;
   color: rgb(255, 255, 255);
-  background-color: #949494;
+  background-color: #070707;
   border-radius: 32px;
   transition: 0.42s ease-in-out;
 }
@@ -203,7 +203,7 @@ button {
   justify-content: space-between;
   align-items: center;
   background-color: transparent;
-  border: none;
+  outline: none;
   padding-top: 1em;
   padding-bottom: 1em;
   padding-left: 2em;
@@ -236,7 +236,21 @@ button {
 
 
 /*---- PROFILE PAGE STYLE ----*/
-
+.profile-container{
+  display: flex;
+  flex-direction: row;
+}
+.profile-title{
+  width: 30vw;
+  margin-top: 1vw;
+  margin-left: 5vw;
+  font-family: "PowerGrotesk";
+  font-size: 4vw;
+}
+.input-title{
+  margin-bottom: 1em;
+  font-family: "PowerGrotesk";
+}
 .PageTitle {
   font-family: "PowerGrotesk";
   color: #000000;
@@ -245,70 +259,49 @@ button {
   margin-bottom: 1vw;
 }
 
-.firstName {
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 300;
-
-}
-
-.LastName {
-  width: 233.814px;
-  height: 37.956px;
-  transform: rotate(0.083deg);
-  flex-shrink: 0;
-
-  font-family: Inter;
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  margin-left: 140px;
-
-}
-
-.profile-container {
-  display: flex;
-  justify-content: space-between;
-}
-
 .form-group {
-  font-family: Inter;
-  font-size: 30px;
-  font-weight: 300;
-  margin-left: 140px;
-}
-
-.form-row {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 30px;
+  font-size: 1.3vw;
+  margin-top: 2vw;
+  margin-left: 5vw;
+  width: 45%;
 }
 
 .input-field {
   flex-grow: 1;
   border: 0;
   width: 24vw;
-  border-bottom: 1.5px solid #000000;
   padding: none;
-  margin-right: 100px;
+  margin-right: 4vw;
   background-color: transparent;
   outline: none;
-  font-size: 1.5vw;
+  font-size: 1vw;
   margin-top: 10
 }
-
+.input-field::placeholder{
+  color: #4b4b4b;
+  font-size: 1vw;
+}
+.input-field-state{
+  border: 0;
+  width: 17vw;
+  padding: none;
+  margin-right: 4vw;
+  background-color: transparent;
+  outline: none;
+  font-size: .8vw;
+}
 .form-field {
   width: 45%;
   display: flex;
   flex-direction: column;
 }
-
 .submit-button {
-  height: 4vw;
-  width: 12vw;
-  font-size: 1.4vw;
-  background-color: rgb(153, 153, 153);
+  height: 2vw;
+  width: 8vw;
+  font-size: 1vw;
+  background-color: rgb(8, 8, 8);
   border: none;
   color: rgb(255, 255, 255);
   border-radius: 3vw;
@@ -325,6 +318,32 @@ button {
   transition: 0.42s ease-in-out;
 }
 
+.discover-items{
+  margin-top: 1vw;
+  margin-left: 19vw;
+  padding: 1em;
+}
+.discover-item{
+  transition: 0.42s ease-in-out;
+  border-radius: .5em;
+}
+.discover-item:hover{
+  transition: 0.42s ease-in-out;
+  background: rgb(43, 40, 0);
+  color: #ffffff;
+  pointer-events:auto;
+  border-radius: .5em;
+}
+.discover-text{
+  font-weight:500;
+  text-align: end;
+  margin-bottom: 3em;
+}
+.discover-title{
+  text-align: end;
+  font-family: "PowerGrotesk";
+  font-weight: 100;
+}
 /*---- QUOTE PAGE STYLE ----*/
 .TotalAmount-label {
   margin-left: 140px;
@@ -427,10 +446,10 @@ button {
 
 .fuel-history-title{
   width: 30vw;
-  margin-top: 2vw;
+  margin-top: 3vw;
   margin-left: 5vw;
   font-family: "PowerGrotesk";
-  font-size: 5vw;
+  font-size: 4vw;
 }
 .display-items{
   display: flex;
@@ -440,8 +459,8 @@ button {
 }
 .display-items:hover{
   transition: 0.42s ease-in-out;
-  background: rgb(246, 238, 208);
-  color: #1c1c1c;
+  background: rgb(43, 40, 0);
+  color: #ffffff;
   pointer-events:auto;
   border-radius: .5em;
 }

@@ -102,7 +102,7 @@ export const AuthoForm = ({title, text, onSubmit }) => {
                             </div>
                         </section>
 
-                        <button className="submit-button" disabled={disableBttn}>Submit</button>
+                        <button className="submit-button" disabled={disableBttn}>submit</button>
                     </form>
                 </div>
             </div>

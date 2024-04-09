@@ -1,43 +1,90 @@
-import { React } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-//create funtion print
+function validateFirstname(firstname) {
+
+}
+function validateLastname(lastname) {
+
+}
+function validateLocation(address1) {
+    return (/^$/.test(address1) && address1.length() <= 100 && address1.length() !== 0) ? true : false;
+}
+function validateZipcode(zipcode) {
+
+}
+
+export const InputAttribute = ({ title, set, type, placeholder, max, min, pattern }) => {
+    return (
+        <div className='form-field'>
+            <h2 className="input-title">{title}</h2>
+            <input className='input-field' type={type} placeholder = {placeholder} maxLength={max} onChange={(e) => set(e.target.value)} />
+            <div style={{ width: "13em", border: '.5px black solid', borderRadius: '10px', marginBottom: '1em' }}></div>
+        </div>
+    );
+};
+export const DiscoverAttribute = ({title, link }) => {
+    return(
+        <div className='discover-item'>
+            <h1 className='discover-title'>{title}</h1>
+            <hr className="mt-5 mb-12 border-black" />
+        </div>
+        
+    );
+};
+
 export const Profile = () => {
+    const [firstname, setfirstname] = useState("");
+    const [lastname, setlastname] = useState("");
+    const [address1, setaddress1] = useState("");
+    const [city, setcity] = useState("");
+    const [state, setstate] = useState("");
+    const [zipcode, setzipcode] = useState("");
+
     return (
         <div>
-            
-            <div className = "fuel-history-title" >PROFILE</div>
-            
-            <div class="profile-container">
+            <h1 className="profile-title" >PROFILE</h1>
+            <hr className="mt-5 border-black w-10/12 ml-24" />
+            <div className='profile-container'>
                 <form className="form-group">
-                    <div className="form-row">
-                        <div className="form-field">
-                        <h2 className="firstName">First Name*</h2>
-                        <input type="text" id="firstName" className="input-field" required maxLength = "25"/>
-                        </div>
-                        <div className="form-field">
-                        <label htmlFor="lastName">Last Name*</label>
-                        <input type="text" id="lastName" className="input-field" required maxLength="25"/>
-                        </div>
-                    </div>
-                    <div className="form-row">
-                        <div className="form-field">
-                        <label htmlFor="address1">Address 1*</label>
-                        <input type="text" id="address1" className="input-field" required maxLength="100" />
-                        </div>
-                        <div className="form-field">
-                        <label htmlFor="address2">Address 2 (optional)</label>
-                        <input type="text" id="address2" className="input-field" required maxLength="100"/>
-                        </div>
-                    </div>
-                    <div className="form-row">
-                        <div className="form-field">
-                        <label htmlFor="city">City*</label>
-                        <input type="text" id="city" className="input-field" required maxLength="100"/>
-                        </div>
-                        <div className="form-field">
-                        <label htmlFor="state">State*</label>
-
-                        <select id="state" className="input-field" required>
+                    <InputAttribute
+                        title="First Name"
+                        set={setfirstname}
+                        type="text"
+                        placeholder="first name"
+                        max="25"
+                    />
+                    <InputAttribute
+                        title="Last Name"
+                        set={setlastname}
+                        type="text"
+                        placeholder="last name"
+                        max="25"
+                    />
+                    <InputAttribute
+                        title="Address 1"
+                        set={setaddress1}
+                        type="text"
+                        placeholder="address 1"
+                        max="100"
+                    />
+                    <InputAttribute
+                        title="Address 2 (optional)"
+                        set={setaddress1}
+                        type="text"
+                        placeholder="address 2"
+                        max="100"
+                    />
+                    <InputAttribute
+                        title="City"
+                        set={setcity}
+                        type="text"
+                        placeholder="city"
+                        max="100"
+                    />
+                    <div className="form-field">
+                    <h2 className="input-title">State</h2>
+                        <select className="input-field-state" required>
                             <option value="">Select a state</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
@@ -90,20 +137,24 @@ export const Profile = () => {
                             <option value="WI">Wisconsin</option>
                             <option value="WY">Wyoming</option>
                         </select>
-                        </div>
                     </div>
 
-                    <div className="form-row">
-                        <div className="form-field">
-                            <label htmlFor="zipCode">Zip Code*</label>
-                            <input type="text" id="zipCode" className="input-field" required maxLength="9" minLength="5" pattern="\d*"/>
-                        </div>
-                        <div className="form-field">
-                            <input type="submit" value="Submit" className="submit-button" />
-                        </div>
-                    </div>
+                    <InputAttribute
+                        title="Zip Code"
+                        set={setaddress1}
+                        type="text"
+                        placeholder="zip code"
+                        max="9"
+                        min="5"
+                        pattern="\d*"
+                    />
                 </form>
-               
+                <div className='discover-items'>
+                    <h3 className='discover-text'>Discover more</h3>
+                    <DiscoverAttribute title="Generate Quote" link="/quote" />
+                    <DiscoverAttribute title="View Quote History" link="/history"/>
+                    <DiscoverAttribute title="Logout"/>
+                </div>
             </div>
         </div>
     );

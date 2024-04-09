@@ -9,8 +9,8 @@ import { RegisterForm } from './pages/RegisterForm';
 import { FuelHistory } from './pages/FuelHistory';
 import { Profile } from './pages/Profile';
 import { FuelQuote } from './pages/FuelQuote';
-import {Transition} from './utils/Transition';
-import {Testing} from './pages/Testing';
+import { Transition } from './utils/Transition';
+import { Testing } from './pages/Testing';
 function App() {
   const location = useLocation();
 
@@ -19,47 +19,47 @@ function App() {
       <Routes location={location} key={location.pathname}>
         <Route path='/' element={<LandingPage />} />
         <Route element={<Layout />}>
-          
-          <Route 
-            path="/login" 
+
+          <Route
+            path="/login"
             element={
-             
-                <LoginForm />
-              
-            } 
-          />
-          <Route 
-            path='/register' 
-            element={
-            
-                <RegisterForm />
-           
-            } 
-          />
-          <Route 
-            path="/history" 
-            element={
-     
-                <FuelHistory />
-             
-            } 
-          />
-          <Route 
-            path="/profile" 
-            element={
-        
-                <Profile />
-            
+
+              <LoginForm />
+
             }
           />
-          <Route 
-            path="/fuelquote" 
+          <Route
+            path='/register'
             element={
-            
-                <FuelQuote />
-             
-            } 
-            />
+
+              <RegisterForm />
+
+            }
+          />
+          <Route
+            path="/history"
+            element={
+
+              <FuelHistory />
+
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+
+              <Profile />
+
+            }
+          />
+          <Route
+            path="/quote"
+            element={
+
+              <FuelQuote />
+
+            }
+          />
           <Route
             path='/testing'
             element={
