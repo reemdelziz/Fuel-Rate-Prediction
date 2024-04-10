@@ -1,12 +1,16 @@
-import express from 'express';
+import express, { response } from 'express';
 import cors from 'cors';
 import mysql from 'mysql';
 import fs from 'node:fs';
+import bcrypt from 'bcrypt';
+
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+const saltRounds = 10;
 
 const dbconnection = mysql.createConnection({
     host: 'fuelpredictor.mysql.database.azure.com',
@@ -37,27 +41,46 @@ app.post('/register', async (req, res) => {
     }
 
     const query = 'INSERT INTO userAuth (username, password) VALUES (?, ?)';
-    
-    dbconnection.query(query, [username, password], (err, result) => {
-        if (err) {
-            console.error('Query error:', err);
-            return res.status(500).json({ error: 'Database insertion failed' });
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+        if(err){
+            console.log(err)
         }
 
-        console.log('Client inserted successfully:', result);
-        res.status(201).json({ message: 'User registered successfully', username });
-    });
+        dbconnection.query(query, [username, hash], (err, result) => {
+            if (err) {
+                console.error('Query error:', err);
+                return res.status(500).json({ error: 'Database insertion failed' });
+            }
+            console.log('Client inserted successfully:', result);
+            res.status(201).json({ message: 'User registered successfully', username });
+        });
+    })
+    
 });
 
 //login
 app.post('/login', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    if(!username || !password){
-        res.status(400).json({message: "invalid login"});
-        return;
-    }
-    res.json({username, password});
+    dbconnection.query(
+        "SELECT * FROM userAuth WHERE username = ?;",
+        username,
+        (err, result) => {
+            if(err){
+                res.send({err: err});
+            } if(result.length > 0){
+                bcrypt.compare(password, result[0].password, (err, response) => {
+                    if(response){
+                        res.send(result);
+                    } else {
+                        res.send({message: "Wrong username/password combination"})
+                    }
+                })
+            } else {
+                res.send({message: "User doesn't exist"})
+            }
+        }
+    );
 });
 
 //PROFILE

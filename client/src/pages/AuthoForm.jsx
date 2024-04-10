@@ -11,7 +11,7 @@ function validateUserName(userName) {
     if (userName.length === 0) {//check length
         return false;
     }
-    if (!regex.test(userName)){ //check if email
+    if (!regex.test(userName)) { //check if email
         return false;
     }
     return true;
@@ -20,21 +20,21 @@ function validateUserName(userName) {
 function validatePassword(password) {
     if (password.length === 0 || password.length < 8) {//check length
         return false;
-    } else if(!/[A-Z]/.test(password)){ //check for uppercase letter
+    } else if (!/[A-Z]/.test(password)) { //check for uppercase letter
         return false;
-    } else if (!/[a-z]/.test(password)){ //check for lowercase letter
+    } else if (!/[a-z]/.test(password)) { //check for lowercase letter
         return false;
-    } else if(!/[0-9]/.test(password)){ //check for a num
+    } else if (!/[0-9]/.test(password)) { //check for a num
         return false;
-    } else if(!/[\W_]/.test(password)){ //check special characters
+    } else if (!/[\W_]/.test(password)) { //check special characters
         return false;
-    } else if(/\s/.test(password)){ //check spaces
+    } else if (/\s/.test(password)) { //check spaces
         return false;
     }
     return true;
 }
 
-export const AuthoForm = ({title, text, onSubmit }) => {
+export const AuthoForm = ({ title, text }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [visible, setvisible] = useState(false);
@@ -55,30 +55,34 @@ export const AuthoForm = ({title, text, onSubmit }) => {
         event.preventDefault();
     };
 
-    if(title === "Register"){
-        register = async (event) => {
-            console.log(username + " " + password);
-            event.preventDefault();
-            try {
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            if (title === 'Register') {
                 const response = await axios.post('http://localhost:8080/register', {
                     username: username,
                     password: password,
                 });
                 console.log(response);
                 window.location.href = '/login';
-            } catch (error) {
-                console.error('Registration error:', error.response || error);
+            } else if (title === 'Login') {
+                const response = await axios.post('http://localhost:8080/login', {
+                    username: username,
+                    password: password,
+                });
+                console.log(response);
             }
-        };
-    }
-
-    return(
-       <div className='userentry-container'>
+        } catch (error) {
+            console.error('Error:', error.response || error);
+        }
+    };
+    return (
+        <div className='userentry-container'>
             <div className='userentry-column'>
                 <div className="userentry">
                     <h1 className="text-6xl	my-6">{title}</h1>
                     <p className="w-1/2 text-base m-auto">{text}</p>
-                    <form onSubmit={register}>
+                    <form onSubmit={handleSubmit}>
                         <section id="fields">
                             <div className="input-box">
                                 {validateUserName(username) ? (
@@ -95,7 +99,7 @@ export const AuthoForm = ({title, text, onSubmit }) => {
                                         onChange={(e) => setUsername(e.target.value)}
                                     />
                                     <div style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)' }}>
-                                        <img className='h-5 w-5' src={user} alt="user"/>
+                                        <img className='h-5 w-5' src={user} alt="user" />
                                     </div>
                                 </div>
                                 <div style={{ width: "20em", border: '.5px black solid', borderRadius: '10px' }}></div>
@@ -116,7 +120,7 @@ export const AuthoForm = ({title, text, onSubmit }) => {
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                     <div style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)' }}>
-                                        <img className='h-5 w-5' src={lock} alt="lock"/>
+                                        <img className='h-5 w-5' src={lock} alt="lock" />
                                     </div>
                                     <div style={{ position: 'absolute', right: '0', top: '50%', transform: 'translateY(-50%)' }} onClick={() => { setvisible(!visible) }}>
                                         {visible ? <img className='h-5 w-5 mr-4' src={eye} alt='view' /> : <img className='h-5 w-5 mr-4' src={blindeye} alt="hidden" />}
