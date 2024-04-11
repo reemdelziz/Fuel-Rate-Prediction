@@ -4,6 +4,7 @@ import blindeye from '../assets/images/eye-crossed.png';
 import eye from '../assets/images/eye.png';
 import user from '../assets/images/user.png';
 import lock from '../assets/images/padlock.png';
+import { useAuth } from "../provider/AuthContext";
 import '../style.css';
 
 function validateUserName(userName) {
@@ -39,6 +40,7 @@ export const AuthoForm = ({ title, text }) => {
     const [password, setPassword] = useState("");
     const [visible, setvisible] = useState(false);
     const [disableBttn, setDisableBttn] = useState(true);
+    const { setToken, setUser } = useAuth();
 
     useEffect(() => {
         if (validateUserName(username) && validatePassword(password)) {
@@ -48,12 +50,6 @@ export const AuthoForm = ({ title, text }) => {
         }
     }, [username, password]);
 
-    let register = async (event) => {
-        event.preventDefault();
-    };
-    let login = async (event) => {
-        event.preventDefault();
-    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -70,12 +66,30 @@ export const AuthoForm = ({ title, text }) => {
                     username: username,
                     password: password,
                 });
-                console.log(response);
+                const token = response.data.token;
+                const userStat = response.data.result[2];
+                console.log(userStat);
+                setToken(token);
+                //setUser(userStat);
+                //console.log(response);
             }
         } catch (error) {
             console.error('Error:', error.response || error);
         }
     };
+    /*
+    async function getUserStatus(username){
+        try{
+            const userResponse = await axios.get('http://localhost:8080/isOldUser', {
+                username: username,
+            });
+            console.log(userResponse);
+            return userResponse;
+        } catch (error) {
+            console.error('Error:', error.response || error);
+        }
+    }
+    getUserStatus(username); */
     return (
         <div className='userentry-container'>
             <div className='userentry-column'>

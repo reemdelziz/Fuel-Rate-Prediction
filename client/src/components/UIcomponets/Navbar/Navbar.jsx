@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { usePlay } from "../../utils/Play";
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { usePlay } from "../../../provider/Play";
+import { Link, useLocation} from "react-router-dom";
+import { NavbarAuth } from "./NavbarAuth";
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [updateNav, setUpdatedNav] = useState(false);
-    const { play, end } = usePlay();
+    const { play } = usePlay();
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -14,11 +14,11 @@ export const Navbar = () => {
 
     const location = useLocation();
     useEffect(() => {
-        const updateNavbar = () => {
+        const update = () => {
             setUpdatedNav(location.pathname !== "/");
         };
-        updateNavbar();
-    }, [location.pathname]);
+        update();
+    }, [location]);
 
     const handleExperienceButtonClick = () => {
         window.location = "/";
@@ -42,10 +42,7 @@ export const Navbar = () => {
             {updateNav && (
                 <nav className=" z-10 flex justify-between w-full px-8 py-2 top-4">
                     <h1 className="navbar-title">FUEL<br></br>PREDICTOR.</h1>
-                    <div className="navbar-list">
-                        <Link to='/register' className="navbar-item">REGISTER</Link>
-                        <Link to='/login' className="navbar-item">LOGIN</Link>
-                    </div>
+                    <NavbarAuth />
                     <button className="navbar-button" onClick={handleExperienceButtonClick}>
                         Experience
                     </button>

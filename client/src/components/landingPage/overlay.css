@@ -149,7 +149,7 @@
   color: rgb(255, 255, 255);
   font-size: 1.5vw;
   letter-spacing: 0.25rem;
-  background-color: #949494;
+  background-color: #232323;
   border-radius: 32px;
   cursor: pointer;
   display: inline-block;
@@ -242,13 +242,13 @@
   border: none;
   border-radius: 32px;
   color: rgb(255, 255, 255);
-  background-color: #949494;
+  background-color: #232323;
   transition: 0.42s ease-in-out;
   animation: fadeUp 2.4s ease-in-out;
 
 }
 .register-bttn:hover{
-  background: #949494;
+  background: #232323;
   transition: 0.42s ease-in-out;
   color: rgb(255, 255, 255);
 }

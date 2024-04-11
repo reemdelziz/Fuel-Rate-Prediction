@@ -1,6 +1,6 @@
 import { useProgress } from '@react-three/drei';
-import { usePlay } from "../../utils/Play";
-import { Navbar } from '../UIcomponets/Navbar';
+import { usePlay } from "../../provider/Play";
+import { Navbar } from '../UIcomponets/Navbar/Navbar';
 import { Link } from 'react-router-dom';
 import './overlay.css';
 

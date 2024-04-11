@@ -2,7 +2,7 @@ import { Canvas } from '@react-three/fiber';
 import { Loader, ScrollControls } from '@react-three/drei';
 import { Experience } from '../components/landingPage/Experience';
 import { Overlay } from '../components/landingPage/Overlay';
-import { usePlay } from '../utils/Play';
+import { usePlay } from '../provider/Play';
 
 
 export const LandingPage = () => {

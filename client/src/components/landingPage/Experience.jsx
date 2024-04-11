@@ -11,7 +11,7 @@ import { Group } from "three";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import React, { useEffect, useLayoutEffect, useMemo, useRef } from "react";
-import { usePlay } from "../../utils/Play.jsx";
+import { usePlay } from "../../provider/Play.jsx";
 
 
 
