@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import blindeye from '../assets/images/eye-crossed.png';
 import eye from '../assets/images/eye.png';
-import user from '../assets/images/user.png';
+import userImg from '../assets/images/user.png';
 import lock from '../assets/images/padlock.png';
 import { useAuth } from "../provider/AuthContext";
+import { useNavigate } from "react-router-dom";
 import '../style.css';
 
 function validateUserName(userName) {
@@ -16,7 +17,7 @@ function validateUserName(userName) {
         return false;
     }
     return true;
-}
+};
 
 function validatePassword(password) {
     if (password.length === 0 || password.length < 8) {//check length
@@ -33,14 +34,15 @@ function validatePassword(password) {
         return false;
     }
     return true;
-}
+};
 
 export const AuthoForm = ({ title, text }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [visible, setvisible] = useState(false);
     const [disableBttn, setDisableBttn] = useState(true);
-    const { setToken, setUser } = useAuth();
+    const navigate = useNavigate();
+    const { setToken, setClient } = useAuth();
 
     useEffect(() => {
         if (validateUserName(username) && validatePassword(password)) {
@@ -49,7 +51,6 @@ export const AuthoForm = ({ title, text }) => {
             setDisableBttn(true);
         }
     }, [username, password]);
-
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -67,29 +68,15 @@ export const AuthoForm = ({ title, text }) => {
                     password: password,
                 });
                 const token = response.data.token;
-                const userStat = response.data.result[2];
-                console.log(userStat);
                 setToken(token);
-                //setUser(userStat);
-                //console.log(response);
+                setClient({username: username});
+                navigate('/profile');
             }
         } catch (error) {
             console.error('Error:', error.response || error);
         }
     };
-    /*
-    async function getUserStatus(username){
-        try{
-            const userResponse = await axios.get('http://localhost:8080/isOldUser', {
-                username: username,
-            });
-            console.log(userResponse);
-            return userResponse;
-        } catch (error) {
-            console.error('Error:', error.response || error);
-        }
-    }
-    getUserStatus(username); */
+
     return (
         <div className='userentry-container'>
             <div className='userentry-column'>
@@ -113,7 +100,7 @@ export const AuthoForm = ({ title, text }) => {
                                         onChange={(e) => setUsername(e.target.value)}
                                     />
                                     <div style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)' }}>
-                                        <img className='h-5 w-5' src={user} alt="user" />
+                                        <img className='h-5 w-5' src={userImg} alt="user" />
                                     </div>
                                 </div>
                                 <div style={{ width: "20em", border: '.5px black solid', borderRadius: '10px' }}></div>

@@ -5,14 +5,25 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [token, setToken_] = useState(localStorage.getItem("token"));
-    const [user, setUser_] = useState(true);
-    
+    const [clientInfo, setClientInfo_] = useState(() => {
+        const savedClientInfo = localStorage.getItem("clientInfo");
+        return savedClientInfo ? JSON.parse(savedClientInfo) : {
+            username: ''
+        };
+    });
+
     const setToken = (newToken) => {
         setToken_(newToken);
     };
 
-    const setUser = (newUser) => {
-        setUser_(newUser);
+    const setClient = (newClientInfo) => {
+        console.log('Updating client info with', newClientInfo);
+        const updatedClientInfo = {
+            ...clientInfo,
+            ...newClientInfo // Merge new client info with existing to update it
+        };
+        localStorage.setItem('clientInfo', JSON.stringify(updatedClientInfo)); // Save updated client info to local storage
+        setClientInfo_(updatedClientInfo);
     };
 
     useEffect(() => {
@@ -28,7 +39,9 @@ export const AuthProvider = ({ children }) => {
     const contextValue = useMemo(() => ({
         token,
         setToken,
-    }), [token]);
+        clientInfo,
+        setClient
+    }), [token, clientInfo]);
 
     return(
         <AuthContext.Provider value={contextValue}>
