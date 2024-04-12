@@ -429,7 +429,27 @@ button {
   font-weight: bold;
 }
 
-/*---- 404 PAGE STYLE ----*/
+/*---- 404 ----*/
+.error-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-template {
+  text-align: center;
+}
+
+.error-template h1 {
+  font-size: 25rem; /* Adjust size as needed */
+  font-family: "PowerGrotesk";
+
+}
+
+.error-actions {
+  margin-top: 20px;
+}
 
 
 /*---- Fuel History PAGE STYLE ----*/
@@ -495,16 +515,19 @@ button {
 }
 .history-titles-wrapper{
   margin-top: 1vw;
+  margin-left: 5vw;
 }
 input[type="search"]::-webkit-search-cancel-button {
   display: none;
 }
 
 .filter-titles {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  height: 5vw;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding: 1em;
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 .filter-button{
   border: none;
@@ -520,6 +543,25 @@ input[type="search"]::-webkit-search-cancel-button {
   font-size: 1.2vw;
   margin-top: .8vw;
   pointer-events: none;
+}
+
+
+.filter-titles, .display-items{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding: 1em;
+}
+
+.display-items:not(:last-child){
+  border-bottom: 1px solid #000;
+}
+.history-date{
+  font-size: 1.5vw;
+  
+}
+.history-gal{
+  font-size: 1.5vw;
 }
 
 

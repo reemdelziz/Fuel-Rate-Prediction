@@ -42,7 +42,7 @@ export const AuthoForm = ({ title, text }) => {
     const [visible, setvisible] = useState(false);
     const [disableBttn, setDisableBttn] = useState(true);
     const navigate = useNavigate();
-    const { setToken, setClient } = useAuth();
+    const { setToken, clientInfo, setClient} = useAuth();
 
     useEffect(() => {
         if (validateUserName(username) && validatePassword(password)) {
@@ -60,17 +60,21 @@ export const AuthoForm = ({ title, text }) => {
                     username: username,
                     password: password,
                 });
-                console.log(response);
                 window.location.href = '/login';
             } else if (title === 'Login') {
                 const response = await axios.post('http://localhost:8080/login', {
                     username: username,
                     password: password,
                 });
+                const beforefilp = response.data.result[0].oldUser === 1 ? true : false;
+                const isnewuser = response.data.result[0].oldUser === 1 ? false : true;
+            
                 const token = response.data.token;
                 setToken(token);
-                setClient({username: username});
-                navigate('/profile');
+                setClient({username: username, newUser: isnewuser});
+                if(clientInfo.newUser)
+                    console.log("is new user")
+                console.log("is not new user");
             }
         } catch (error) {
             console.error('Error:', error.response || error);

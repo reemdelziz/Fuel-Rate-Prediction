@@ -31,8 +31,11 @@ export const FuelHistory = () => {
         try{
             const resData = await axios.get(`http://localhost:8080/fuel/history/${username}`);
             const fueldataRes = resData.data.fuelHistory;
+            //console log the total_price
+            
             settestingfuel(fueldataRes);
-            console.log(typeof FuelData);
+            console.log(testingfuel);
+            
         } catch (error) {
             console.error('Error fetching fuel history:', error);
         }
@@ -44,7 +47,9 @@ export const FuelHistory = () => {
     
     const formatDate = (date) => {
         if (date === "") return ""; 
-        const [year, month, day] = date.split("-");
+        
+        const [year, month, day, ] = date.split("-");
+    
         return `${month}-${day}-${year}`;
     };
 
@@ -69,10 +74,24 @@ export const FuelHistory = () => {
                 <h3 className="filter-button">Quote ID</h3>
                 <h3 className="filter-button">Date</h3>
                 <h3 className="filter-button">Gallons Requested</h3>
-                <h3 className="filter-button-addy">Address</h3>
+                <h3 className="filter-button">Price Per Gallon</h3>
+                <h3 className="filter-button">Total Price</h3>
+                <h3 className="filter-button">Address</h3>
             </div>
             <div className="history-titles-wrapper">
                 {/* map all of data here */}
+                {testingfuel.map((dataItem, index) => (
+                    <div className="display-items" key={index}>
+                        <h2 className="fuel-histroy-titles"> {dataItem.quoteid}</h2>
+                        <p className="history-date">
+                         {new Date(dataItem.delivery_date).toLocaleDateString()}
+                        </p>
+                        <p className="history-gal"> {dataItem.gallons}</p>
+                        <p className="history-price-per-gallon">{dataItem.price_per_gallon} </p>
+                        <p className="history-total-price">{dataItem.total_price}</p>
+                        <p className="history-addy">{dataItem.location}</p>
+                    </div>
+                ))}
 
 
 

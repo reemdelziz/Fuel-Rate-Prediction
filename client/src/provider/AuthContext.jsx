@@ -5,19 +5,20 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [token, setToken_] = useState(localStorage.getItem("token"));
+   
     const [clientInfo, setClientInfo_] = useState(() => {
         const savedClientInfo = localStorage.getItem("clientInfo");
         return savedClientInfo ? JSON.parse(savedClientInfo) : {
-            username: ''
+            username: '',
+            newUser: true,
         };
     });
 
     const setToken = (newToken) => {
         setToken_(newToken);
     };
-
+  
     const setClient = (newClientInfo) => {
-        console.log('Updating client info with', newClientInfo);
         const updatedClientInfo = {
             ...clientInfo,
             ...newClientInfo // Merge new client info with existing to update it
@@ -41,7 +42,7 @@ export const AuthProvider = ({ children }) => {
         token,
         setToken,
         clientInfo,
-        setClient
+        setClient,
     }), [token, clientInfo]);
 
     return(

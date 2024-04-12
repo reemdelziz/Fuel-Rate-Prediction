@@ -23,6 +23,7 @@ export const FuelQuote = () => {
     const [pricePerGallon, setPricePerGallon] = useState(2); 
     const ADDITIONAL_FEE = 0.15; 
     const [profit_Margin, setpriceMargin] = useState(2);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     const address1 = address + ', ' + city + ', ' + state + ' ' + zipcode;
 
@@ -134,7 +135,14 @@ export const FuelQuote = () => {
                 username: username,
             });
             console.log(response);
+            setShowSuccessMessage(true);
+
+            // Optionally, set a timeout to hide the message after a few seconds
+            setTimeout(() => {
+                setShowSuccessMessage(false);
+            }, 3000);
         } catch (error) {
+            setShowSuccessMessage(false);
             console.error('Quote save error:', error.response || error);
         }
     }
@@ -175,11 +183,16 @@ export const FuelQuote = () => {
                         />
                         <input
                             type="submit"
-                            value= "Save Quote"
+                            value= "Submit Quote"
                             className="history-filter-bttn"
                         />
                     </div>
                 </form>
+                {showSuccessMessage && (
+                    <div className="success-message">
+                        Quote has been saved!
+                    </div>
+                )}
             </div>
             <hr className="mt-10 border-black" />
 

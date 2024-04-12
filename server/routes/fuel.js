@@ -54,7 +54,6 @@ router.post('/post/quote', async (req, res) => {
             console.error('Query error:', err);
             return res.status(500).json({ error: 'Database insertion failed' });
         }
-        console.log('Fuel quote inserted successfully:', result);
         res.status(201).json({ message: 'Fuel quote inserted successfully', insertId: result.insertId });
     });
 });
@@ -62,7 +61,7 @@ router.post('/post/quote', async (req, res) => {
 router.get('/history/:username', async (req, res) => {
     const username = req.params.username;
 
-    const query = 'SELECT quoteid, location, gallons, price_per_gallon, delivery_date, total_price FROM quotes WHERE username=?';
+    const query = 'SELECT  quoteid, location, gallons, price_per_gallon, delivery_date, total_price FROM quotes WHERE username=?';
     dbconnection.query(query, [username], (err, result) => {
         if (err) {
             console.log('Query error:', err);
@@ -71,7 +70,7 @@ router.get('/history/:username', async (req, res) => {
         if (result.length === 0) {
             return res.status(404).json({ error: 'User not fouond' });
         }
-        const fuelHistory = result[0];
+        const fuelHistory = result;
         res.status(200).json({ fuelHistory });
     });
 });

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
+import { useAuth } from '../provider/AuthContext';
 
 function validateFirstname(firstname) {
 
@@ -43,7 +44,12 @@ export const Profile = () => {
     const [state, setstate] = useState("");
     const [zipcode, setzipcode] = useState("");
     const fullname = firstname + " " + lastname;
-    const username = "devin@gmail.com";
+    const navigate = useNavigate();
+    
+    const { clientInfo } = useAuth();
+    const username = clientInfo.username;
+
+
     const profile = async (event) => {
         event.preventDefault();
         try {
@@ -56,6 +62,7 @@ export const Profile = () => {
                 zipcode: zipcode,
                 username: username
             });
+            navigate('/quote');
             console.log(response);
         } catch (error) {
             console.error('Profile save error:', error.response || error);
