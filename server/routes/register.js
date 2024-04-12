@@ -27,20 +27,5 @@ router.post('/', async (req, res) => {
     })
 });
 
-router.get('/:username', async (req, res) => {
-    const {username} = req.body.username;
-    if(!username){
-        return res.status(400).json({error: 'Username was not provided'});
-    }
-    const query = 'SELECT * FROM profile WHERE username = ?';
-    dbconnection.query(query, [username], (err, result) => {
-        if(err){
-            console.error('Query error:', err);
-            return res.status(500).json({ error: 'Database get failed' });
-        }
-        console.log('Received client profile info successfully', result);
-        res.status(201).json({ message: 'Client profile received successfully'});
-    });
-});
 
 export default router;

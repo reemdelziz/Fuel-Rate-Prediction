@@ -1,14 +1,14 @@
 /*---- NAVBAR STYLE ----*/
 .navbar-title {
   font-family: "PowerGrotesk";
-  font-size: 2em;
+  font-size: 2vw;
   padding: 0.5em;
 }
 
 .navbar-list {
   font-family: "PowerGrotesk";
   height: 3.5em;
-  margin-top: 2.5em;
+  margin-top: 3em;
   padding-left: 4em;
   padding-right: 4em;
   display: flex;
@@ -21,7 +21,7 @@
 }
 
 .navbar-item {
-  font-size: 1em;
+  font-size: .8vw;
   padding-left: 4em;
   padding-right: 4em;
   transition: 0.42s ease-in-out;
@@ -35,16 +35,59 @@
   font-size: 1rem;
   padding: 0.5em 1em;
   height: 3.5em;
+  margin-top: 3em;
   border: none;
   color: rgb(255, 255, 255);
   background-color: #070707;
   border-radius: 32px;
   transition: 0.42s ease-in-out;
 }
-.navbar-button:hover {
-  background: #ffffff;
-  transition: 0.42s ease-in-out;
-  color: rgb(0, 0, 0);
+
+.navbttn-auth {
+  font-family: "PowerGrotesk";
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  height: 3.5em;
+  margin-top: 3em;
+  border: none;
+  color: rgb(255, 255, 255);
+  background-color: #070707;
+  border-radius: 32px;
+  transition: background-color 0.42s ease-in-out; /* Smooth transition for background color */
+}
+.navbar-logout{
+  height: 1em;
+  margin-top: 0em;
+}
+.navbttn-content {
+  opacity: 0;
+  width: 10em;
+  position: absolute;
+  background-color: #eeeeee;
+  border-radius: 8px;
+  padding: 8px;
+  z-index: 1;
+  right: 4.5em;
+  top: 8em;
+  transition: opacity 0.42s ease-in-out;
+}
+
+.navbttn-dropdown:hover .navbttn-content {
+  opacity: 1;
+  transition: opacity 0.42s ease-in-out;
+  width: 10em;
+}
+
+.navbttn-content > * {
+  display: block;
+  padding: 8px 0;
+  color: #000;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbttn-content > *:hover {
+  color: #555;
 }
 
 .timeNDate {
@@ -345,65 +388,45 @@ button {
   font-weight: 100;
 }
 /*---- QUOTE PAGE STYLE ----*/
-.TotalAmount-label {
-  margin-left: 140px;
-
-}
-
-.price-amount-labels,
-.price-amount-values {
+.quote-form {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+}
+.quote-container {
+  display: flex;
+  justify-content: space-between; 
+  flex-wrap: wrap;
+}
+.history-filter-bttn {
+  max-width: calc(50% - 1em); 
+}
+.price-boxes {
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
-  margin-left: 140px;
-  margin-right: 1600px;
-  font-size: 25px;
-  font-family: inter;
-
 }
-
-.price-amount-values {
-  color: white;
+.price-box {
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  margin: 0 35px; 
 }
-
-.SuggestedPrice-label,
-
-.SuggestedPrice-value{
-  flex: 1;
-  /* This makes each element take up equal space */
-  display: flex;
-  margin-right: 140px;
-
-
+.price-title {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
-.TotalAmount-label{
-  margin-left: 8em;
-
+.price-value {
+  font-size: 1.2em;
+  color: #333;
 }
-.TotalAmount-value {
-  
-  margin-left: 0em;
-  
-}
-
-
-#suggestedPriceValue,
-#totalAmountDueValue {
-  font-size: 30px;
-  font-family: Inter;
-
-  background-color: gray;
-  /* Adjusted for clarity */
-  padding: 20px;
-  /* Increased padding */
-  min-width: 300px;
-  /* Set a minimum width */
-  display: inline-block;
-  /* Allows for background styling */
-  border: 1px solid #000;
-  background: rgba(0, 0, 0, 0.20);
-
+.delivery-fee-notice {
+  color: red;
+  text-align: center;
+  margin: 20px 0;
+  font-weight: bold;
 }
 
 /*---- 404 PAGE STYLE ----*/

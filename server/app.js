@@ -9,6 +9,7 @@ import jwt from "jsonwebtoken";
 import loginRouters from "./routes/login.js";
 import registerRouter from './routes/register.js';
 import profileRouter from './routes/profile.js';
+import fuelRouter from './routes/fuel.js';
 
 const app = express();
 
@@ -53,6 +54,7 @@ const verifyJWT = (req, res, next) => {
 app.use('/login', loginRouters);
 app.use('/register', registerRouter);
 app.use('/profile', profileRouter);
+app.use('/fuel', fuelRouter);
 
 //quote
 app.post('/quote', async (req, res) => {
