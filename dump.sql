@@ -130,11 +130,7 @@ CREATE TABLE `userauth` (
 -- Dumping data for table `userauth`
 --
 
-LOCK TABLES `userauth` WRITE;
-/*!40000 ALTER TABLE `userauth` DISABLE KEYS */;
-INSERT INTO `userauth` VALUES ('angie@gmail.com','$2b$10$cNCFz8i7NkVbca4iK7irAOeN4rup.WHq.oZn5M6H0LB6IEk724DNK',1),('devin@gmail.com','@Ilovedaddy99',0),('example@gmail.com','$2b$10$z3H/KVDPx13.oj1Odh6xrOBCS2wLGazJjR5Bnq/sg3rTJ8Hn57p9K',0),('example2@gmail.com','$2b$10$H4Jc24w5IK3KzoMQo13GVeLl9bh6EDadBp8Z5uJgZn3oB2xlYHYfq',1),('gum@gmail.com','$2b$10$aMaqKyYnxkGXMuGPNuCc8uM.ZJiwv2fIvGn8bDMZGySF4/p8Bdfdu',1),('jos@gmail.com','$2b$10$zW9naeCHoEgolU86LEKJr.woCmFH/tiDcRifir9j4liWXNfbA5Qk.',1),('miguel@gmail.com','$2b$10$tNGsdkQYsQKKIFNBu0ee..H5AiicVkrS6NIbN9dXdB01PjFS8Dx.W',0),('testing@gmail.com','$2b$10$1xb5iwzlf9M6LY.tAZuOWeP5xGRubEBqmEj8xS4SbLNaJuHLd/h.K',1),('working@gmail.com','$2b$10$/B.1BR0pFXl7ZLkXrBCE/uj4fGjxQO0FPEY3QoevHbLmx4/i1O4dm',0);
-/*!40000 ALTER TABLE `userauth` ENABLE KEYS */;
-UNLOCK TABLES;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
