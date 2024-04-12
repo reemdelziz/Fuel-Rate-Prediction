@@ -52,6 +52,7 @@ export const Routes = () => {
     const router = createBrowserRouter([
         ...(!token ? routesForNotAuth : []),
         ...routesForAuth,
+        
     ]);
 
     return <RouterProvider router={router} />;

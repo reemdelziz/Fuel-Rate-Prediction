@@ -62,22 +62,22 @@ export const AuthoForm = ({ title, text }) => {
                 });
                 window.location.href = '/login';
             } else if (title === 'Login') {
-                const response = await axios.post('http://localhost:8080/login', {
-                    username: username,
-                    password: password,
-                });
-                const token = response.data.token;
-                const isOldUser = response.data.result[0].oldUser === 1;
-                
-                setToken(token);
-                setClient({ username: username, newUser: !isOldUser });
-    
-                if (isOldUser) {
-                    navigate('/quote'); // User has filled out the profile
-                } else {
-                    navigate('/profile'); // User needs to fill out the profile
-                }
+            const response = await axios.post('http://localhost:8080/login', {
+                username: username,
+                password: password,
+            });
+            const token = response.data.token;
+            const isOldUser = response.data.result[0].oldUser === 1;
+            
+            setToken(token);
+            setClient({ username: username, newUser: !isOldUser });
+
+            if (isOldUser) {
+                navigate('/history'); // User has filled out the profile
+            } else {
+                navigate('/profile'); // User needs to fill out the profile
             }
+        }
         } catch (error) {
             console.error('Error:', error.response || error);
         }

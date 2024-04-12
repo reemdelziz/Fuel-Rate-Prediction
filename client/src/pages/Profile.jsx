@@ -46,12 +46,13 @@ export const Profile = () => {
     const fullname = firstname + " " + lastname;
     const navigate = useNavigate();
     
-    const { clientInfo } = useAuth();
+    const { clientInfo, setClient } = useAuth();
     const username = clientInfo.username;
+
 
     //
 
-    const profile = async (event) => {
+    const profileq = async (event) => {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/profile', {
@@ -64,8 +65,11 @@ export const Profile = () => {
                 username: username
             });
             //make sure it navigates to quote
-            navigate('/quote');
-            console.log(response);
+            setClient({ newUser: false }); // Set newUser to false since the profile is now filled
+            
+
+
+            navigate('/quote'); 
         } catch (error) {
             console.error('Profile save error:', error.response || error);
         }
@@ -76,7 +80,7 @@ export const Profile = () => {
             <h1 className="profile-title" >PROFILE</h1>
             <hr className="mt-5 border-black w-10/12 ml-24" />
             <div className='profile-container'>
-                <form className="form-group" onSubmit={profile}>
+                <form className="form-group" onSubmit={profileq}>
                     <InputAttribute
                         title="First Name"
                         set={setfirstname}
