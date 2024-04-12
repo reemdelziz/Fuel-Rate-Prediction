@@ -49,6 +49,7 @@ export const Profile = () => {
     const { clientInfo } = useAuth();
     const username = clientInfo.username;
 
+    //
 
     const profile = async (event) => {
         event.preventDefault();
@@ -62,6 +63,7 @@ export const Profile = () => {
                 zipcode: zipcode,
                 username: username
             });
+            //make sure it navigates to quote
             navigate('/quote');
             console.log(response);
         } catch (error) {
