@@ -2,16 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { PlayProvider } from './utils/Play';
-import { BrowserRouter } from 'react-router-dom';
+import { PlayProvider } from "./provider/Play";
+import { AuthProvider } from './provider/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <PlayProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+        <AuthProvider>
+           <App />
+        </AuthProvider>
     </PlayProvider>
   </React.StrictMode>
 );

@@ -1,39 +1,60 @@
 import express from 'express';
 import cors from 'cors';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+
+import jwt from "jsonwebtoken";
+
+import loginRouters from "./routes/login.js";
+import registerRouter from './routes/register.js';
+import profileRouter from './routes/profile.js';
+import fuelRouter from './routes/fuel.js';
+
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true
+}));
+
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(session({
+    key: "userId",
+    secret: "secret", //use .env
+    resave: false,
+    saveUninitialized: false,
+    cookie:{
+        expires: 60 * 60 * 1,
+    },
+}))
 
 
-//REGISTER
-app.post('/register', async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    res.json({username, password});
-});
-
-//login
-app.post('/login', async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    if(!username || !password){
-        res.status(400).json({message: "invalid login"});
-        return;
+const verifyJWT = (req, res, next) => {
+    const token = req.headers["Authorization"];
+    if(!token){
+        res.send("Token not received");
+    } else {
+        jwt.verify(token, "jwtSecert", (err, decoded) => { //use .env for secreet 
+            if(err){
+                res.json({auth: false, message: "Failed to authenticate"});
+            } else{
+                res.user = decoded.id;
+                next();
+            }
+        });
     }
-    res.json({username, password});
-});
+};
 
-//PROFILE
-app.post('/profile', async (req, res) => {
-    const fullname = req.body.fullname
-    const address1 = req.body.address1;
-    const address2 = req.body.address2;
-    const city = req.body.city;
-    const state = req.body.state;
-    const zip = req.body.zip;
-    res.json({fullname, address1, address2, city, state, zip})
-});
+
+app.use('/login', loginRouters);
+app.use('/register', registerRouter);
+app.use('/profile', profileRouter);
+app.use('/fuel', fuelRouter);
 
 //quote
 app.post('/quote', async (req, res) => {
@@ -43,6 +64,11 @@ app.post('/quote', async (req, res) => {
     res.json({gallonsRequested, deliveryAddress, deliveryDate});
 });
 
+//quote history
+
+app.get('/history', async (req, res) => {
+    
+})
 
 
 export default app

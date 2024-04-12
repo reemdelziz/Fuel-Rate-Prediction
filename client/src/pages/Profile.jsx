@@ -1,47 +1,124 @@
-import { React } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link, useNavigate} from 'react-router-dom';
+import { useAuth } from '../provider/AuthContext';
 
-//create funtion print
-export const Profile = () => {
-    //return Nav
+function validateFirstname(firstname) {
+
+}
+function validateLastname(lastname) {
+
+}
+function validateLocation(address1) {
+    return (/^$/.test(address1) && address1.length() <= 100 && address1.length() !== 0) ? true : false;
+}
+function validateZipcode(zipcode) {
+
+}
+
+export const InputAttribute = ({ title, set, type, placeholder, max, min, pattern }) => {
     return (
-        <div>
-            <div className = "PageTitle" ></div>
+        <div className='form-field'>
+            <h2 className="input-title">{title}</h2>
+            <input className='input-field' type={type} placeholder = {placeholder} maxLength={max} onChange={(e) => set(e.target.value)} />
+            <div style={{ width: "13em", border: '.5px black solid', borderRadius: '10px', marginBottom: '1em' }}></div>
+        </div>
+    );
+};
+export const DiscoverAttribute = ({title, link }) => {
+    return(
+        <div className='discover-item'>
+            <h1 className='discover-title'>{title}</h1>
+            <hr className="mt-5 mb-12 border-black" />
+        </div>
+        
+    );
+};
+
+export const Profile = () => {
+    const [firstname, setfirstname] = useState("");
+    const [lastname, setlastname] = useState("");
+    const [address1, setaddress1] = useState("");
+    const [address2, setaddress2] = useState("");
+    const [city, setcity] = useState("");
+    const [state, setstate] = useState("");
+    const [zipcode, setzipcode] = useState("");
+    const fullname = firstname + " " + lastname;
+    const navigate = useNavigate();
+    
+    const { clientInfo, setClient } = useAuth();
+    const username = clientInfo.username;
+
+
+    //
+
+    const profileq = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8080/profile', {
+                fullname: fullname,
+                address1: address1,
+                address2: address2,
+                city: city,
+                state: state,
+                zipcode: zipcode,
+                username: username
+            });
+            //make sure it navigates to quote
+            setClient({ newUser: false }); // Set newUser to false since the profile is now filled
             
 
 
-            <div class="profile-container">
-                <form className="form-group">
-                    <div className="form-row">
-                        <div className="form-field">
-                        <label htmlFor="firstName">First Name*</label>
-                        <input type="text" id="firstName" className="input-field" required maxLength = "25"/>
-                        </div>
-                        <div className="form-field">
-                        <label htmlFor="lastName">Last Name*</label>
-                        <input type="text" id="lastName" className="input-field" required maxLength="25"/>
-                        </div>
-                    </div>
-
-                    <div className="form-row">
-                        <div className="form-field">
-                        <label htmlFor="address1">Address 1*</label>
-                        <input type="text" id="address1" className="input-field" required maxLength="100" />
-                        </div>
-                        <div className="form-field">
-                        <label htmlFor="address2">Address 2 (optional)</label>
-                        <input type="text" id="address2" className="input-field" maxLength="100"/>
-                        </div>
-                    </div>
-
-                    <div className="form-row">
-                        <div className="form-field">
-                        <label htmlFor="city">City*</label>
-                        <input type="text" id="city" className="input-field" required maxLength="100"/>
-                        </div>
-                        <div className="form-field">
-                        <label htmlFor="state">State*</label>
-
-                        <select id="state" className="input-field" required>
+            navigate('/quote'); 
+        } catch (error) {
+            console.error('Profile save error:', error.response || error);
+        }
+    }
+    
+    return (
+        <div>
+            <h1 className="profile-title" >PROFILE</h1>
+            <hr className="mt-5 border-black w-10/12 ml-24" />
+            <div className='profile-container'>
+                <form className="form-group" onSubmit={profileq}>
+                    <InputAttribute
+                        title="First Name"
+                        set={setfirstname}
+                        type="text"
+                        placeholder="first name"
+                        max="25"
+                    />
+                    <InputAttribute
+                        title="Last Name"
+                        set={setlastname}
+                        type="text"
+                        placeholder="last name"
+                        max="25"
+                    />
+                    <InputAttribute
+                        title="Address 1"
+                        set={setaddress1}
+                        type="text"
+                        placeholder="address 1"
+                        max="100"
+                    />
+                    <InputAttribute
+                        title="Address 2 (optional)"
+                        set={setaddress2}
+                        type="text"
+                        placeholder="address 2"
+                        max="100"
+                    />
+                    <InputAttribute
+                        title="City"
+                        set={setcity}
+                        type="text"
+                        placeholder="city"
+                        max="100"
+                    />
+                    <div className="form-field">
+                    <h2 className="input-title">State</h2>
+                        <select className="input-field-state" required onChange={(e) => setstate(e.target.value)}>
                             <option value="">Select a state</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
@@ -94,27 +171,26 @@ export const Profile = () => {
                             <option value="WI">Wisconsin</option>
                             <option value="WY">Wyoming</option>
                         </select>
-
-                        </div>
                     </div>
 
-                    <div className="form-row">
-                        <div className="form-field">
-                        <label htmlFor="zipCode">Zip Code*</label>
-                        <input type="text" id="zipCode" className="input-field" required maxLength="9" minLength="5" pattern="\^\d{5}(?:[-\s]\d{4})?$"/>
-                        </div>
-                        <div className="form-field">
-                            <input type="submit" value="Submit" className="submit-button" />
-                        </div>
-                    </div>
+                    <InputAttribute
+                        title="Zip Code"
+                        set={setzipcode}
+                        type="text"
+                        placeholder="zip code"
+                        max="9"
+                        min="5"
+                        pattern="\d*"
+                    />
+                    <button className="submit-button">save</button>
                 </form>
-               
+                <div className='discover-items'>
+                    <h3 className='discover-text'>Discover more</h3>
+                    <DiscoverAttribute title="Generate Quote" link="/quote" />
+                    <DiscoverAttribute title="View Quote History" link="/history"/>
+                    <DiscoverAttribute title="Logout"/>
+                </div>
             </div>
-
-
-            
-            
-        
         </div>
     );
 };

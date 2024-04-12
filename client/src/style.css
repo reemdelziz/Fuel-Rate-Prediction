@@ -1,55 +1,98 @@
 /*---- NAVBAR STYLE ----*/
 .navbar-title {
   font-family: "PowerGrotesk";
-  font-size: 2em;
+  font-size: 2vw;
   padding: 0.5em;
 }
 
 .navbar-list {
   font-family: "PowerGrotesk";
   height: 3.5em;
-  margin-top: 2.5em;
+  margin-top: 3em;
   padding-left: 4em;
   padding-right: 4em;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 32px;
 }
 
 .navbar-item {
-  font-size: 1em;
+  font-size: .8vw;
   padding-left: 4em;
   padding-right: 4em;
   transition: 0.42s ease-in-out;
 }
 .navbar-item:hover{
   transition: 0.42s ease-in-out;
-  color: rgb(17, 1, 127);
+  color: rgb(187, 187, 187);
 }
 .navbar-button {
   font-family: "PowerGrotesk";
   font-size: 1rem;
   padding: 0.5em 1em;
   height: 3.5em;
+  margin-top: 3em;
   border: none;
-  color: rgb(18, 8, 78);
-  background-color: rgba(255, 255, 255, 0.875);
+  color: rgb(255, 255, 255);
+  background-color: #070707;
   border-radius: 32px;
   transition: 0.42s ease-in-out;
 }
-.navbar-button:hover {
-  background: #412fe6;
-  transition: 0.42s ease-in-out;
-  color: white;
+
+.navbttn-auth {
+  font-family: "PowerGrotesk";
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  height: 3.5em;
+  margin-top: 3em;
+  border: none;
+  color: rgb(255, 255, 255);
+  background-color: #070707;
+  border-radius: 32px;
+  transition: background-color 0.42s ease-in-out; /* Smooth transition for background color */
+}
+.navbar-logout{
+  height: 1em;
+  margin-top: 0em;
+}
+.navbttn-content {
+  opacity: 0;
+  width: 10em;
+  position: absolute;
+  background-color: #eeeeee;
+  border-radius: 8px;
+  padding: 8px;
+  z-index: 1;
+  right: 4.5em;
+  top: 8em;
+  transition: opacity 0.42s ease-in-out;
+}
+
+.navbttn-dropdown:hover .navbttn-content {
+  opacity: 1;
+  transition: opacity 0.42s ease-in-out;
+  width: 10em;
+}
+
+.navbttn-content > * {
+  display: block;
+  padding: 8px 0;
+  color: #000;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbttn-content > *:hover {
+  color: #555;
 }
 
 .timeNDate {
   font-family: Inter;
-  color: white;
+  color: rgb(255, 255, 255);
   position: absolute;
   font-size: 24px;
   right: 0;
@@ -58,7 +101,7 @@
 
 .BugertimeNDate {
   font-family: Inter;
-  color: white;
+  color: rgb(255, 255, 255);
   position: center;
   font-size: 24px;
   animation: fadeInUp 0.5s backwards;
@@ -72,18 +115,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  cursor: pointer;
   z-index: 30;
-  position: absolute;
-  right: 0;
-  margin-right: 50px;
+  position: fixed;
+  left: 4vw;
   cursor: pointer;
 }
 
 .burger {
   width: 32px;
   height: 3px;
-  background-color: white;
+  background-color: rgb(119, 108, 108);
   border-radius: 10px;
   transition: all 0.3s linear;
   transform-origin: 49% 60%;
@@ -98,10 +139,12 @@
 }
 
 .hamburger.open .burger.burger1 {
+  background-color: white;
   transform: rotate(45deg) translate(6px, 5px);
 }
 
 .hamburger.open .burger.burger2 {
+  background-color: white;
   transform: rotate(-45deg) translate(6px, -5px);
 }
 
@@ -137,17 +180,25 @@
 }
 
 .burger-menu-item {
+  font-family: "PowerGrotesk", sans-serif;
   display: flex;
   justify-content: center;
-  color: white;
+  color: rgb(255, 255, 255);
   font-family: Inter;
   font-size: 50px;
   opacity: 0;
   animation: fadeInUp 0.5s forwards;
   animation-delay: var(--animation-delay);
   padding: 3px;
+  transition: 0.42s ease-in-out;
 }
-
+.burger-menu-item:hover{
+  color: #25262a;
+  transition: 0.42s ease-in-out;
+}
+.text-date{
+  text-align: center;
+}
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -161,21 +212,12 @@
 }
 
 /*---- LOGIN PAGE STYLE && REGISTER PAGE STYLE ----*/
-.form-container {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-60%, -80%);
-  height: 60vh;
-  width: 60vh;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+.userentry-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
-
 .inputLabels {
   padding: 20pt 0pt 20pt 0pt;
   color: 'black';
@@ -193,41 +235,40 @@ h1 {
 button {
   padding: 10px 70px 10px 70px;
   margin: 40px;
-  background-color: transparent;
-  font-family: 'Inter';
-  font-size: x-large;
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(255, 255, 255);
-  cursor: pointer;
 }
 
 #fields {
   display: flex;
   justify-content: center;
 }
-
-input {
-  display: flex;
+.userEntry-input{
+  display: block;
   justify-content: space-between;
   align-items: center;
   background-color: transparent;
-  border: none;
-  padding: .2em;
+  outline: none;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 2em;
   width: 20em;
+}
+.userEntry-input::placeholder {
+  color: rgb(32, 32, 32);
+}
+.handel-visable-eye{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  padding-right: 1px;
 }
 .input-box{
   margin-left: 1.5em;
   margin-right: 1.5em;
   margin-left: 1em;
 }
-.userentry-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-top: 8em;
-}
-
 .userentry-column {
   flex: 1;
   padding: 20px;
@@ -235,211 +276,292 @@ input {
   justify-content: center;
   align-items: center;
 }
-.hide-button{
-  opacity: 0;
-  cursor:auto;
-  pointer-events: none;
-}
+
 
 /*---- PROFILE PAGE STYLE ----*/
-.PageTitle {
-  width: 948px;
-  height: 136px;
-  flex-shrink: 0;
-
-  color: #000000;
-
-  font-family: Inter;
-  font-size: 70px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  margin-top: 30px;
-  margin-left: 140px;
-}
-
-.FirstName {
-  width: 233.814px;
-  height: 37.956px;
-  transform: rotate(0.083deg);
-  flex-shrink: 0;
-  color: #000;
-  font-family: Inter;
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  margin-left: 140px;
-}
-
-.LastName {
-  width: 233.814px;
-  height: 37.956px;
-  transform: rotate(0.083deg);
-  flex-shrink: 0;
-
-  font-family: Inter;
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  margin-left: 140px;
-
-}
-
-.profile-container {
+.profile-container{
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+}
+.profile-title{
+  width: 30vw;
+  margin-top: 1vw;
+  margin-left: 5vw;
+  font-family: "PowerGrotesk";
+  font-size: 4vw;
+}
+.input-title{
+  margin-bottom: 1em;
+  font-family: "PowerGrotesk";
+}
+.PageTitle {
+  font-family: "PowerGrotesk";
+  color: #000000;
+  font-size: 6vw;
+  margin-left: 5vw;
+  margin-bottom: 1vw;
 }
 
 .form-group {
-  font-family: Inter;
-  font-size: 30px;
-  font-weight: 300;
-  margin-left: 140px;
-}
-
-.form-row {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 30px;
+  font-size: 1.3vw;
+  margin-top: 2vw;
+  margin-left: 5vw;
+  width: 45%;
 }
 
 .input-field {
   flex-grow: 1;
   border: 0;
-  border-bottom: 2px solid #000000;
+  width: 24vw;
   padding: none;
-  margin-right: 100px;
+  margin-right: 4vw;
   background-color: transparent;
   outline: none;
-  font-size: 30px;
+  font-size: 1vw;
   margin-top: 10
 }
-
+.input-field::placeholder{
+  color: #4b4b4b;
+  font-size: 1vw;
+}
+.input-field-state{
+  border: 0;
+  width: 17vw;
+  padding: none;
+  margin-right: 4vw;
+  background-color: transparent;
+  outline: none;
+  font-size: .8vw;
+}
 .form-field {
   width: 45%;
   display: flex;
   flex-direction: column;
 }
-
 .submit-button {
-  height: 100px;
-  width: 400px;
-  background-color: transparent;
-  color: #000000;
-  border: 1px solid #000000;
-  cursor: pointer;
-  font-size: 30px;
+  height: 2vw;
+  width: 8vw;
+  font-size: 1vw;
+  background-color: rgb(8, 8, 8);
+  border: none;
+  color: rgb(255, 255, 255);
+  border-radius: 3vw;
   font-family: Inter;
-
-  
-  display: flex;          /* Add this line */
-  justify-content: center;/* Add this line */
-  align-items: center;   
-}
-
-
-
-
-
-/*---- QUOTE PAGE STYLE ----*/
-.TotalAmount-label {
-  margin-left: 140px;
-
-}
-
-.price-amount-labels,
-.price-amount-values {
-  display: flex;
-  justify-content: space-between;
+  display: flex;          
+  justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  margin-left: 140px;
-  margin-right: 1600px;
-  font-size: 25px;
-  font-family: inter;
-
+  margin: auto;
+  margin-top: 3vw;
+  transition: 0.42s ease-in-out;
+}
+.submit-button:disabled{
+  opacity: 0.4;
+  transition: 0.42s ease-in-out;
 }
 
-
-.price-amount-values {
-  color: white;
+.discover-items{
+  margin-top: 1vw;
+  margin-left: 19vw;
+  padding: 1em;
 }
-
-.SuggestedPrice-label,
-
-.SuggestedPrice-value{
-  flex: 1;
-  /* This makes each element take up equal space */
+.discover-item{
+  transition: 0.42s ease-in-out;
+  border-radius: .5em;
+}
+.discover-item:hover{
+  transition: 0.42s ease-in-out;
+  background: rgb(43, 40, 0);
+  color: #ffffff;
+  pointer-events:auto;
+  border-radius: .5em;
+}
+.discover-text{
+  font-weight:500;
+  text-align: end;
+  margin-bottom: 3em;
+}
+.discover-title{
+  text-align: end;
+  font-family: "PowerGrotesk";
+  font-weight: 100;
+}
+/*---- QUOTE PAGE STYLE ----*/
+.quote-form {
   display: flex;
-  margin-right: 140px;
+  flex-direction: column;
+}
+.quote-container {
+  display: flex;
+  justify-content: space-between; 
+  flex-wrap: wrap;
+}
+.history-filter-bttn {
+  max-width: calc(50% - 1em); 
+}
+.price-boxes {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.price-box {
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  margin: 0 35px; 
+}
+.price-title {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.price-value {
+  font-size: 1.2em;
+  color: #333;
+}
+.delivery-fee-notice {
+  color: red;
+  text-align: center;
+  margin: 20px 0;
+  font-weight: bold;
+}
 
+/*---- 404 ----*/
+.error-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-template {
+  text-align: center;
+}
+
+.error-template h1 {
+  font-size: 25rem; /* Adjust size as needed */
+  font-family: "PowerGrotesk";
 
 }
-.TotalAmount-label{
-  margin-left: 8em;
 
+.error-actions {
+  margin-top: 20px;
 }
-.TotalAmount-value {
-  
-  margin-left: 0em;
-  
-}
-
-
-#suggestedPriceValue,
-#totalAmountDueValue {
-  font-size: 30px;
-  font-family: Inter;
-
-  background-color: gray;
-  /* Adjusted for clarity */
-  padding: 20px;
-  /* Increased padding */
-  min-width: 300px;
-  /* Set a minimum width */
-  display: inline-block;
-  /* Allows for background styling */
-  border: 1px solid #000;
-  background: rgba(0, 0, 0, 0.20);
-
-}
-
-
-
-
-/*---- 404 PAGE STYLE ----*/
 
 
 /*---- Fuel History PAGE STYLE ----*/
 .fuelHistory-wrapper {
   display: flex;
-  margin-top: 10em;
-  overflow-x: hidden;
+  flex-direction: column;
+}
+.history-header{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: .5em;
+}
+.filter-message{
+  position: absolute;
+  font-size: 1vw;
+  left: 60%;
+  margin-top: 2em;
+}
+  /*container styles */
+.hist-container{
+  margin-top: 1.5vw;
+  width: 30vw;
+}
+.history-filter-bttn{
+  margin-top: 4vw;
+  margin-left: 3vw;
+  padding-left: 1em;
+  width: 23vw;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: .4em;
+  height: 3.2vw;
+}
+.history-filter-bttn::placeholder{
+  color: rgb(28, 28, 28);
+  font-size: 1vw;
 }
 
-.fuelHistory-sidebar {
-  width: 380px;
-  flex-shrink: 0;
-  overflow: auto;
-  border-top: 1px solid black;
-  height: 50em;
+.fuel-history-title{
+  width: 30vw;
+  margin-top: 3vw;
+  margin-left: 5vw;
+  font-family: "PowerGrotesk";
+  font-size: 4vw;
+}
+.display-items{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  transition: 0.42s ease-in-out;
+}
+.display-items:hover{
+  transition: 0.42s ease-in-out;
+  background: rgb(43, 40, 0);
+  color: #ffffff;
+  pointer-events:auto;
+  border-radius: .5em;
+}
+.fuel-histroy-titles{
+  margin-bottom: 1vw;
+  font-size: 3.5vw;
+  pointer-events: auto;
+  padding-left: .2em;
+}
+.history-titles-wrapper{
+  margin-top: 1vw;
+  margin-left: 5vw;
+}
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
 }
 
-.menu-button {
-  font-size: 20px;
-  font-weight: lighter;
-  height: 70px;
-  width: 296px;
-  background: rgba(217, 217, 217, 0.25);
-  box-shadow: 0px 4px 4px px rgba(0, 0, 0, 0.25);
-  border-radius: 3em;
-  transition: 0.3s;
-  margin-bottom: 1em;
+.filter-titles {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding: 1em;
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+.filter-button{
+  border: none;
+  font-size: 1.2vw;
+  margin-top: .8vw;
+  margin-bottom: 0px;
+  width: 14vw;
+  transition: 0.42s ease-in-out;
+  pointer-events: none;
+}
+.filter-button-addy{
+  border: none;
+  font-size: 1.2vw;
+  margin-top: .8vw;
+  pointer-events: none;
 }
 
-.menu-button:hover {
-  background: rgba(217, 217, 217, 0.5);
-  color: black;
+
+.filter-titles, .display-items{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding: 1em;
 }
+
+.display-items:not(:last-child){
+  border-bottom: 1px solid #000;
+}
+.history-date{
+  font-size: 1.5vw;
+  
+}
+.history-gal{
+  font-size: 1.5vw;
+}
+
+
