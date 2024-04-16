@@ -1,9 +1,9 @@
 import dbconnection from '../dbconnect.js';
 import express from 'express';
-
+import { verifyJWT } from "../verifyJWT.js";
 const router = express.Router();
 
-router.get('/state/:state', async (req, res) => {
+router.get('/state/:state', verifyJWT, async (req, res) => {
     const state = req.params.state;
     const query = 'SELECT * FROM state WHERE state=?';
 
@@ -22,7 +22,7 @@ router.get('/state/:state', async (req, res) => {
 
 });
 
-router.get('/user/:username', async (req, res) => {
+router.get('/user/:username', verifyJWT, async (req, res) => {
     const username = req.params.username;
     const query = 'SELECT * FROM profile WHERE username=?';
 
@@ -41,7 +41,7 @@ router.get('/user/:username', async (req, res) => {
 });
 
 
-router.post('/post/quote', async (req, res) => {
+router.post('/post/quote', verifyJWT, async (req, res) => {
   
     const { location, gallons, price_per_gallon, delivery_date, total_price, profit_margin, username } = req.body;
     const query = `
@@ -58,7 +58,7 @@ router.post('/post/quote', async (req, res) => {
     });
 });
 
-router.get('/history/:username', async (req, res) => {
+router.get('/history/:username', verifyJWT, async (req, res) => {
     const username = req.params.username;
 
     const query = 'SELECT  quoteid, location, gallons, price_per_gallon, delivery_date, total_price FROM quotes WHERE username=?';

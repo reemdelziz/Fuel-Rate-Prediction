@@ -42,7 +42,7 @@ export const AuthoForm = ({ title, text }) => {
     const [visible, setvisible] = useState(false);
     const [disableBttn, setDisableBttn] = useState(true);
     const navigate = useNavigate();
-    const { setToken, clientInfo, setClient} = useAuth();
+    const { setToken, setClient} = useAuth();
 
     useEffect(() => {
         if (validateUserName(username) && validatePassword(password)) {
@@ -67,8 +67,8 @@ export const AuthoForm = ({ title, text }) => {
                 password: password,
             });
             const token = response.data.token;
-            const isOldUser = response.data.result[0].oldUser === 1;
-            
+            const isOldUser = response.data.result.oldUser === 1;
+        
             setToken(token);
             setClient({ username: username, newUser: !isOldUser });
 

@@ -1,9 +1,9 @@
 import dbconnection from "../dbconnect.js";
 import express from 'express';
-
+import { verifyJWT } from "../verifyJWT.js";
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', verifyJWT, async (req, res) => {
     const { fullname, address1, address2, city, state, zipcode, username } = req.body;
 
     const insertQuery = 'INSERT INTO profile (fullname, address1, address2, city, state, zipcode, username) VALUES (?, ?, ?, ?, ?, ?, ?)';
