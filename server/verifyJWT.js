@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const verifyJWT = (req, res, next) => {
-    const token = req.headers["Authorization"];
+    const token = req.headers["x-access-token"];
     if(!token){
         res.send("Token not received");
     } else {

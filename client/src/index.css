@@ -9,8 +9,9 @@
 
 body {
   margin: 0;
-  background-color: #04001d;
-  color: rgb(227, 227, 227);
+  background: rgb(207, 209, 247);
+  background: radial-gradient(circle, rgb(208, 211, 255) 3%, rgb(202, 205, 248) 22%, rgba(255,255,255,1) 71%);
+  color: rgb(54, 54, 54);
   font-family: "Manrope-light";
   overflow-y: hidden;
   overflow-x: hidden; 

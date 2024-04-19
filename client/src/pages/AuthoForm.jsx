@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { Axios } from "axios";
 import blindeye from '../assets/images/eye-crossed.png';
 import eye from '../assets/images/eye.png';
 import userImg from '../assets/images/user.png';
 import lock from '../assets/images/padlock.png';
 import { useAuth } from "../provider/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Globe } from './Globe';
+
 import '../style.css';
 
 function validateUserName(userName) {
@@ -42,7 +44,7 @@ export const AuthoForm = ({ title, text }) => {
     const [visible, setvisible] = useState(false);
     const [disableBttn, setDisableBttn] = useState(true);
     const navigate = useNavigate();
-    const { setToken, setClient} = useAuth();
+    const { token, setToken, setClient } = useAuth();
 
     useEffect(() => {
         if (validateUserName(username) && validatePassword(password)) {
@@ -62,86 +64,83 @@ export const AuthoForm = ({ title, text }) => {
                 });
                 window.location.href = '/login';
             } else if (title === 'Login') {
-            const response = await axios.post('http://localhost:8080/login', {
-                username: username,
-                password: password,
-            });
-            const token = response.data.token;
-            const isOldUser = response.data.result.oldUser === 1;
-        
-            setToken(token);
-            setClient({ username: username, newUser: !isOldUser });
+                const response = await axios.post('http://localhost:8080/login', {
+                    username: username,
+                    password: password,
+                });
+                const token = response.data.token;
+                //console.log(response);
+                const isOldUser = response.data.result.oldUser === 1;
 
-            if (isOldUser) {
-                navigate('/history'); // User has filled out the profile
-            } else {
-                navigate('/profile'); // User needs to fill out the profile
+                setToken(token);
+                setClient({ username: username, newUser: !isOldUser });
+
+                navigate('/navigate');
             }
-        }
         } catch (error) {
             console.error('Error:', error.response || error);
         }
     };
 
+  
     return (
-        <div className='userentry-container'>
-            <div className='userentry-column'>
-                <div className="userentry">
-                    <h1 className="text-6xl	my-6">{title}</h1>
-                    <p className="w-1/2 text-base m-auto">{text}</p>
-                    <form onSubmit={handleSubmit}>
-                        <section id="fields">
-                            <div className="input-box">
-                                {validateUserName(username) ? (
-                                    <div className="inputLabels">Username</div>
-                                ) : (
-                                    <div className="inputLabels">Username*</div>
-                                )}
-                                <div className='flex flex-row' style={{ position: 'relative' }}>
-                                    <input
-                                        className='userEntry-input'
-                                        placeholder="email"
-                                        type='text'
-                                        value={username}
-                                        onChange={(e) => setUsername(e.target.value)}
-                                    />
-                                    <div style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)' }}>
-                                        <img className='h-5 w-5' src={userImg} alt="user" />
-                                    </div>
-                                </div>
-                                <div style={{ width: "20em", border: '.5px black solid', borderRadius: '10px' }}></div>
-                            </div>
-
-                            <div className="input-box">
-                                {validatePassword(password) ? (
-                                    <div className="inputLabels">Password</div>
-                                ) : (
-                                    <div className="inputLabels">Password*</div>
-                                )}
-                                <div className='flex flex-row' style={{ position: 'relative' }}>
-                                    <input
-                                        className='userEntry-input'
-                                        placeholder="password"
-                                        type={visible ? "text" : "password"}
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                    />
-                                    <div style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)' }}>
-                                        <img className='h-5 w-5' src={lock} alt="lock" />
-                                    </div>
-                                    <div style={{ position: 'absolute', right: '0', top: '50%', transform: 'translateY(-50%)' }} onClick={() => { setvisible(!visible) }}>
-                                        {visible ? <img className='h-5 w-5 mr-4' src={eye} alt='view' /> : <img className='h-5 w-5 mr-4' src={blindeye} alt="hidden" />}
-                                    </div>
-                                </div>
-                                <div style={{ width: '20em', border: '.5px black solid', borderRadius: '10px' }}></div>
-                            </div>
-                        </section>
-
-                        <button className="submit-button" disabled={disableBttn} >submit</button>
-                    </form>
-                </div>
+        <div className="authform">
+            <div className="globe-css">
+                <Globe />
             </div>
+            <div className='userentry-container'>
+                <h1 className="text-6xl	my-6 text-center">{title === 'Register' ? 'Get started now' : 'Login'}</h1>
+                <p className="text-base text-center">{text}</p>
+                <form onSubmit={handleSubmit} className="form">
+                    <section id="fields">
+                        <div className="input-box">
+                            {validateUserName(username) ? (
+                                <div className="inputLabels">Username</div>
+                            ) : (
+                                <div className="inputLabels">Username*</div>
+                            )}
+                            <div className='flex flex-row' style={{ position: 'relative' }}>
+                                <input
+                                    className='userEntry-input'
+                                    placeholder="email"
+                                    type='text'
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
+                                <div style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)' }}>
+                                    <img className='h-5 w-5' src={userImg} alt="user" />
+                                </div>
+                            </div>
+                        </div>
 
+                        <div className="input-box">
+                            {validatePassword(password) ? (
+                                <div className="inputLabels">Password</div>
+                            ) : (
+                                <div className="inputLabels">Password*</div>
+                            )}
+                            <div className='flex flex-row' style={{ position: 'relative' }}>
+                                <input
+                                    className='userEntry-input'
+                                    placeholder="password"
+                                    type={visible ? "text" : "password"}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                                <div style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)' }}>
+                                    <img className='h-5 w-5' src={lock} alt="lock" />
+                                </div>
+                                <div style={{ position: 'absolute', right: '0', top: '50%', transform: 'translateY(-50%)' }} onClick={() => { setvisible(!visible) }}>
+                                    {visible ? <img className='h-5 w-5 mr-4' src={eye} alt='view' /> : <img className='h-5 w-5 mr-4' src={blindeye} alt="hidden" />}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <button className="submit-button" disabled={disableBttn} >{title}</button>
+                </form>
+            </div>
         </div>
+
     )
 };

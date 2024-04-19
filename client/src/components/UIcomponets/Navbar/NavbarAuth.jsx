@@ -15,6 +15,7 @@ export const NavAuthButton = () => {
             <button className="navbttn-auth">{clientInfo.username}</button>
             <div className="navbttn-content">
                 <Link to = '/profile'>Profile</Link>
+                <Link to = '/navigate'>Discover</Link>
                 <hr className="border-black "/>
                 <button className="navbar-logout" onClick={handleLogout}>Logout</button>
             </div>
@@ -37,7 +38,7 @@ const navigationAuth = [
     {element:
         <div className="navbar-list">
             <Link to = '/profile' className="navbar-item">PROFILE</Link>
-            <Link to = '/history' className="navbar-item">HISTROY</Link>
+            <Link to = {'/history'} className="navbar-item">HISTROY</Link>
             <Link to = '/quote' className="navbar-item">QUOTE</Link>
         </div>
     },
@@ -58,7 +59,8 @@ export const NavigationAttriubtes = ({navprops}) => {
 };
 
 export const NavbarAuth = () => {
-    const { token } = useAuth();
+    const { token, clientInfo } = useAuth();
+    const isnewuser = clientInfo.newUser;
     const navigation = token ? navigationAuth : navigationNotAuth;
     return <NavigationAttriubtes navprops={navigation} />
 };

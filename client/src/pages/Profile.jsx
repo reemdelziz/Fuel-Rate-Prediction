@@ -46,16 +46,13 @@ export const Profile = () => {
     const fullname = firstname + " " + lastname;
     const navigate = useNavigate();
     
-    const { clientInfo, setClient } = useAuth();
+    const { token, clientInfo, setClient } = useAuth();
     const username = clientInfo.username;
-
-
-    //
-
+    const isnewuser = clientInfo.newUser;
     const profileq = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/profile', {
+            await axios.post('http://localhost:8080/profile', {
                 fullname: fullname,
                 address1: address1,
                 address2: address2,
@@ -63,13 +60,14 @@ export const Profile = () => {
                 state: state,
                 zipcode: zipcode,
                 username: username
+            }, {
+                headers : {
+                    "x-access-token": token,
+                }
             });
-            //make sure it navigates to quote
-            setClient({ newUser: false }); // Set newUser to false since the profile is now filled
             
-
-
-            navigate('/quote'); 
+            setClient({ newUser: false }); 
+            navigate('/navigate'); 
         } catch (error) {
             console.error('Profile save error:', error.response || error);
         }
@@ -78,7 +76,12 @@ export const Profile = () => {
     return (
         <div>
             <h1 className="profile-title" >PROFILE</h1>
-            <hr className="mt-5 border-black w-10/12 ml-24" />
+            {isnewuser ? 
+                (<p className="text-center">Complete profile to gain access to other features of application.</p>
+            ): (<p className="text-center">
+                Edit your profile.
+            </p>)}
+            <hr className="mt-5 border-white w-10/12 ml-52" />
             <div className='profile-container'>
                 <form className="form-group" onSubmit={profileq}>
                     <InputAttribute
@@ -184,12 +187,6 @@ export const Profile = () => {
                     />
                     <button className="submit-button">save</button>
                 </form>
-                <div className='discover-items'>
-                    <h3 className='discover-text'>Discover more</h3>
-                    <DiscoverAttribute title="Generate Quote" link="/quote" />
-                    <DiscoverAttribute title="View Quote History" link="/history"/>
-                    <DiscoverAttribute title="Logout"/>
-                </div>
             </div>
         </div>
     );
