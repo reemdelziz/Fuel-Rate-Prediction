@@ -16,7 +16,7 @@ import { usePlay } from "../../provider/Play.jsx";
 
 
 const LINE_NB_POINTS = 900;
-const CURVE_DISTANCE = 250;
+const CURVE_DISTANCE = 200;
 const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_CAR = 0.02;
 const CAR_MAX_ANGLE = 35;
@@ -218,11 +218,6 @@ export const Experience = () => {
             duration: 1,
             colorA: "#ff8080",
             colorB: "#fc6736",
-        });
-        tl.current.to(backgroundColors.current, {
-            duration: 1,
-            colorA: "#424242",
-            colorB: "#ffcc00",
         });
         tl.current.to(backgroundColors.current, {
             duration: 1,

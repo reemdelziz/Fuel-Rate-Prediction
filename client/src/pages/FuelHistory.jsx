@@ -6,14 +6,12 @@ import { useAuth } from "../provider/AuthContext";
 
 
 export const FuelHistory = () => {
-    const [FuelData, setFuelData] = useState([]);//dont use this one!!!
-    const [testingfuel, settestingfuel] = useState([]); //use this one!!!
-
+    const [FuelData, setFuelData] = useState([]);
     const [quoteQuery, setQuoteQuery] = useState("");
     const [dateQuery, setDateQuery] = useState("");
     const [galQuery, setGalQuery] = useState("");
     const [addyQuery, setAddyQuery] = useState("");
-    const { clientInfo } = useAuth();
+    const { token, clientInfo } = useAuth();
     const username = clientInfo.username;
 
     useEffect(() => {
@@ -26,24 +24,23 @@ export const FuelHistory = () => {
         requestAnimationFrame(raf)
     }, []);
 
-    
     const historyData = async (username) => {
         try{
-            const resData = await axios.get(`http://localhost:8080/fuel/history/${username}`);
-            const fueldataRes = resData.data.fuelHistory;
-            //console log the total_price
-            
-            settestingfuel(fueldataRes);
-            console.log(testingfuel);
-            
+            const res = await axios.get(`http://localhost:8080/fuel/history/${username}`, {
+                headers: {
+                    "x-access-token" : token,
+                }
+            });
+            const fueldata = res.data.fuelHistory;
+            setFuelData(fueldata);
         } catch (error) {
             console.error('Error fetching fuel history:', error);
         }
     };
-
-    useEffect(()=>{
+    useEffect(() => {
         historyData(username);
-    },[username]);
+    },);
+    
     
     const formatDate = (date) => {
         if (date === "") return ""; 
@@ -80,35 +77,21 @@ export const FuelHistory = () => {
             </div>
             <div className="history-titles-wrapper">
                 {/* map all of data here */}
-                {testingfuel.map((dataItem, index) => (
+                { FuelData.filter((history) =>
+                    (quoteQuery === "" || history.quoteid.toString().includes(quoteQuery)) &&
+                    (dateQuery === "" || history.delivery_date.includes(dateQuery)) && 
+                    (galQuery === "" || history.gallons.toString().includes(galQuery)) &&
+                    (addyQuery === "" || history.location.includes(addyQuery))
+                ).map((dataItem, index) => (
                     <div className="display-items" key={index}>
-                        <h2 className="fuel-histroy-titles"> {dataItem.quoteid}</h2>
-                        <p className="history-date">
-                         {new Date(dataItem.delivery_date).toLocaleDateString()}
-                        </p>
-                        <p className="history-gal"> {dataItem.gallons}</p>
-                        <p className="history-price-per-gallon">{dataItem.price_per_gallon} </p>
-                        <p className="history-total-price">{dataItem.total_price}</p>
+                        <h2 className="fuel-histroy-titles">{dataItem.quoteid}</h2>
+                        <p className="history-date">{new Date(dataItem.delivery_date).toLocaleDateString()}</p>
+                        <p className="history-gal">{dataItem.gallons}</p>
+                        <p className="history-addy">{dataItem.price_per_gallon}</p>
+                        <p className="history-addy">{dataItem.total_price}</p>
                         <p className="history-addy">{dataItem.location}</p>
                     </div>
                 ))}
-
-
-
-                {/*
-                {FuelData.filter((history) =>
-                    (quoteQuery === "" || history.quoteId.includes(quoteQuery)) &&
-                    (dateQuery === "" || history.deliveryDate.includes(dateQuery)) && 
-                    (galQuery === "" || history.gallonsRequested.toString().includes(galQuery)) &&
-                    (addyQuery === "" || history.deliveryAddress.includes(addyQuery))
-                ).map((dataItem, index) => (
-                    <div className="display-items" key={index}>
-                        <h2 className="fuel-histroy-titles">quote {dataItem.quoteId}</h2>
-                        <p className="history-date">Date: {dataItem.deliveryDate}</p>
-                        <p className="history-gal">Gallons requested: {dataItem.gallonsRequested}</p>
-                        <p className="history-addy">{dataItem.deliveryAddress}</p>
-                    </div>
-                ))} */}
             </div>
         </div>
     );

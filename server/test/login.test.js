@@ -1,5 +1,12 @@
-import request from 'supertest';
-import app from '../app';
+import request from 'supertest'
+import makeApp from '../app.js'
+import { jest } from '@jest/globals'
+
+const loginClient = jest.fn();
+
+const app = makeApp({
+    loginClient,
+})
 
 describe("POST /login", () => {
     describe("given a username and password", () => { 

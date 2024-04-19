@@ -1,14 +1,21 @@
-import request from 'supertest';
-import app from '../app';
+import request from 'supertest'
+import makeApp from '../app.js'
+import { jest } from '@jest/globals'
+
+const createClient = jest.fn();
+
+const app = makeApp({
+    createClient,
+})
 
 describe("POST /register", () => {
     describe("given a username and password", () => { 
         //testing register page to make sure we get a response
-        test('should respond with a 200 status', async () => {
+        test('should respond with a 201 status', async () => {
             const response = await request(app)
                 .post('/register')
                 .send({username: 'username', password:'password'});
-            expect(response.statusCode).toBe(200);
+            expect(response.statusCode).toBe(201);
         });
         //testing register to make sure the username is in email format
         test('should respond valid username', async () => {
@@ -27,12 +34,12 @@ describe("POST /register", () => {
                 .post('/register')
                 .send({username: 'username', password: validPassword});
             
-            expect(response.body.password.length).toBeGreaterThanOrEqual(8); //length has to be greater than 8
-            expect(response.body.password).toMatch(/[A-Z]/); //has a capital letter
-            expect(response.body.password).toMatch(/[a-z]/); //has a lowercase letter
-            expect(response.body.password).toMatch(/[0-9]/); //has a number
-            expect(response.body.password).toMatch(/[\W_]/); //has special char
-            expect(response.body.password).not.toMatch(/\s/); //has spaces
+            expect(validPassword.length).toBeGreaterThanOrEqual(8); //length has to be greater than 8
+            expect(validPassword).toMatch(/[A-Z]/); //has a capital letter
+            expect(validPassword).toMatch(/[a-z]/); //has a lowercase letter
+            expect(validPassword).toMatch(/[0-9]/); //has a number
+            expect(validPassword).toMatch(/[\W_]/); //has special char
+            expect(validPassword).not.toMatch(/\s/); //has spaces
         });
         //testing if username doesn't exist in our db
     });

@@ -1,0 +1,82 @@
+{
+    "type":"PullRequest",
+    "pulls":[
+        {
+            "type":"pull",
+            "order": 1,
+            "from": "Tx",
+            "to":"SF",
+            "startLat": "29.719990",
+            "startLng": "-95.342312",
+            "endLat": "37.780415",
+            "endLng": "-122.410943",
+            "arcAlt": 0.05
+        },
+        {
+            "type": "pull",
+            "order": 2,
+            "from": "NY",
+            "to": "UT",
+            "startLat": "40.711872",
+            "startLng": "-74.007398",
+            "endLat": "40.744124",
+            "endLng": "-111.895588",
+            "arcAlt": 0.05
+        },
+        {
+            "type": "pull",
+            "order": 3,
+            "from": "LA",
+            "to": "CHI",
+            "startLat": "34.052235",
+            "startLng": "-118.243683",
+            "endLat": "41.878113",
+            "endLng": "-87.629799",
+            "arcAlt": 0.05
+        },
+        {
+            "type": "pull",
+            "order": 4,
+            "from": "DC",
+            "to": "MIA",
+            "startLat": "38.895110",
+            "startLng": "-77.036370",
+            "endLat": "25.761681",
+            "endLng": "-80.191788",
+            "arcAlt": 0.05
+        },
+        {
+            "type": "pull",
+            "order": 5,
+            "from": "BOS",
+            "to": "SEA",
+            "startLat": "42.360081",
+            "startLng": "-71.058884",
+            "endLat": "47.606209",
+            "endLng": "-122.332069",
+            "arcAlt": 0.05
+        },
+        {
+            "type": "pull",
+            "order": 6,
+            "from": "LV",
+            "to": "ATL",
+            "startLat": "36.169941",
+            "startLng": "-115.139832",
+            "endLat": "33.749001",
+            "endLng": "-84.387978",
+            "arcAlt": 0.05
+        },
+        {
+            "type": "pull",
+            "order": 7,
+            "from": "PHI",
+            "to": "DEN",
+            "startLat": "39.952583",
+            "startLng": "-75.165222",
+            "endLat": "39.739235",
+            "endLng": "-104.990250",
+            "arcAlt": 0.05
+        }
+    ]
+}

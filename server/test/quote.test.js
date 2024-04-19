@@ -1,5 +1,18 @@
-import request from 'supertest';
-import app from '../app';
+import request from 'supertest'
+import makeApp from '../app.js'
+import { jest } from '@jest/globals'
+
+const getClientProfile = jest.fn();
+const getPricingModule = jest.fn();
+const generateQuote = jest.fn();
+const getHistory = jest.fn();
+
+const app = makeApp({
+    getClientProfile,
+    getPricingModule,
+    generateQuote,
+    getHistory
+});
 
 describe("POST /quote", () => {
     //testing quote page to make sure we get a response

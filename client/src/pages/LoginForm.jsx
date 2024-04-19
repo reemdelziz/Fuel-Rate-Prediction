@@ -6,7 +6,7 @@ export const LoginForm = () => {
     return (
         <AuthoForm
             title = "Login"
-            text = "Unlock streamlined fuel management with our secure login portal. Access personalized quotes and manage your profile hassle-free. Join us as we revolutionize fuel procurement."
+            text = "Sign back in to your account to access your courses and embody the art of being human."
         />
     );
 };

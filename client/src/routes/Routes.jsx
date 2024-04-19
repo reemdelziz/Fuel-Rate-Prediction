@@ -10,10 +10,9 @@ import { FuelHistory } from '../pages/FuelHistory';
 import { Profile } from '../pages/Profile';
 import { FuelQuote } from '../pages/FuelQuote';
 
-import { Testing } from '../pages/Testing';
 import { Navbar } from "../components/UIcomponets/Navbar/Navbar";
 import { Four0four } from "../pages/404";
-
+import { NavigatePages } from "../pages/NavigatePages";
 export const routesHelper = (path, element) =>{
     return {path, element:(
         <>
@@ -31,7 +30,6 @@ export const Routes = () => {
         { path: "/", element: <LandingPage /> },
         routesHelper("/register", <RegisterForm/>),
         routesHelper("/login", <LoginForm/> ),
-        { path: "/testing", element: <Testing /> },
         { path: '*', element: <Four0four /> } 
 
     ];
@@ -41,6 +39,7 @@ export const Routes = () => {
         {   
             element: <ProtectedRoute />,
             children: [
+                routesHelper("/navigate", <NavigatePages />),
                 routesHelper("/history", <FuelHistory />),
                 routesHelper("/quote", <FuelQuote />),
                 routesHelper("/profile", <Profile />),

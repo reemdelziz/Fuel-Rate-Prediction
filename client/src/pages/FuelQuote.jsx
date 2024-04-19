@@ -14,7 +14,7 @@ export const FuelQuote = () => {
         setTotalPrice(calculatedTotal);
     };
 
-    const {clientInfo} = useAuth();
+    const {token, clientInfo} = useAuth();
     const username = clientInfo.username;
     const [address, setAddress] = useState(''); 
     const [city, setCity] = useState(''); 
@@ -35,13 +35,15 @@ export const FuelQuote = () => {
     };
 
     const [deliveryDate, setDeliveryDate] = useState(getTomorrowDate()); 
+    
 
     const getGallonprice = async (state) => {
         try {
-            console.log('Requesting price for state:', state);
-            const res = await axios.get(`http://localhost:8080/fuel/state/${state}`);
-            console.log('Response received:', res); // This will log the entire response object
-            console.log('price is ', res.data.stateGasPrice.price_per_gallon);
+            const res = await axios.get(`http://localhost:8080/fuel/state/${state}`, {
+                headers : {
+                    "x-access-token" : token,
+                }
+            });
             setpriceMargin(res.data.stateGasPrice.profit_margin);
             setPricePerGallon(res.data.stateGasPrice.price_per_gallon); // Set price per gallon if fetched
         } catch (error) {
@@ -50,7 +52,11 @@ export const FuelQuote = () => {
     }
     const getAddress = async (username) => {
         try {
-            const res = await axios.get(`http://localhost:8080/fuel/user/${username}`);
+            const res = await axios.get(`http://localhost:8080/fuel/user/${username}`, {
+                headers : {
+                    "x-access-token" : token,
+                }
+            });
             if (res.data.userProfile?.address1) {
                 setAddress(res.data.userProfile.address1); // Set address if fetched
                 setCity(res.data.userProfile.city); // Set city if fetched
@@ -61,23 +67,19 @@ export const FuelQuote = () => {
             console.error('Error:', error);
         }
     }
-    console.log(state);
-   
-
-    console.log("setter is working!",pricePerGallon);
-
+    
     useEffect(() => {
         if (state) {
             getGallonprice(state);
         }
-    }, [state]); // Add state as a dependency
+    }, [state]); 
     
     useEffect(() => {
         if (username) {
             getAddress(username);
         }
     }, [username]); 
-
+    
     useEffect(() => {
         if (pricePerGallon && gallonsRequested && deliveryDate) {
             const calculatedTotal = gallonsRequested * pricePerGallon + (isDeliveryWithin7Days(deliveryDate) ? ADDITIONAL_FEE : 0);
@@ -133,10 +135,16 @@ export const FuelQuote = () => {
                 total_price: totalPrice.toFixed(2),
                 profit_margin: profit_Margin,
                 username: username,
+            }, {
+                headers : {
+                    "x-access-token": token,
+                }
             });
             console.log(response);
             setShowSuccessMessage(true);
 
+            setGallonsRequested('');
+            setDeliveryDate(getTomorrowDate());
             // Optionally, set a timeout to hide the message after a few seconds
             setTimeout(() => {
                 setShowSuccessMessage(false);
@@ -150,7 +158,7 @@ export const FuelQuote = () => {
     return (
         <div className="fuelHistory-wrapper">
             <div className="history-header">
-                <h1 className="fuel-history-title">FUEL QUOTE FORM</h1>
+                <h1 className="fuel-history-title">FUEL<br />QUOTE</h1>
                 <form onSubmit={handleSubmit} className="quote-form">
                     <div className="quote-container">
                         <input

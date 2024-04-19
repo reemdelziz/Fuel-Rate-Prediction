@@ -1,11 +1,14 @@
 import mysql from 'mysql';
 import fs from 'node:fs';
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const dbconnection = mysql.createConnection({
-    host: 'fuelpredictor.mysql.database.azure.com',
-    user: 'fuelpredictor',
-    password: 'Ilovedevin!',
-    database: 'fuelpredictor',
+    host: process.env.HOST,
+    user: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
     ssl: {
         ca: fs.readFileSync(
             "./helpers/Certificate/DigiCertGlobalRootCA.crt_3.pem",

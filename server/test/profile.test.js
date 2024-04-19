@@ -1,6 +1,12 @@
-import request from 'supertest';
-import app from '../app';
+import request from 'supertest'
+import makeApp from '../app.js'
+import { jest } from '@jest/globals'
 
+const postClientProfile = jest.fn();
+
+const app = makeApp({
+    postClientProfile,
+})
 describe("POST /profile", () => {
     describe("given a full name and full address", () => { 
         //testing profile page to make sure we get a response
