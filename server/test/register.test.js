@@ -3,9 +3,13 @@ import makeApp from '../app.js'
 import { jest } from '@jest/globals'
 
 const createClient = jest.fn();
+const mockVerifyJWT = (req, res, next) => {
+    next();
+};
 
 const app = makeApp({
     createClient,
+    verifyJWT: mockVerifyJWT
 })
 
 describe("POST /register", () => {
@@ -29,21 +33,22 @@ describe("POST /register", () => {
         });
         //testing register to make sure the password is valid
         test('should respond valid password', async () =>{
-            const validPassword = "@testingCode9";
+            const validPassword = "@testingCode9"; 
             const response = await request(app)
                 .post('/register')
                 .send({username: 'username', password: validPassword});
             
-            expect(validPassword.length).toBeGreaterThanOrEqual(8); //length has to be greater than 8
-            expect(validPassword).toMatch(/[A-Z]/); //has a capital letter
-            expect(validPassword).toMatch(/[a-z]/); //has a lowercase letter
-            expect(validPassword).toMatch(/[0-9]/); //has a number
-            expect(validPassword).toMatch(/[\W_]/); //has special char
-            expect(validPassword).not.toMatch(/\s/); //has spaces
+            expect(response.body.password.length).toBeGreaterThanOrEqual(8); //length has to be greater than 8
+            expect(response.body.password).toMatch(/[A-Z]/); //has a capital letter
+            expect(response.body.password).toMatch(/[a-z]/); //has a lowercase letter
+            expect(response.body.password).toMatch(/[0-9]/); //has a number
+            expect(response.body.password).toMatch(/[\W_]/); //has special char
+            expect(response.body.password).not.toMatch(/\s/); //has spaces
         });
         //testing if username doesn't exist in our db
     });
     describe("not given a username or password", () => {
         //should respond with a status code of 400
+        
     });
 });

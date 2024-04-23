@@ -7,11 +7,10 @@ export const registerRouter = (database) => {
         const {username, password} = req.body;
         try{
             await database.createClient(username, password);
-            console.log("Registered Client sucessfully");
-            res.status(201).json({ message: 'User registered successfully', username });
+            res.status(201).json({ message: 'User registered successfully', username: username, password: password });
         } catch (error){
             console.error('User registration failed:', error);
-            res.status(500).json({ error: 'User registration failed' });
+            res.status(500).json({ error: error.code });
         }
     });
 

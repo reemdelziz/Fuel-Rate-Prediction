@@ -1,7 +1,11 @@
+
 import request from 'supertest'
 import makeApp from '../app.js'
 import { jest } from '@jest/globals'
 
+const mockVerifyJWT = (req, res, next) => {
+    next();
+};
 const getClientProfile = jest.fn();
 const getPricingModule = jest.fn();
 const generateQuote = jest.fn();
@@ -11,7 +15,8 @@ const app = makeApp({
     getClientProfile,
     getPricingModule,
     generateQuote,
-    getHistory
+    getHistory,
+    verifyJWT: mockVerifyJWT
 });
 
 describe("POST /quote", () => {

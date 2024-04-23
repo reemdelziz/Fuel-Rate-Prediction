@@ -1,9 +1,9 @@
 import express from 'express';
-import { verifyJWT } from "../verifyJWT.js";
 const router = express.Router();
 
 
 export const fuelRouter = (database) => {
+    const verifyJWT = database.verifyJWT;
     router.get('/user/:username', verifyJWT, async (req, res) =>{
         const username = req.params.username;
         try{

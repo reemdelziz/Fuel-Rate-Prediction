@@ -2,19 +2,25 @@ import request from 'supertest'
 import makeApp from '../app.js'
 import { jest } from '@jest/globals'
 
-const postClientProfile = jest.fn();
+
+// Bypass JWT verification by calling next()
+const mockVerifyJWT = (req, res, next) => {
+    next();
+};
 
 const app = makeApp({
-    postClientProfile,
+    postClientProfile: jest.fn(),
+    verifyJWT: mockVerifyJWT,
 })
+
 describe("POST /profile", () => {
-    describe("given a full name and full address", () => { 
+    describe("given a user profile", () => { 
         //testing profile page to make sure we get a response
         test('should respond with a 200 status', async () => {
             const response = await request(app)
                 .post('/profile')
                 .send({fullname: 'fullname', address1: 'address1', address2: '', city: "city", state: "state", zip: "zip"});
-            expect(response.statusCode).toBe(200);
+            expect(response.statusCode).toBe(201);
         });
 
         //testing profile to make sure the fullanme is valid
@@ -23,33 +29,24 @@ describe("POST /profile", () => {
             const regex = /([A-Z][a-z]{3,} )([A-Z][a-z]{3,} )?([A-Z][a-z]{3,})$/i; 
             const response = await request(app)
                 .post('/profile')
-                .send({fullname: validfullname, address1: 'address1', address2: 'idk', city: "city", state: "state", zip: "zip"});
+                .send({fullname: validfullname, address1: 'address1', address2: 'idk', city: "city", state: "state", zip: "zip", username: "devin@gmail.com"})
            
-            expect(response.body.fullname).toMatch(regex);
-            expect(response.body.fullname.length).toBeLessThanOrEqual(50);
+            expect(response.body.userProfile.fullname).toMatch(regex);
+            expect(response.body.userProfile.fullname.length).toBeLessThanOrEqual(50);
         });
 
         // testing profile to make sure address1 is valid
-        test('should respond valid address1', async () =>{
+        test('should respond valid addresses', async () =>{
             const validAddress1 = "1234 some rd";
             const regex = /^$/;
             const response = await request(app)
                 .post('/profile')
                 .send({fullname: 'full name', address1: validAddress1, address2: 'idk', city: "city", state: "state", zip: "zip"});
             
-            expect(response.body.address1.length).toBeLessThanOrEqual(100); //length must be less than 100
-            expect(response.body.address1).not.toMatch(regex); // must not be empty string
-        });
-
-        // testing profile to make sure address 2 is valid
-        test('should respond valid address2', async () =>{
-            const validAddress2 = "apt 123";
-            // const regex = /^$/;
-            const response = await request(app)
-                .post('/profile')
-                .send({fullname: 'full name', address1: 'address1', address2: validAddress2, city: "city", state: "state", zip: "zip"});
-            
-            expect(response.body.address2.length).toBeLessThanOrEqual(100); //length must be less than 100
+            expect(response.body.userProfile.address1.length).toBeLessThanOrEqual(100); //length must be less than 100
+            expect(response.body.userProfile.address1).not.toMatch(regex); // must not be empty string
+            expect(response.body.userProfile.address2.length).toBeLessThanOrEqual(100); //length must be less than 100
+            expect(response.body.userProfile.address2).not.toMatch(regex); // must not be empty string
         });
 
         // testing profile to make sure city is valid
@@ -60,8 +57,8 @@ describe("POST /profile", () => {
                 .post('/profile')
                 .send({fullname: 'full name', address1: 'address1', address2: 'address2', city: validCity, state: "state", zip: "zip"});
             
-            expect(response.body.city.length).toBeLessThanOrEqual(100); //length must be less than 100
-            expect(response.body.city).not.toMatch(regex); // cannot be empty string
+            expect(response.body.userProfile.city.length).toBeLessThanOrEqual(100); //length must be less than 100
+            expect(response.body.userProfile.city).not.toMatch(regex); // cannot be empty string
         });
 
         // testing profile to make sure state is valid
@@ -73,9 +70,8 @@ describe("POST /profile", () => {
                 .post('/profile')
                 .send({fullname: 'full name', address1: 'address1', address2: 'address2', city: 'city', state: validState, zip: "zip"});
             
-            // expect(response.body.city.length).toBeLessThanOrEqual(100); //length must be less than 100
-            expect(response.body.state).toMatch(regex); // must match state abbreviation
-            // expect(response.body.password).not.toMatch(regex); //has spaces
+            expect(response.body.userProfile.state.length).toEqual(2); //length must be less than 100
+            expect(response.body.userProfile.state).toMatch(regex); // must match state abbreviation
         });
 
         // testing profile to make sure zip is valid
@@ -84,11 +80,11 @@ describe("POST /profile", () => {
             const regex = /^\d{5}(?:[-\s]\d{4})?$/;
             const response = await request(app)
                 .post('/profile')
-                .send({fullname: 'full name', address1: 'address1', address2: 'address2', city: 'city', state: 'state', zip: validZip});
+                .send({fullname: 'full name', address1: 'address1', address2: 'address2', city: 'city', state: 'state', zipcode: validZip});
             
-            // expect(response.body.zip.length).toBeLessThanOrEqual(9); //length must be less than 9
-            // expect(response.body.zip.length).toBeGreaterThanOrEqual(5); //length must be less than 5
-            expect(response.body.zip).toMatch(regex); // must match zipcode formt
+            expect(response.body.userProfile.zipcode.length).toBeLessThanOrEqual(9); //length must be less than 9
+            expect(response.body.userProfile.zipcode.length).toBeGreaterThanOrEqual(5); //length must be less than 5
+            expect(response.body.userProfile.zipcode).toMatch(regex); // must match zipcode formt
         });
     });
     describe("not given a name, address, city, state, or zip", () => {
