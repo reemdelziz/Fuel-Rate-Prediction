@@ -16,6 +16,9 @@
 
 Welcome to our cutting-edge Fuel Predictor full-stack website project! This endeavor was pursued as part of the Software Design course (COSC 4353) at the University of Houston. Our objective was to develop and deploy an advanced fuel prediction system, customized to assist clients in making informed decisions when purchasing fuel, considering a range of influential factors.
 
+# Code collaberation
+
+Despite using VSCode extensions to facilitate collaboration, our team predominantly relied on Discord calls to synchronize efforts while developing the application. Despite equal contributions from each team member, the commit history may not accurately reflect the extent of our collaborative efforts. Our seamless integration of tools like VSCode extensions and Discord calls ensured a cohesive development process, culminating in a successful application.
 
 # Project Requirements
 <h6>Each bullet will route to the specific instance in which we have implemented them</h6>
