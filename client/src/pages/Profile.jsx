@@ -3,24 +3,12 @@ import axios from 'axios';
 import { Link, useNavigate} from 'react-router-dom';
 import { useAuth } from '../provider/AuthContext';
 
-function validateFirstname(firstname) {
 
-}
-function validateLastname(lastname) {
-
-}
-function validateLocation(address1) {
-    return (/^$/.test(address1) && address1.length() <= 100 && address1.length() !== 0) ? true : false;
-}
-function validateZipcode(zipcode) {
-
-}
-
-export const InputAttribute = ({ title, set, type, placeholder, max, min, pattern }) => {
+export const InputAttribute = ({ title, set, type, placeholder, max, min, pattern, isnewuser }) => {
     return (
         <div className='form-field'>
             <h2 className="input-title">{title}</h2>
-            <input className='input-field' type={type} placeholder = {placeholder} maxLength={max} onChange={(e) => set(e.target.value)} />
+            <input className='input-field' type={type} placeholder = {placeholder} maxLength={max} onChange={(e) => set(e.target.value)} required={title !== "Address 2 (optional)" && isnewuser}/>
             <div style={{ width: "13em", border: '.5px black solid', borderRadius: '10px', marginBottom: '1em' }}></div>
         </div>
     );
@@ -43,35 +31,107 @@ export const Profile = () => {
     const [city, setcity] = useState("");
     const [state, setstate] = useState("");
     const [zipcode, setzipcode] = useState("");
+    const [profilemessage, setprofilemessage] = useState('');
+
+    const [updatefirstname, setupdatefirstname] = useState("");
+    const [updatelastname, setupdatesetlastname] = useState("");
+    const [updateaddress1, setupdatesetaddress1] = useState("");
+    const [updateaddress2, setupdatesetaddress2] = useState("");
+    const [updatecity, setupdatesetcity] = useState("");
+    const [updatestate, setupdatesetstate] = useState("");
+    const [updatezipcode, setupdatesetzipcode] = useState("");
+
+    const updatefullname = updatefirstname + " " + updatelastname;
     const fullname = firstname + " " + lastname;
     const navigate = useNavigate();
     
     const { token, clientInfo, setClient } = useAuth();
     const username = clientInfo.username;
     const isnewuser = clientInfo.newUser;
+
+    const resetUpdateAttribute = () => {
+        setupdatefirstname("");
+        setupdatesetlastname("");
+        setupdatesetaddress1("");
+        setupdatesetaddress2("");
+        setupdatesetcity("");
+        setupdatesetstate("");
+        setupdatesetzipcode("");
+    }
     const profileq = async (event) => {
         event.preventDefault();
         try {
-            await axios.post('http://localhost:8080/profile', {
-                fullname: fullname,
-                address1: address1,
-                address2: address2,
-                city: city,
-                state: state,
-                zipcode: zipcode,
-                username: username
-            }, {
-                headers : {
-                    "x-access-token": token,
-                }
-            });
+            if(isnewuser){
+                await axios.post('http://localhost:8080/profile', {
+                    fullname: fullname,
+                    address1: address1,
+                    address2: address2,
+                    city: city,
+                    state: state,
+                    zipcode: zipcode,
+                    username: username
+                }, {
+                    headers : {
+                        "x-access-token": token,
+                    }
+                });
+                setprofilemessage('Profile saved successfully!');
+                setTimeout(() => {
+                    setClient({ newUser: false }); 
+                    navigate('/navigate');
+                }, 3000);
+                
+            } else{
+                const res = await axios.put('http://localhost:8080/profile/update', {
+                    fullname: updatefullname,
+                    address1: updateaddress1,
+                    address2: updateaddress2,
+                    city: updatecity,
+                    state: updatestate,
+                    zipcode: updatezipcode,
+                    username: username
+                }, {
+                    headers : {
+                        "x-access-token": token,
+                    }
+                });
+                console.log(res);
+                window.location.reload(false); // false parameter ensures the page is reloaded from the cache
+            }
             
-            setClient({ newUser: false }); 
-            navigate('/navigate'); 
         } catch (error) {
             console.error('Profile save error:', error.response || error);
         }
+    };
+
+    const getUserData = async (username) => {
+        try{
+            const res = await axios.get(`http://localhost:8080/fuel/user/${username}`, {
+                headers : {
+                    "x-access-token" : token,
+                }
+            });
+            let fullname = res.data.userProfile.data.fullName;
+            const tempFristname = fullname.split(' ')[0];
+            const tempLastname = fullname.split(' ')[1];
+            setupdatefirstname(tempFristname);
+            setupdatesetlastname(tempLastname);
+            setupdatesetaddress1(res.data.userProfile.data.address1);
+            setupdatesetaddress2(res.data.userProfile.data.address2);
+            setupdatesetcity(res.data.userProfile.data.city);
+            setupdatesetstate(res.data.userProfile.data.state);
+            setupdatesetzipcode(res.data.userProfile.data.zipcode);
+            
+        } catch(error){
+
+        }
     }
+
+    useEffect(()=> {
+        if(!isnewuser)
+            getUserData(username);
+    }, [username]);
+
     
     return (
         <div>
@@ -86,43 +146,48 @@ export const Profile = () => {
                 <form className="form-group" onSubmit={profileq}>
                     <InputAttribute
                         title="First Name"
-                        set={setfirstname}
+                        set={isnewuser ? setfirstname : setupdatefirstname}
                         type="text"
-                        placeholder="first name"
+                        placeholder={isnewuser ? "first name" : updatefirstname}
                         max="25"
+                        required={isnewuser}
                     />
                     <InputAttribute
                         title="Last Name"
-                        set={setlastname}
+                        set={isnewuser ? setlastname : setupdatesetlastname}
                         type="text"
-                        placeholder="last name"
+                        placeholder={isnewuser ? "last name" : updatelastname}
                         max="25"
+                        required={isnewuser}
                     />
                     <InputAttribute
                         title="Address 1"
-                        set={setaddress1}
+                        set={isnewuser ? setaddress1 : setupdatesetaddress1}
                         type="text"
-                        placeholder="address 1"
+                        placeholder={isnewuser ? "address 1" : updateaddress1}
                         max="100"
+                        required={isnewuser}
                     />
                     <InputAttribute
                         title="Address 2 (optional)"
-                        set={setaddress2}
+                        set={isnewuser ? setaddress2 : setupdatesetaddress2}
                         type="text"
-                        placeholder="address 2"
+                        placeholder={isnewuser ? "address 2" : updateaddress2}
                         max="100"
+                        required={isnewuser}
                     />
                     <InputAttribute
                         title="City"
-                        set={setcity}
+                        set={isnewuser ? setcity : setupdatesetcity}
                         type="text"
-                        placeholder="city"
+                        placeholder={isnewuser ? "city" : updatecity}
                         max="100"
+                        required={isnewuser}
                     />
                     <div className="form-field">
                     <h2 className="input-title">State</h2>
-                        <select className="input-field-state" required onChange={(e) => setstate(e.target.value)}>
-                            <option value="">Select a state</option>
+                        <select className="input-field-state" onChange={(e) => isnewuser ? setstate(e.target.value) : setupdatesetstate(e.target.value)} required={isnewuser}>
+                            <option value="">{isnewuser? "Select a state" : updatestate}</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
                             <option value="AZ">Arizona</option>
@@ -178,16 +243,18 @@ export const Profile = () => {
 
                     <InputAttribute
                         title="Zip Code"
-                        set={setzipcode}
+                        set={isnewuser ? setzipcode : setupdatesetzipcode}
                         type="text"
-                        placeholder="zip code"
+                        placeholder={isnewuser ? "zip code" : updatezipcode}
                         max="9"
                         min="5"
                         pattern="\d*"
+                        required={isnewuser}
                     />
                     <button className="submit-button">save</button>
                 </form>
             </div>
+            {profilemessage && <p className="profile-message">{profilemessage}</p>}
         </div>
     );
 };

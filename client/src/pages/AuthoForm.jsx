@@ -38,13 +38,22 @@ function validatePassword(password) {
     return true;
 };
 
+function handleErrorMessage(errormessage){
+    if(errormessage === "ER_DUP_ENTRY"){
+        return "Username already exist";
+    }
+    return "";
+};
+
+
 export const AuthoForm = ({ title, text }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [visible, setvisible] = useState(false);
     const [disableBttn, setDisableBttn] = useState(true);
+    const [errormessage, seterrormessage] = useState("");
     const navigate = useNavigate();
-    const { token, setToken, setClient } = useAuth();
+    const { setToken, setClient } = useAuth();
 
     useEffect(() => {
         if (validateUserName(username) && validatePassword(password)) {
@@ -62,15 +71,16 @@ export const AuthoForm = ({ title, text }) => {
                     username: username,
                     password: password,
                 });
+        
                 window.location.href = '/login';
             } else if (title === 'Login') {
                 const response = await axios.post('http://localhost:8080/login', {
                     username: username,
                     password: password,
                 });
-                const token = response.data.token;
-                //console.log(response);
-                const isOldUser = response.data.result.oldUser === 1;
+                const token = response.data.authResult.token;
+                //console.log(response.data.authResult.result.oldUser);
+                const isOldUser = response.data.authResult.result.oldUser === 1;
 
                 setToken(token);
                 setClient({ username: username, newUser: !isOldUser });
@@ -78,11 +88,12 @@ export const AuthoForm = ({ title, text }) => {
                 navigate('/navigate');
             }
         } catch (error) {
+            seterrormessage(error.response.data.error);
             console.error('Error:', error.response || error);
         }
     };
 
-  
+
     return (
         <div className="authform">
             <div className="globe-css">
@@ -108,7 +119,7 @@ export const AuthoForm = ({ title, text }) => {
                                     onChange={(e) => setUsername(e.target.value)}
                                 />
                                 <div style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)' }}>
-                                    <img className='h-5 w-5' src={userImg} alt="user" />
+                                    <img className='h-5 w-5 ml-1' src={userImg} alt="user" />
                                 </div>
                             </div>
                         </div>
@@ -128,7 +139,7 @@ export const AuthoForm = ({ title, text }) => {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                                 <div style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)' }}>
-                                    <img className='h-5 w-5' src={lock} alt="lock" />
+                                    <img className='h-5 w-5 ml-1' src={lock} alt="lock" />
                                 </div>
                                 <div style={{ position: 'absolute', right: '0', top: '50%', transform: 'translateY(-50%)' }} onClick={() => { setvisible(!visible) }}>
                                     {visible ? <img className='h-5 w-5 mr-4' src={eye} alt='view' /> : <img className='h-5 w-5 mr-4' src={blindeye} alt="hidden" />}

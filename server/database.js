@@ -16,7 +16,7 @@ export async function createClient(username, password){
             }
             dbconnection.query(query, [username, hash], (err, result) => {
                 if (err) {
-                    console.error('Query error:', err);
+                    console.error('Query error:', err); // this is what we want to catch and display to user if there was a duplicate
                     reject(err);
                 }
                 resolve(result);
@@ -52,6 +52,19 @@ export async function loginClient(username, password){
             }
         });
     });
+}
+
+export async function updateClientProfile(username, fullname, address1, address2, city, state, zipcode){
+    const query = `UPDATE profile SET fullname = ?, address1 = ?, address2 = ?, city = ?, state = ?, zipcode = ? WHERE username = ?`;
+    return new Promise((resolve, reject) => {
+        dbconnection.query(query, [fullname, address1, address2, city, state, zipcode, username], (err, result) => {
+            if(err){
+                reject({statusCode: 500, error: "Database failed to update profile", err: err});
+            }
+            resolve({statusCode: 200, message: "Profile updated successfully", result: result});
+        });
+    }
+    );
 }
 
 export async function postClientProfile(fullname, address1, address2, city, state, zipcode, username){
@@ -121,6 +134,18 @@ export async function generateQuote(location, gallons, price_per_gallon, deliver
     });
 }
 
+export async function setPrevClient(prevClient, username){
+    const query = 'UPDATE profile SET prevClient = ? WHERE username = ?';
+    return new Promise((resolve, reject) => {
+        dbconnection.query(query, [prevClient, username], (err, result) => {
+            if(err){
+                reject({statusCode: 500, error: "Database failed to update preClient", err});
+            }
+            resolve({statusCode: 200, message: "Successfully updated preClient"});
+        })
+    })
+}
+
 export async function getHistory(username){
     const query = 'SELECT * FROM quotes WHERE username=?';
     return new Promise((resolve, reject) => {
@@ -137,6 +162,22 @@ export async function getHistory(username){
     });
 }
 
+export const verifyJWT = (req, res, next) => {
+    const token = req.headers["x-access-token"];
+    if(!token){
+        res.send("Token not received");
+    } else {
+        jwt.verify(token, process.env.JWTSECRET, (err, decoded) => { 
+            if(err){
+                res.json({auth: false, message: "Failed to authenticate"});
+            } else{
+                res.user = decoded.id;
+                next();
+            }
+        });
+    }
+};
+
 const database = {
     createClient,
     loginClient,
@@ -144,7 +185,10 @@ const database = {
     getClientProfile,
     getPricingModule,
     generateQuote,
-    getHistory
+    getHistory,
+    setPrevClient,
+    updateClientProfile,
+    verifyJWT
 };
 
 export default database;
