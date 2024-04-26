@@ -81,6 +81,19 @@ cd server        # If not already in the server directory.
 npm i            # Install dependencies.
 npm start        # Start the server.
 ```
+# Unit test/test coverage report
+
+### Unit test
+```bash
+cd server       # Go into server directory to run test 
+npm test        # View test
+```
+
+### Test coverage report
+```bash
+cd server                 # Go into server directory to run test coverage report
+npm run test:coverage     # Run test coverage report
+```
 
 <a name="assignment1"></a>
 
