@@ -38,7 +38,7 @@ const navigationAuth = [
     {element:
         <div className="navbar-list">
             <Link to = '/profile' className="navbar-item">PROFILE</Link>
-            <Link to = {'/history'} className="navbar-item">HISTROY</Link>
+            <Link to = {'/history'} className="navbar-item">HISTORY</Link>
             <Link to = '/quote' className="navbar-item">QUOTE</Link>
         </div>
     },

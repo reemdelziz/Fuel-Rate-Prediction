@@ -4,28 +4,22 @@ import { useAuth } from "../provider/AuthContext";
 import axios from 'axios';
 
 export const FuelQuote = () => {
-    const [gallonsRequested, setGallonsRequested] = useState('');
-    const [totalPrice, setTotalPrice] = useState(0); 
-
-    const handleGallonsChange = (event) => {
-        const gallons = event.target.value;
-        setGallonsRequested(gallons);
-        const calculatedTotal = gallons * pricePerGallon;
-        setTotalPrice(calculatedTotal);
-    };
-
     const {token, clientInfo} = useAuth();
     const username = clientInfo.username;
+    const [gallonsRequested, setGallonsRequested] = useState('');
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [totalpricepergallon,settotalpricepergallon] = useState(0);
+    const [prevClient, setPrevClient] = useState(false);
     const [address, setAddress] = useState(''); 
     const [city, setCity] = useState(''); 
     const [state, setState] = useState(''); 
     const [zipcode, setZipcode] = useState(''); 
-    const [pricePerGallon, setPricePerGallon] = useState(2); 
-    const ADDITIONAL_FEE = 0.15; 
-    const [profit_Margin, setpriceMargin] = useState(2);
+    const pricePerGallon= 1.5; 
+    const CompanyProfitFactor = .1;
+    const gallonsRequestedFactor = gallonsRequested > 1000 ? 0.02 : 0.03;
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
     const address1 = address + ', ' + city + ', ' + state + ' ' + zipcode;
+    
 
     const getTomorrowDate = () => {
         const today = new Date();
@@ -36,20 +30,6 @@ export const FuelQuote = () => {
 
     const [deliveryDate, setDeliveryDate] = useState(getTomorrowDate()); 
     
-
-    const getGallonprice = async (state) => {
-        try {
-            const res = await axios.get(`http://localhost:8080/fuel/state/${state}`, {
-                headers : {
-                    "x-access-token" : token,
-                }
-            });
-            setpriceMargin(res.data.stateGasPrice.profit_margin);
-            setPricePerGallon(res.data.stateGasPrice.price_per_gallon); // Set price per gallon if fetched
-        } catch (error) {
-            console.error('Error in getGallonprice:', error);
-        }
-    }
     const getAddress = async (username) => {
         try {
             const res = await axios.get(`http://localhost:8080/fuel/user/${username}`, {
@@ -57,36 +37,26 @@ export const FuelQuote = () => {
                     "x-access-token" : token,
                 }
             });
-            if (res.data.userProfile?.address1) {
-                setAddress(res.data.userProfile.address1); // Set address if fetched
-                setCity(res.data.userProfile.city); // Set city if fetched
-                setState(res.data.userProfile.state); // Set state if fetched
-                setZipcode(res.data.userProfile.zipcode); // Set zipcode if fetched
-            }
+           
+            setAddress(res.data.userProfile.data.address1); // Set address if fetched
+            setCity(res.data.userProfile.data.city); // Set city if fetched
+            setState(res.data.userProfile.data.state); // Set state if fetched
+            setZipcode(res.data.userProfile.data.zipcode); // Set zipcode if fetched
+            let previousclient = res.data.userProfile.data.prevClient === 0 ? false : true;
+            setPrevClient(previousclient);
+
         } catch (error) {
             console.error('Error:', error);
         }
     }
     
-    useEffect(() => {
-        if (state) {
-            getGallonprice(state);
-        }
-    }, [state]); 
-    
+
     useEffect(() => {
         if (username) {
             getAddress(username);
         }
     }, [username]); 
     
-    useEffect(() => {
-        if (pricePerGallon && gallonsRequested && deliveryDate) {
-            const calculatedTotal = gallonsRequested * pricePerGallon + (isDeliveryWithin7Days(deliveryDate) ? ADDITIONAL_FEE : 0);
-            setTotalPrice(calculatedTotal);
-        }
-    }, [pricePerGallon, gallonsRequested, deliveryDate]);
-
     const isDeliveryWithin7Days = (deliveryDate) => {
         const today = new Date();
         const delivery = new Date(deliveryDate);
@@ -94,19 +64,28 @@ export const FuelQuote = () => {
         const dayDiff = timeDiff / (1000 * 60 * 60 * 24);
         return dayDiff <= 7;
     };
-    useEffect(() => {
-        if (pricePerGallon && gallonsRequested && deliveryDate) {
-            const calculatedTotal = gallonsRequested * pricePerGallon + (isDeliveryWithin7Days(deliveryDate) ? ADDITIONAL_FEE : 0);
-            setTotalPrice(calculatedTotal);
-        }
-    }, [pricePerGallon, gallonsRequested, deliveryDate]);
-   
+
+    const handleGallonsChange = (event) => {
+        const gallons = event.target.value;
+        setGallonsRequested(gallons);
+        const calculatedTotal = gallons * pricePerGallon;
+        setTotalPrice(calculatedTotal);
+    };
     const handleDeliveryDateChange = (event) => {
         const newDeliveryDate = event.target.value;
         setDeliveryDate(newDeliveryDate);
-        const calculatedTotal = gallonsRequested * pricePerGallon + (isDeliveryWithin7Days(newDeliveryDate) ? ADDITIONAL_FEE : 0);
-        setTotalPrice(calculatedTotal);
     };
+    
+    
+    useEffect(() => {
+        if (pricePerGallon && gallonsRequested && deliveryDate) {
+            const margin = pricePerGallon * ((state === "TX" ? .02 : .04 ) - (prevClient ? 0.01 : 0) + gallonsRequestedFactor + CompanyProfitFactor);
+            const calculatedTotal = gallonsRequested * (1.5 + margin);
+            settotalpricepergallon(margin + pricePerGallon);
+            setTotalPrice(calculatedTotal);
+        }
+    }, [pricePerGallon, gallonsRequested, deliveryDate]);
+
 
     const DeliveryFeeNotice = () => {
         if (isDeliveryWithin7Days(deliveryDate)) {
@@ -127,19 +106,31 @@ export const FuelQuote = () => {
         event.preventDefault();
         try {
             const response = await axios.post(`http://localhost:8080/fuel/post/quote`, {
-                
                 location: address1,
                 gallons: gallonsRequested,
                 price_per_gallon: pricePerGallon.toFixed(2),
                 delivery_date: deliveryDate,
                 total_price: totalPrice.toFixed(2),
-                profit_margin: profit_Margin,
+                profit_margin: CompanyProfitFactor,
                 username: username,
             }, {
                 headers : {
                     "x-access-token": token,
                 }
             });
+
+            if(!prevClient){
+                const updatePrevClientRes = await axios.put(`http://localhost:8080/fuel/put/client`, {
+                    prevClient: 1,
+                    username: username
+                }, {
+                    headers : {
+                        "x-access-token": token,
+                    }
+                });
+                console.log(updatePrevClientRes);
+            }
+
             console.log(response);
             setShowSuccessMessage(true);
 
@@ -208,7 +199,7 @@ export const FuelQuote = () => {
                 <div className="price-box">
                     <div className="price-title">Price per Gallon</div>
                     <div className="price-value">
-                        ${pricePerGallon.toFixed(2)}
+                        ${totalpricepergallon.toFixed(2)}
                     </div>
                 </div>
                 <div className="price-box">
@@ -218,7 +209,7 @@ export const FuelQuote = () => {
                     </div>
                 </div>
             </div>
-            <DeliveryFeeNotice />
+            
         </div>
     );
 };

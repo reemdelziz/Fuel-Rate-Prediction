@@ -16,10 +16,22 @@ export const profileRouter = (database) => {
                 zipcode: zipcode
             }});
         } catch (err){
-            console.log('Clent profile insertion failed', err);
+            console.log('Client profile insertion failed', err);
             res.status(500).json({error : 'Client profile insertion failed'});
         }
     });
+    
+    router.put('/update', verifyJWT, async (req, res) => {
+        const { fullname, address1, address2, city, state, zipcode, username } = req.body;
+        try{
+            const updateProfile = await database.updateClientProfile(username, fullname, address1, address2, city, state, zipcode);
+            res.status(201).json({messgae: "Updated successfully", data: updateProfile});
+        } catch(error){
+            console.log('Client profile updated failed', error);
+            res.status(500).json({error : 'Client profile update failed'});
+        }
+    }) 
+    
 
     return router;
 

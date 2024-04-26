@@ -54,6 +54,19 @@ export async function loginClient(username, password){
     });
 }
 
+export async function updateClientProfile(username, fullname, address1, address2, city, state, zipcode){
+    const query = `UPDATE profile SET fullname = ?, address1 = ?, address2 = ?, city = ?, state = ?, zipcode = ? WHERE username = ?`;
+    return new Promise((resolve, reject) => {
+        dbconnection.query(query, [fullname, address1, address2, city, state, zipcode, username], (err, result) => {
+            if(err){
+                reject({statusCode: 500, error: "Database failed to update profile", err: err});
+            }
+            resolve({statusCode: 200, message: "Profile updated successfully", result: result});
+        });
+    }
+    );
+}
+
 export async function postClientProfile(fullname, address1, address2, city, state, zipcode, username){
     const query = 'INSERT INTO profile (fullname, address1, address2, city, state, zipcode, username) VALUES (?, ?, ?, ?, ?, ?, ?)';
     const updateUser = 'UPDATE userAuth SET oldUser = ? WHERE username = ?';
@@ -121,6 +134,18 @@ export async function generateQuote(location, gallons, price_per_gallon, deliver
     });
 }
 
+export async function setPrevClient(prevClient, username){
+    const query = 'UPDATE profile SET prevClient = ? WHERE username = ?';
+    return new Promise((resolve, reject) => {
+        dbconnection.query(query, [prevClient, username], (err, result) => {
+            if(err){
+                reject({statusCode: 500, error: "Database failed to update preClient", err});
+            }
+            resolve({statusCode: 200, message: "Successfully updated preClient"});
+        })
+    })
+}
+
 export async function getHistory(username){
     const query = 'SELECT * FROM quotes WHERE username=?';
     return new Promise((resolve, reject) => {
@@ -161,6 +186,8 @@ const database = {
     getPricingModule,
     generateQuote,
     getHistory,
+    setPrevClient,
+    updateClientProfile,
     verifyJWT
 };
 

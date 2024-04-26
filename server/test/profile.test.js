@@ -10,6 +10,7 @@ const mockVerifyJWT = (req, res, next) => {
 
 const app = makeApp({
     postClientProfile: jest.fn(),
+    updateClientProfile: jest.fn(),
     verifyJWT: mockVerifyJWT,
 })
 
@@ -87,7 +88,14 @@ describe("POST /profile", () => {
             expect(response.body.userProfile.zipcode).toMatch(regex); // must match zipcode formt
         });
     });
-    describe("not given a name, address, city, state, or zip", () => {
-        //should respond with a status code of 400
-    });
+     
 });
+
+describe("PUT /update", () => {
+    test("should respond with 201 status", async () => {
+        const response = await request(app)
+            .put('/profile/update')
+            .send({fullname: 'Devin Stockton', address1: 'address1', address2: 'idk', city: "city", state: "state", zip: "zip", username: "devin@gmail.com"})
+        expect(response.statusCode).toBe(201);
+    })
+})

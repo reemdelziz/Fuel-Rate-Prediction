@@ -31,7 +31,8 @@ export const FuelHistory = () => {
                     "x-access-token" : token,
                 }
             });
-            const fueldata = res.data.fuelHistory;
+            const fueldata = res.data.fuelHistory.data;
+            
             setFuelData(fueldata);
         } catch (error) {
             console.error('Error fetching fuel history:', error);
@@ -77,7 +78,7 @@ export const FuelHistory = () => {
             </div>
             <div className="history-titles-wrapper">
                 {/* map all of data here */}
-                { FuelData.filter((history) =>
+                {FuelData.filter((history) =>
                     (quoteQuery === "" || history.quoteid.toString().includes(quoteQuery)) &&
                     (dateQuery === "" || history.delivery_date.includes(dateQuery)) && 
                     (galQuery === "" || history.gallons.toString().includes(galQuery)) &&
@@ -87,7 +88,7 @@ export const FuelHistory = () => {
                         <h2 className="fuel-histroy-titles">{dataItem.quoteid}</h2>
                         <p className="history-date">{new Date(dataItem.delivery_date).toLocaleDateString()}</p>
                         <p className="history-gal">{dataItem.gallons}</p>
-                        <p className="history-addy">{dataItem.price_per_gallon}</p>
+                        <p className="history-addy">{(dataItem.total_price / dataItem.gallons).toFixed(2)}</p>
                         <p className="history-addy">{dataItem.total_price}</p>
                         <p className="history-addy">{dataItem.location}</p>
                     </div>
